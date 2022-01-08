@@ -81,8 +81,6 @@ function Register() {
                 setTimeout(() => {
                   navigate("/login");
                 }, 10000);
-
-                // navigate a otra ruta
               } catch (error) {
                 console.log(error.response.data);
               }
