@@ -1,0 +1,32 @@
+.tapBar-navigation{
+    display: flex;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: black;
+    border-radius: 8px;
+    
+    
+}
+.favorite-icon {
+    color: #D96BDD;
+    margin-top: 8px;
+    font-size: 40px !important;
+
+}
+.home-icon {
+    color: #D96BDD;
+    margin-top:8px;
+    font-size: 40px !important;
+}
+.login-icon {
+    color: #D96BDD;
+    margin-top:8px;
+    font-size: 40px !important;
+}
+.add-icon {
+    color: #D96BDD;
+    margin-top:8px;
+    font-size: 40px !important;
+}
