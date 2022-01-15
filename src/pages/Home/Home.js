@@ -1,4 +1,4 @@
-import { Button, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpg";
 import "./home.css";
