@@ -18,7 +18,7 @@ function Register() {
   const navigate = useNavigate();
   return (
     <div>
-      <header>
+      <header className="header-register">
         <img src={logo} alt="logo" />
         <h1>Regístrate</h1>
       </header>
