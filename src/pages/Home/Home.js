@@ -7,7 +7,7 @@ function Home() {
   return (
     <div>
       <header className="home-header">
-        <img src={logo} alt="logo" />
+        <img className="img-home" src={logo} alt="logo" />
       </header>
       <main>
         <h1>Bienvenidos a Arcade Marketplace</h1>

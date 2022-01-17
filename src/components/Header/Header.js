@@ -11,6 +11,7 @@ function Header() {
       <TextField
         id="input-with-icon-textfield"
         label="Buscar"
+        placeholder="Buscar"
         sx={{
           backgroundColor: "white",
           borderRadius: "4px",
