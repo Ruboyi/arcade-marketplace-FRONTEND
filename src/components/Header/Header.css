@@ -1,0 +1,15 @@
+.header-principal{
+    background-color: black;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 70px;
+    position: sticky;
+    top:0;
+    width: 100%;
+    
+}
+.small-logo {
+    margin: 0;
+}

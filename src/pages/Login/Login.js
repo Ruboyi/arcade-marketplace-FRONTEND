@@ -20,7 +20,7 @@ function Login() {
   const [error, setError] = useState("");
   return (
     <div>
-      <header>
+      <header className="header-login">
         <img src={logo} alt="logo" />
         <h1>Inicia sesión</h1>
       </header>
