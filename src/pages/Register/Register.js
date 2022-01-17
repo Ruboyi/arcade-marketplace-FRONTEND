@@ -19,7 +19,7 @@ function Register() {
   return (
     <div>
       <header className="header-register">
-        <img src={logo} alt="logo" />
+        <img className="img-register" src={logo} alt="logo" />
         <h1>Regístrate</h1>
       </header>
       {!backendResponse && (

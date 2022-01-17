@@ -15,7 +15,7 @@ function Login() {
   return (
     <div>
       <header className="header-login">
-        <img src={logo} alt="logo" />
+        <img className="img-login" src={logo} alt="logo" />
         <h1>Inicia sesión</h1>
       </header>
       {!token && (
