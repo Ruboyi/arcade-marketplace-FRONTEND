@@ -1,4 +1,7 @@
 import axios from "axios";
+import { AuthProvider } from "../../hooks/useAuthorization";
+
+const [userSession] = AuthProvider();
 
 function FavoriteButton({ idProduct }) {
   return (
