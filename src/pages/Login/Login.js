@@ -7,24 +7,20 @@ import {
   TextField,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { Formik } from "formik";
-import { useState } from "react";
-import { useNavigate } from "react-router";
 import "./login.css";
 import logo from "../../assets/logo.jpg";
+import { useAuthorization } from "../../hooks/useAuthorization";
 
 function Login() {
-  const navigate = useNavigate();
-  const [token, setToken] = useState();
-  const [error, setError] = useState("");
+  const { login, error, userSession } = useAuthorization();
   return (
     <div>
       <header className="header-login">
-        <img src={logo} alt="logo" />
+        <img className="img-login" src={logo} alt="logo" />
         <h1>Inicia sesión</h1>
       </header>
-      {!token && (
+      {!userSession && (
         <Paper
           className="login-container"
           style={{ backgroundColor: "#959CFC" }}
@@ -48,20 +44,7 @@ function Login() {
               return errors;
             }}
             onSubmit={async (values) => {
-              try {
-                const response = await axios.post(
-                  "http://localhost:3000/api/v1/users/login",
-                  values
-                );
-
-                setToken(response.data.accessToken);
-                setTimeout(() => {
-                  navigate("/profile");
-                }, 10000);
-              } catch (error) {
-                console.log("Error: ", error);
-                setError(error);
-              }
+              login(values.email, values.password);
             }}
           >
             {({
@@ -102,11 +85,12 @@ function Login() {
                     fullWidth
                   />
                 </div>
-                {error && !token && (
+                {error && !userSession && (
                   <Stack sx={{ width: "100%" }} spacing={2}>
                     <Alert severity="error">
                       <AlertTitle>Error</AlertTitle>
                       No existe un usuario con ese email y/o password !
+                      {/* FALTA EL ERROR DE QUE NO HAYA VERIFICADO SU CUENTA TODAVIA  O QUE DEL SERVIDOR NO FUNCION*/}
                     </Alert>
                   </Stack>
                 )}
@@ -134,7 +118,7 @@ function Login() {
           </Formik>
         </Paper>
       )}
-      {token && (
+      {userSession && (
         <Stack sx={{ width: "100%" }} spacing={2}>
           <Alert severity="success">
             <AlertTitle>Success</AlertTitle>

@@ -1,1 +1,5 @@
+# git ignore!
+.env
 node_modules
+package-lock.json
+.vscode

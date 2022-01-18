@@ -4,8 +4,11 @@ import Header from "./components/Header/Header";
 import TapBar from "./components/Tapbar/TapBar";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
+import Products from "./pages/Products/Products";
 import Register from "./pages/Register/Register";
 import UploadProduct from "./pages/UploadProducts/UploadProduct";
+
+import ProductPage from "./pages/ProductPage/ProductPage";
 
 function App() {
   return (
@@ -16,6 +19,8 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/upload-products" element={<UploadProduct />} />
+        <Route path="/products/:idProduct" element={<ProductPage />} />
+        <Route path="/products" element={<Products />} />
       </Routes>
       <TapBar />
     </div>

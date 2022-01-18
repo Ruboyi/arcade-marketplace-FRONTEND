@@ -1,0 +1,16 @@
+.grid-product{
+    display: flex;
+    background-color:#4A4D75 ;
+    margin: 10px;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-around;
+
+}
+.grid-product:hover{
+    background-color:#525477 
+}
+.img-grid {
+ height: 120px ;
+ margin-right: 20px;
+}
