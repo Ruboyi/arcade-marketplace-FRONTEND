@@ -33,7 +33,7 @@ function AuthProvider(props) {
         password,
       });
 
-      const { accessToken } = response.data.accessToken;
+      const accessToken = response.data.accessToken;
 
       setUserSession(accessToken);
       sessionStorage.setItem("userSession", accessToken);
@@ -51,7 +51,7 @@ function AuthProvider(props) {
 
   useEffect(() => {
     if (userSession) {
-      async function getUserProfile(params) {
+      async function getUserProfile() {
         try {
           const config = {
             headers: {
@@ -60,7 +60,7 @@ function AuthProvider(props) {
           };
 
           const response = await axios.get(
-            "http://localhost/api/auth/users/current",
+            `${REACT_APP_BACKEND_API}/api/v1/users/profile`,
             config
           );
 
