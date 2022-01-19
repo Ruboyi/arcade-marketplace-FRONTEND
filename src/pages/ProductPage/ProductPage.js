@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import "./productPage.css";
+import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
 
 function ProductPage() {
   const [productInfo, setProductInfo] = useState({});
@@ -27,7 +28,7 @@ function ProductPage() {
       setProductInfo(productData);
 
       const responseSeller = await axios.get(
-        `http://localhost:3000/api/v1/users/${productData.idUser}`
+        `http://localhost:3000/api/v1/users/user/${productData.idUser}`
       );
       setSellerInfo(responseSeller.data);
 
@@ -56,6 +57,7 @@ function ProductPage() {
             <a href="{urlDenuncia}">Denuncia</a>
             <h1>{productInfo.title}</h1>
             <h2>{productInfo.price}</h2>
+            <FavoriteButton idProduct={idProduct} />
             <a href="{urlContacto}">Contacta con el vendedor</a>
             <p>{productInfo.state}</p>
             <p>{productInfo.description}</p>
