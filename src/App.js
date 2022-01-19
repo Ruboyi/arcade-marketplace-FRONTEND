@@ -7,8 +7,9 @@ import Login from "./pages/Login/Login";
 import Products from "./pages/Products/Products";
 import Register from "./pages/Register/Register";
 import ProductPage from "./pages/ProductPage/ProductPage";
-import Profile from "./pages/Profile/Profile";
+import UploadProduct from "./pages/UploadProducts/UploadProduct";
 import Myproducts from "./pages/MyProducts/MyProducts";
+import Profile from "./pages/Profile/Profile";
 
 function App() {
   return (
@@ -18,9 +19,11 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+
+        <Route path="/upload-product" element={<UploadProduct />} />
         <Route path="/products/:idProduct" element={<ProductPage />} />
-        <Route path="/products" element={<Products />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/my-products" element={<Myproducts />} />
       </Routes>
       <TapBar />
