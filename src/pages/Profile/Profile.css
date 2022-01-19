@@ -1,0 +1,39 @@
+.profile {
+  text-align: left;
+}
+
+.profile-paper {
+  text-align: center;
+  margin: 0 auto;
+  width: 75vw;
+  height: 400px;
+}
+
+.buttons-container-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 300px;
+}
+
+.buttons-container-profile button {
+  padding: 10px 20px;
+  background-color: #d96bdd;
+  border: 2px solid #222;
+  border-radius: 4px;
+  min-width: 145px;
+}
+
+.buttons-container-profile button:active {
+  background-color: #222;
+}
+
+.goBack-button {
+  background-color: aqua;
+  border: 2px solid #222;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  margin: 25px 0 0 25px;
+}
