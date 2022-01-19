@@ -15,15 +15,16 @@ import InfoIcon from "@mui/icons-material/Info";
 import ListIcon from "@mui/icons-material/List";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import UploadImages from "../../components/UploadImages/UploadImages";
 import "./upload-products.css";
-import { Formik, Form } from "formik";
+import { Formik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { useState } from 'react'
 
 function UploadProduct() {
+  const [fichero, setFichero] = useState()
   const navigate = useNavigate();
-
+console.log(fichero);
   return (
     <Paper
       className="upload-product-form"
@@ -86,8 +87,9 @@ function UploadProduct() {
           }
         }}
       >
+        //TODO Radials no funcionan
         {({ values, errors, touched, handleChange, handleSubmit }) => (
-          <Form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <ArrowBackIcon className="go-back" />
             <h2>
               Categoría <ListIcon />{" "}
@@ -154,11 +156,11 @@ function UploadProduct() {
               errors.location} */}
             <div>
               <TextField
-                id="standard-multiline-static"
+                id="description"
                 label="Descripción del producto"
                 multiline
                 rows={4}
-                variant="standard"
+                variant="outlined"
                 onChange={handleChange}
                 value={values.description}
                 error={errors.description && touched.description}
@@ -205,13 +207,28 @@ function UploadProduct() {
               />
               <AddLocationIcon className="logo-ubi" />
             </div>
-            <UploadImages />
             {/* {errors.category &&
               errors.title &&
               errors.description &&
               errors.price &&
               errors.state &&
-              errors.location} */}
+            errors.location} */}
+            <div>
+      <h2>Subir imagen</h2>
+        <div>
+          <label>
+            Imagen:{" "}
+            <input
+              multiple
+              type={"file"}
+              onChange={(event) => {
+                const fichero = event.target.files[0];
+                setFichero(fichero);
+              }}
+            />
+          </label>
+        </div>
+    </div>
             <Button
               type="submit"
               variant="contained"
@@ -224,7 +241,7 @@ function UploadProduct() {
             >
               Publicar
             </Button>
-          </Form>
+          </form>
         )}
       </Formik>
     </Paper>
