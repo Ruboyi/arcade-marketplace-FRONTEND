@@ -1,14 +1,16 @@
-import { CircularProgress } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
+import { CircularProgress } from '@mui/material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import ProductsGrid from '../../components/ProductsGrid/ProductsGrid';
 
 function Products() {
-  const [products, setProducts] = useState("");
+  const [products, setProducts] = useState('');
 
   useEffect(() => {
     async function getProducts() {
-      const response = await axios.get("http://localhost:3000/api/v1/products");
+      const response = await axios.get(
+        'http://localhost:3000/api/v1/products'
+      ); // METER LA VARIABLE DEL .ENV
       console.log(response.data.data);
 
       setProducts(response.data.data);
@@ -19,7 +21,11 @@ function Products() {
   return (
     <div>
       <h1>Productos</h1>
-      {products ? <ProductsGrid products={products} /> : <CircularProgress />}
+      {products ? (
+        <ProductsGrid products={products} />
+      ) : (
+        <CircularProgress />
+      )}
     </div>
   );
 }
