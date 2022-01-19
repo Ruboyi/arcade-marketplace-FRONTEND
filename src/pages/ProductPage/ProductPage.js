@@ -28,7 +28,7 @@ function ProductPage() {
       setProductInfo(productData);
 
       const responseSeller = await axios.get(
-        `http://localhost:3000/api/v1/users/${productData.idUser}`
+        `http://localhost:3000/api/v1/users/user/${productData.idUser}`
       );
       setSellerInfo(responseSeller.data);
 
