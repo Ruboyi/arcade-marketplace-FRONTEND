@@ -1,7 +1,7 @@
 import { useState } from "react";
-// import axios from "axios";
+//import axios from "axios";
 
-// const { REACT_APP_BACKEND_API } = process.env;
+//const { REACT_APP_BACKEND_API } = process.env;
 
 function UploadImages() {
   const [fichero, setFichero] = useState();

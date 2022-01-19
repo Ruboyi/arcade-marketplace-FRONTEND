@@ -9,6 +9,7 @@ import Register from './pages/Register/Register';
 import ProductPage from './pages/ProductPage/ProductPage';
 import Profile from './pages/Profile/Profile';
 
+
 function App() {
   return (
     <div className='App'>
