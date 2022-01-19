@@ -60,11 +60,11 @@ function AuthProvider(props) {
           };
 
           const response = await axios.get(
-            `${REACT_APP_BACKEND_API}/api/v1/users/profile`,
+            `${REACT_APP_BACKEND_API}users/profile`,
             config
           );
 
-          setUserProfile(response.data.user);
+          setUserProfile(response.data);
         } catch (error) {
           console.log("ERROR: ", error);
           setError(error);
