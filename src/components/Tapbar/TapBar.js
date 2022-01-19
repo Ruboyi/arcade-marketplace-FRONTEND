@@ -18,7 +18,7 @@ function TapBar() {
       </div>
       <div>
         {" "}
-        <Link to={"/"}>
+        <Link to={"/upload-product"}>
           <Icon className={"add-icon"}>add_circle</Icon>
         </Link>
       </div>

@@ -19,12 +19,21 @@ import "./upload-products.css";
 import { Formik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { useState } from 'react'
+import { useEffect, useState } from "react";
+import { useAuthorization } from "../../hooks/useAuthorization";
 
 function UploadProduct() {
-  const [fichero, setFichero] = useState()
+  const [fichero, setFichero] = useState();
   const navigate = useNavigate();
-console.log(fichero);
+  const { userSession } = useAuthorization();
+
+  useEffect(() => {
+    if (!userSession) {
+      navigate("/login");
+    }
+  }, [userSession, navigate]);
+
+  console.log(fichero);
   return (
     <Paper
       className="upload-product-form"
@@ -87,7 +96,7 @@ console.log(fichero);
           }
         }}
       >
-        //TODO Radials no funcionan
+        {/* TODO Radials no funcionan */}
         {({ values, errors, touched, handleChange, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
             <ArrowBackIcon className="go-back" />
@@ -214,21 +223,21 @@ console.log(fichero);
               errors.state &&
             errors.location} */}
             <div>
-      <h2>Subir imagen</h2>
-        <div>
-          <label>
-            Imagen:{" "}
-            <input
-              multiple
-              type={"file"}
-              onChange={(event) => {
-                const fichero = event.target.files[0];
-                setFichero(fichero);
-              }}
-            />
-          </label>
-        </div>
-    </div>
+              <h2>Subir imagen</h2>
+              <div>
+                <label>
+                  Imagen:{" "}
+                  <input
+                    multiple
+                    type={"file"}
+                    onChange={(event) => {
+                      const fichero = event.target.files[0];
+                      setFichero(fichero);
+                    }}
+                  />
+                </label>
+              </div>
+            </div>
             <Button
               type="submit"
               variant="contained"
