@@ -4,11 +4,13 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import "./productPage.css";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
+const { REACT_APP_BACKEND_API, REACT_APP_BACKEND_PUBLIC } = process.env
+
 
 function ProductPage() {
   const [productInfo, setProductInfo] = useState({});
   const [sellerInfo, setSellerInfo] = useState({});
-  //const [urlImg, setUrlImg] = useState("");
+  const [urlImg, setUrlImg] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const { idProduct } = useParams();
 
@@ -22,23 +24,22 @@ function ProductPage() {
       setIsLoading(true);
 
       const responseData = await axios.get(
-        `http://localhost:3000/api/v1/products/${idProduct}`
+        `${REACT_APP_BACKEND_API}products/${idProduct}`
       );
       const productData = responseData.data.data;
       setProductInfo(productData);
 
       const responseSeller = await axios.get(
-        `http://localhost:3000/api/v1/users/user/${productData.idUser}`
+        `${REACT_APP_BACKEND_API}users/user/${productData.idUser}`
       );
       setSellerInfo(responseSeller.data);
 
-      //TODO setear el url de la img
-      /* const responseImage = await axios.get(
-        `http://localhost:3000/api/v1/products/images/${idProduct}`
+      const responseImage = await axios.get(
+        `${REACT_APP_BACKEND_API}products/images/${idProduct}`
       );
-      setUrlImg(
-        `arcade-marketplace-BACKEND/public/products/${idProduct}/${responseImage.data.data[0].nameImage}`
-      ); */
+      
+      setUrlImg(`${REACT_APP_BACKEND_PUBLIC}products/${idProduct}/${responseImage.data.data[0].nameImage}`
+      );
 
       setIsLoading(false);
     }
@@ -53,7 +54,7 @@ function ProductPage() {
       ) : (
         <div>
           <div>
-            <img src="{urlImg}" alt="error" />
+            <img src={urlImg} alt="error" />
             <a href="{urlDenuncia}">Denuncia</a>
             <h1>{productInfo.title}</h1>
             <h2>{productInfo.price}</h2>
