@@ -1,11 +1,18 @@
 import { CircularProgress, Paper } from "@mui/material";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import "./Profile.css";
 
 function Profile() {
-  const { userProfile } = useAuthorization();
   const navigate = useNavigate();
+  const { userProfile, userSession } = useAuthorization();
+
+  useEffect(() => {
+    if (!userSession) {
+      navigate("/login");
+    }
+  }, [userSession, navigate]);
 
   return (
     <div className="profile">
