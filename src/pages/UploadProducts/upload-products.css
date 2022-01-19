@@ -5,7 +5,7 @@
   background-color: #959cfc;
 }
 
-.titulo-prducto {
+.titulo-producto {
   display: flex;
   justify-content: flex-start;
   width: 80%;
@@ -36,4 +36,15 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+}
+
+.goBack-button {
+  background-color: aqua;
+  border: 2px solid #222;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  margin: 25px 0 0 25px;
+  display: flex;
+  justify-content: flex-start;
 }

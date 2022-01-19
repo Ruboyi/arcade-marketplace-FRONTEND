@@ -5,18 +5,14 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
-  FormLabel,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
   Button,
+  InputAdornment,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import ListIcon from "@mui/icons-material/List";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./upload-products.css";
-import { Formik } from "formik";
+import { Formik, Field } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
@@ -99,11 +95,32 @@ function UploadProduct() {
         {/* TODO Radials no funcionan */}
         {({ values, errors, touched, handleChange, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
-            <ArrowBackIcon className="go-back" />
+            <button
+              className="goBack-button"
+              onClick={() => navigate("/profile")}
+            >
+              Atras
+            </button>
             <h2>
               Categoría <ListIcon />{" "}
             </h2>
-            <FormControl>
+            <div>
+              <label>
+                <Field type="radio" name="category" value="consola" /> Consola
+              </label>
+              <label>
+                <Field type="radio" name="category" value="arcades" /> Arcades
+              </label>
+              <label>
+                <Field type="radio" name="category" value="videojuegos" />{" "}
+                Consola
+              </label>
+              <label>
+                <Field type="radio" name="category" value="accesorios" />{" "}
+                Accesorios
+              </label>
+            </div>
+            {/* <FormControl>
               <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
               <RadioGroup
                 row
@@ -133,11 +150,11 @@ function UploadProduct() {
                   label="accesorios"
                 />
               </RadioGroup>
-            </FormControl>
+            </FormControl> */}
             <h2>Información</h2> <InfoIcon />
             <div className="titulo-precio">
               <TextField
-                className="titulo-prducto"
+                className="titulo-producto"
                 id="title"
                 label="Título"
                 variant="standard"
@@ -213,8 +230,14 @@ function UploadProduct() {
                 value={values.location}
                 error={errors.location && touched.location}
                 helperText={touched.location && errors.location}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <AddLocationIcon />
+                    </InputAdornment>
+                  ),
+                }}
               />
-              <AddLocationIcon className="logo-ubi" />
             </div>
             {/* {errors.category &&
               errors.title &&
