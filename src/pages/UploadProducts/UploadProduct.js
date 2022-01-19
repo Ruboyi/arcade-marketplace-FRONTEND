@@ -9,26 +9,20 @@ import {
   RadioGroup,
   Radio,
   FormControlLabel,
-  Box,
+  Button,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import ListIcon from "@mui/icons-material/List";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadImages from "../../components/UploadImages/UploadImages";
-// import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
-import "./upload-product.css";
+import "./upload-products.css";
 import { Formik, Form } from "formik";
-//import axios from "axios";
-// import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
 
 function UploadProduct() {
-  // const [state, setState] = useState("");
-
-  // const handlChange = (e) => {
-  //   console.log(e.target.state);
-  //   setState(e.target.state);
-  // };
+  const navigate = useNavigate();
 
   return (
     <Paper
@@ -66,10 +60,10 @@ function UploadProduct() {
         }}
         onSubmit={async (values) => {
           console.log("SUBMIT: ", values);
-          /* const { category, title, description, price, state, location } =
-            values; */
+          const { category, title, description, price, state, location } =
+            values;
 
-          /* try {
+          try {
             const response = await axios.post(
               "http://localhost:3000/upload-products",
               {
@@ -81,24 +75,18 @@ function UploadProduct() {
                 location,
               }
             );
+
+            console.log(response.data);
+
+            setTimeout(() => {
+              navigate("/products");
+            }, 10000);
           } catch (error) {
             console.log(error.response.data);
-          } */
-          //   setTimeout(() => {
-          //     alert(JSON.stringify(values, null, 2));
-          //     setSubmitting(false);
-          //   }, 400);
+          }
         }}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-          /* and other goodies */
-        }) => (
+        {({ values, errors, touched, handleChange, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
             <ArrowBackIcon className="go-back" />
             <h2>
@@ -135,22 +123,7 @@ function UploadProduct() {
                 />
               </RadioGroup>
             </FormControl>
-            {/* <FormControl fullWidth>
-              <Select
-                id="category"
-                name="state"
-                label="Estado"
-                variant="standard"
-                value={values.category}
-                onChange={handleChange}
-              >
-                <MenuItem>Consola</MenuItem>
-                <MenuItem>Arcades</MenuItem>
-                <MenuItem>Videojuegos</MenuItem>
-                <MenuItem>Accesorios</MenuItem>
-              </Select>
-            </FormControl> */}
-            Información <InfoIcon />
+            <h2>Información</h2> <InfoIcon />
             <div className="titulo-precio">
               <TextField
                 className="titulo-prducto"
@@ -167,9 +140,16 @@ function UploadProduct() {
                 variant="standard"
                 onChange={handleChange}
                 value={values.price}
+                error={errors.price && touched.price}
+                helperText={touched.price && errors.price}
               />
             </div>
-            {errors.email && touched.email && errors.email}
+            {errors.category &&
+              errors.title &&
+              errors.description &&
+              errors.price &&
+              errors.state &&
+              errors.location}
             <div>
               <TextField
                 id="standard-multiline-static"
@@ -177,46 +157,37 @@ function UploadProduct() {
                 multiline
                 rows={4}
                 variant="standard"
+                value={values.description}
+                error={errors.description && touched.description}
+                helperText={touched.description && errors.description}
                 fullWidth
               />
-              {/* <TextField
-                multiline
-                maxRows={4}
-                className="product-description"
-                id="description"
-                label="Descripción"
-                variant="standard"
-                onChange={handleChange}
-                value={values.description}
-              /> */}
             </div>
             <div className="estado-localidad">
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="state">Estado</InputLabel>
+              <FormControl fullWidth>
+                <InputLabel id="state">Estado</InputLabel>
 
-                  <Select
-                    className="estado"
-                    value={values.state}
-                    id="state"
-                    name="state"
-                    label="Estado"
-                    variant="standard"
-                    onChange={handleChange}
-                  >
-                    <MenuItem value="" disabled>
-                      Selecciona el estado del producto
-                    </MenuItem>
-                    <MenuItem value={"Nuevo"}>Nuevo</MenuItem>
-                    <MenuItem value={"Seminuevo"}>Seminuevo</MenuItem>
-                    <MenuItem value={"Buen estado"}>Buen estado</MenuItem>
-                    <MenuItem value={"Usado"}>Usado</MenuItem>
-                    <MenuItem value={"Malas condiciones"}>
-                      Malas condiciones
-                    </MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
+                <Select
+                  className="estado"
+                  value={values.state}
+                  id="state"
+                  name="state"
+                  label="Estado"
+                  variant="standard"
+                  onChange={handleChange}
+                >
+                  <MenuItem value="" disabled>
+                    Selecciona el estado del producto
+                  </MenuItem>
+                  <MenuItem value={"Nuevo"}>Nuevo</MenuItem>
+                  <MenuItem value={"Seminuevo"}>Seminuevo</MenuItem>
+                  <MenuItem value={"Buen estado"}>Buen estado</MenuItem>
+                  <MenuItem value={"Usado"}>Usado</MenuItem>
+                  <MenuItem value={"Malas condiciones"}>
+                    Malas condiciones
+                  </MenuItem>
+                </Select>
+              </FormControl>
 
               <TextField
                 id="location"
@@ -228,10 +199,24 @@ function UploadProduct() {
               <AddLocationIcon className="logo-ubi" />
             </div>
             <UploadImages />
-            {errors.password && touched.password && errors.password}
-            <button type="submit" disabled={isSubmitting}>
+            {errors.category &&
+              errors.title &&
+              errors.description &&
+              errors.price &&
+              errors.state &&
+              errors.location}
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{
+                backgroundColor: "#3742A3",
+                width: 200,
+                marginBottom: 1,
+                marginTop: 1,
+              }}
+            >
               Publicar
-            </button>
+            </Button>
           </Form>
         )}
       </Formik>
