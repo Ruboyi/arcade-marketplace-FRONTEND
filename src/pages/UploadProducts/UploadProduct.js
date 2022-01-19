@@ -132,6 +132,8 @@ function UploadProduct() {
                 variant="standard"
                 onChange={handleChange}
                 value={values.title}
+                error={errors.title && touched.title}
+                helperText={touched.title && errors.title}
               />
 
               <TextField
@@ -144,19 +146,20 @@ function UploadProduct() {
                 helperText={touched.price && errors.price}
               />
             </div>
-            {errors.category &&
+            {/* {errors.category &&
               errors.title &&
               errors.description &&
               errors.price &&
               errors.state &&
-              errors.location}
+              errors.location} */}
             <div>
               <TextField
                 id="standard-multiline-static"
-                label="Descriptción del producto"
+                label="Descripción del producto"
                 multiline
                 rows={4}
                 variant="standard"
+                onChange={handleChange}
                 value={values.description}
                 error={errors.description && touched.description}
                 helperText={touched.description && errors.description}
@@ -175,6 +178,8 @@ function UploadProduct() {
                   label="Estado"
                   variant="standard"
                   onChange={handleChange}
+                  error={errors.state && touched.state}
+                  state
                 >
                   <MenuItem value="" disabled>
                     Selecciona el estado del producto
@@ -195,16 +200,18 @@ function UploadProduct() {
                 variant="standard"
                 onChange={handleChange}
                 value={values.location}
+                error={errors.location && touched.location}
+                helperText={touched.location && errors.location}
               />
               <AddLocationIcon className="logo-ubi" />
             </div>
             <UploadImages />
-            {errors.category &&
+            {/* {errors.category &&
               errors.title &&
               errors.description &&
               errors.price &&
               errors.state &&
-              errors.location}
+              errors.location} */}
             <Button
               type="submit"
               variant="contained"
