@@ -13,10 +13,10 @@ function UploadImages() {
 
     formData.append("sampleFile", fichero);
 
-    const respuesta = await axios.post(
+    /* const respuesta = await axios.post(
       `${REACT_APP_BACKEND_API}/api/v1/products/image/:idProduct`,
       formData
-    );
+    ); */
   }
   return (
     <div>
