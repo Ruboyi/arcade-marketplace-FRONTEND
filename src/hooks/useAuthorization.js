@@ -1,6 +1,6 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const authContext = React.createContext();
 const { REACT_APP_BACKEND_API } = process.env;
@@ -9,7 +9,7 @@ function useAuthorization(params) {
   const context = useContext(authContext);
 
   if (!context) {
-    console.log("Para usar useAuthorization debes estar dentro de un Provider");
+    console.log('Para usar useAuthorization debes estar dentro de un Provider');
     return;
   }
 
@@ -17,12 +17,10 @@ function useAuthorization(params) {
 }
 
 function AuthProvider(props) {
-  const [userSession, setUserSession] = useState(
-    sessionStorage.getItem("userSession")
-  );
+  const [userSession, setUserSession] = useState(sessionStorage.getItem('userSession'));
 
   const [userProfile, setUserProfile] = useState({});
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const navigate = useNavigate();
 
@@ -30,23 +28,23 @@ function AuthProvider(props) {
     try {
       const response = await axios.post(`${REACT_APP_BACKEND_API}users/login`, {
         email,
-        password,
+        password
       });
 
       const { accessToken } = response.data.accessToken;
 
       setUserSession(accessToken);
-      sessionStorage.setItem("userSession", accessToken);
+      sessionStorage.setItem('userSession', accessToken);
 
-      navigate("/profile");
+      navigate('/profile');
     } catch (error) {
-      console.log("Error: ", error);
+      console.log('Error: ', error);
     }
   }
 
   function logout() {
     setUserSession(null);
-    sessionStorage.setItem("userSession", null);
+    sessionStorage.setItem('userSession', null);
   }
 
   useEffect(() => {
@@ -55,18 +53,18 @@ function AuthProvider(props) {
         try {
           const config = {
             headers: {
-              Authorization: `Bearer ${userSession}`,
-            },
+              Authorization: `Bearer ${userSession}`
+            }
           };
 
           const response = await axios.get(
-            "http://localhost/api/auth/users/current",
+            'http://localhost/api/auth/users/current', // ACA NO SERIA localhost:3000/api/v1/auth/users/current ???????
             config
           );
 
           setUserProfile(response.data.user);
         } catch (error) {
-          console.log("ERROR: ", error);
+          console.log('ERROR: ', error);
           setError(error);
         }
       }
@@ -80,12 +78,10 @@ function AuthProvider(props) {
     logout,
     userProfile,
     setUserProfile,
-    error,
+    error
   };
 
-  return (
-    <authContext.Provider value={value}>{props.children}</authContext.Provider>
-  );
+  return <authContext.Provider value={value}>{props.children}</authContext.Provider>;
 }
 
 export { useAuthorization, AuthProvider };
