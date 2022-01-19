@@ -4,6 +4,8 @@ import { useAuthorization } from "../../hooks/useAuthorization";
 function FavoriteButton({ idProduct }) {
   const { userSession } = useAuthorization();
 
+//TODO Falta que el usuario no pueda anhadir ni su propio articulo ni el mismo articulo varias veces
+
   async function addFavorites() {
     try {
       const config = {
