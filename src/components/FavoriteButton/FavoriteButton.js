@@ -1,8 +1,5 @@
 import axios from "axios";
-<<<<<<< HEAD
-=======
 import { useAuthorization } from "../../hooks/useAuthorization";
->>>>>>> favButton-aaron
 
 function FavoriteButton({ idProduct }) {
   const { userSession } = useAuthorization();
