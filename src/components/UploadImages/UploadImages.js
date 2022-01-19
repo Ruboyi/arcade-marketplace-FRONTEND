@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
+// import axios from "axios";
 
-const { REACT_APP_BACKEND_API } = process.env;
+// const { REACT_APP_BACKEND_API } = process.env;
 
 function UploadImages() {
   const [fichero, setFichero] = useState();
@@ -13,10 +13,10 @@ function UploadImages() {
 
     formData.append("sampleFile", fichero);
 
-    const respuesta = await axios.post(
+    /* const respuesta = await axios.post(
       `${REACT_APP_BACKEND_API}/api/v1/products/image/:idProduct`,
       formData
-    );
+    ); */
   }
   return (
     <div>

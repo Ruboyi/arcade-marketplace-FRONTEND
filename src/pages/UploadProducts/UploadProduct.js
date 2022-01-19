@@ -16,10 +16,10 @@ import ListIcon from "@mui/icons-material/List";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadImages from "../../components/UploadImages/UploadImages";
-import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
+// import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import "./upload-product.css";
 import { Formik, Form } from "formik";
-import axios from "axios";
+//import axios from "axios";
 // import { useState } from "react";
 
 function UploadProduct() {
@@ -66,10 +66,10 @@ function UploadProduct() {
         }}
         onSubmit={async (values) => {
           console.log("SUBMIT: ", values);
-          const { category, title, description, price, state, location } =
-            values;
+          /* const { category, title, description, price, state, location } =
+            values; */
 
-          try {
+          /* try {
             const response = await axios.post(
               "http://localhost:3000/upload-products",
               {
@@ -83,7 +83,7 @@ function UploadProduct() {
             );
           } catch (error) {
             console.log(error.response.data);
-          }
+          } */
           //   setTimeout(() => {
           //     alert(JSON.stringify(values, null, 2));
           //     setSubmitting(false);

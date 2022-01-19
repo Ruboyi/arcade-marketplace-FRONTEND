@@ -122,7 +122,7 @@ function Login() {
         <Stack sx={{ width: "100%" }} spacing={2}>
           <Alert severity="success">
             <AlertTitle>Success</AlertTitle>
-            Redireccionando a tu perfil.. — <strong>Logueado !!</strong>
+            Redireccionando a tu perfil... — <strong>Logueado!</strong>
           </Alert>
         </Stack>
       )}

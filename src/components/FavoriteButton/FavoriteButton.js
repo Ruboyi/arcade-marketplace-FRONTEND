@@ -1,20 +1,19 @@
 import axios from "axios";
-import { AuthProvider } from "../../hooks/useAuthorization";
-
-const [userSession] = AuthProvider();
+import { useAuthorization } from "../../hooks/useAuthorization";
 
 function FavoriteButton({ idProduct }) {
+  const { userSession } = useAuthorization();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userSession}`,
+    },
+  };
   return (
     <button
-      onClick={async function addToFavorite() {
-        try {
-          await axios.post(
-            `http://localhost:3000/api/v1/products/${idProduct}`
-          );
-        } catch (error) {
-          window.alert("No se ha podido añadir a favoritos!");
-        }
-      }}
+      onClick={() =>
+        axios.post(`http://localhost:3000/api/v1/products/${idProduct}`, config)
+      }
     >
       FAV
     </button>
