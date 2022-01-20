@@ -9,7 +9,7 @@ import {
 import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import "./login.css";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/logosinfondo.png";
 import { useAuthorization } from "../../hooks/useAuthorization";
 
 function Login() {

@@ -10,6 +10,7 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import UploadProduct from "./pages/UploadProducts/UploadProduct";
 import Myproducts from "./pages/MyProducts/MyProducts";
 import Profile from "./pages/Profile/Profile";
+import MyFavorites from "./pages/MyFavorites/MyFavorites";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/products" element={<Products />} />
         <Route path="/my-products" element={<Myproducts />} />
+        <Route path="/my-favorites" element={<MyFavorites />} />
       </Routes>
       <TapBar />
     </div>

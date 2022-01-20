@@ -1,6 +1,6 @@
 import { Paper } from "@mui/material";
 import { Link } from "react-router-dom";
-import logo from "../../assets/logo.jpg";
+import logo from "../../assets/logosinfondo.png";
 import "./home.css";
 
 function Home() {

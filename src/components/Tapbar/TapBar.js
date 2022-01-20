@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import "./TapBar.css";
 import Icon from "@mui/material/Icon";
+import { useAuthorization } from "../../hooks/useAuthorization";
 
 function TapBar() {
+  const { userProfile } = useAuthorization();
+  console.log(userProfile);
   return (
     <nav className="tapBar-navigation">
       <div>
@@ -12,7 +15,7 @@ function TapBar() {
       </div>
       <div>
         {" "}
-        <Link to={"/"}>
+        <Link to={"/my-favorites"}>
           <Icon className={"favorite-icon"}>favorite</Icon>
         </Link>
       </div>
@@ -25,7 +28,16 @@ function TapBar() {
       <div>
         {" "}
         <Link to={"/login"}>
-          <Icon className={"login-icon"}>account_circle</Icon>
+          {userProfile.image ? (
+            <img
+              className="img-tapbar"
+              src={userProfile.image}
+              alt="profile"
+              height={40}
+            />
+          ) : (
+            <Icon className={"login-icon"}>account_circle</Icon>
+          )}
         </Link>
       </div>
     </nav>

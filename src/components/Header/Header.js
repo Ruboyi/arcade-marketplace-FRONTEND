@@ -1,5 +1,5 @@
 import { InputAdornment, TextField } from "@mui/material";
-import logo from "../../assets/small-logo.jpg";
+import logo from "../../assets/joy.png";
 import SearchIcon from "@mui/icons-material/Search";
 
 import "./Header.css";

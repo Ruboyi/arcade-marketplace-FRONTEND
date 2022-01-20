@@ -6,6 +6,7 @@
     width: 100%;
     background-color: black;
     border-radius: 8px;
+    align-items: center;
     
     
 }
@@ -29,4 +30,9 @@
     color: #D96BDD;
     margin-top:8px;
     font-size: 40px !important;
+}
+.img-tapbar {
+    height: 40px;
+    border-radius: 50%;
+    
 }
