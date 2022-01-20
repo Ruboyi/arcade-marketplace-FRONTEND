@@ -4,6 +4,8 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import "./productPage.css";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
+import SimpleImageSlider from "react-simple-image-slider";
+
 const { REACT_APP_BACKEND_API, REACT_APP_BACKEND_PUBLIC } = process.env;
 
 function ProductPage() {
@@ -46,24 +48,30 @@ function ProductPage() {
     getProductInfo();
   }, [idProduct]);
 
+  const images = arrayImg.map((img) => {
+    return {
+      url: `${REACT_APP_BACKEND_PUBLIC}products/${idProduct}/${img.nameImage}`,
+    };
+  });
+
+  console.log(images);
+
   return (
     <div>
       {isLoading ? (
         <CircularProgress />
       ) : (
         <div>
+          <div className="slider">
+            <SimpleImageSlider
+              width={325}
+              height={325}
+              images={images}
+              showBullets={true}
+              showNavs={true}
+            />
+          </div>
           <div>
-            {arrayImg.map((img) => {
-              return (
-                <div key={img.nameImage}>
-                  <img
-                    className="img-Product-productPage"
-                    src={`${REACT_APP_BACKEND_PUBLIC}products/${idProduct}/${img.nameImage}`}
-                    alt="img-product"
-                  />
-                </div>
-              );
-            })}
             <a href="{urlDenuncia}">Denuncia</a>
             <h1>{productInfo.title}</h1>
             <h2>{productInfo.price}</h2>
