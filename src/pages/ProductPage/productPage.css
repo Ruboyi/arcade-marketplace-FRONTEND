@@ -1,3 +1,8 @@
 .img-Product-productPage {
     height: 100px;
 }
+.slider {
+ display: flex;
+ justify-content: center;
+ margin-top: 20px;
+}
