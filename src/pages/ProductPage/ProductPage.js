@@ -4,13 +4,12 @@ import axios from "axios";
 import { CircularProgress } from "@mui/material";
 import "./productPage.css";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
-const { REACT_APP_BACKEND_API, REACT_APP_BACKEND_PUBLIC } = process.env
-
+const { REACT_APP_BACKEND_API, REACT_APP_BACKEND_PUBLIC } = process.env;
 
 function ProductPage() {
   const [productInfo, setProductInfo] = useState({});
   const [sellerInfo, setSellerInfo] = useState({});
-  const [urlImg, setUrlImg] = useState("");
+  const [arrayImg, setArrayImg] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { idProduct } = useParams();
 
@@ -37,9 +36,9 @@ function ProductPage() {
       const responseImage = await axios.get(
         `${REACT_APP_BACKEND_API}products/images/${idProduct}`
       );
-      
-      setUrlImg(`${REACT_APP_BACKEND_PUBLIC}products/${idProduct}/${responseImage.data.data[0].nameImage}`
-      );
+      const imgData = responseImage.data.data;
+
+      setArrayImg(imgData);
 
       setIsLoading(false);
     }
@@ -54,7 +53,17 @@ function ProductPage() {
       ) : (
         <div>
           <div>
-            <img src={urlImg} alt="error" />
+            {arrayImg.map((img) => {
+              return (
+                <div key={img.nameImage}>
+                  <img
+                    className="img-Product-productPage"
+                    src={`${REACT_APP_BACKEND_PUBLIC}products/${idProduct}/${img.nameImage}`}
+                    alt="img-product"
+                  />
+                </div>
+              );
+            })}
             <a href="{urlDenuncia}">Denuncia</a>
             <h1>{productInfo.title}</h1>
             <h2>{productInfo.price}</h2>
