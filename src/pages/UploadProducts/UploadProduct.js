@@ -71,7 +71,7 @@ function UploadProduct() {
 
           try {
             const response = await axios.post(
-              "http://localhost:3000/upload-products",
+              "http://localhost:3000/api/v1/products/",
               {
                 category,
                 title,
