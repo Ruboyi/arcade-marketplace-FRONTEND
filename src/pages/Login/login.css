@@ -1,19 +1,18 @@
-.login-container{
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 12px;
-    background-color: #959CFC;
-
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 12px;
+  /* background-color: #959CFC; */
 }
-.header-login{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
-    margin-bottom: 50px;
+.header-login {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
-.img-login{
-    height: 70px;
-    border-radius: 4px;
-    margin-top: 20px;
+.img-login {
+  height: 70px;
+  border-radius: 4px;
+  margin-top: 20px;
 }
