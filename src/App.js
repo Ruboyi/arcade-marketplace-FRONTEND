@@ -11,6 +11,7 @@ import UploadProduct from "./pages/UploadProducts/UploadProduct";
 import Myproducts from "./pages/MyProducts/MyProducts";
 import Profile from "./pages/Profile/Profile";
 import MyFavorites from "./pages/MyFavorites/MyFavorites";
+import Activation from "./pages/Activation/Activation";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/my-products" element={<Myproducts />} />
         <Route path="/my-favorites" element={<MyFavorites />} />
+        <Route path="/activacion" element={<Activation />} />
       </Routes>
       <TapBar />
     </div>

@@ -16,6 +16,7 @@ import "./register.css";
 function Register() {
   const [backendResponse, setBackendResponse] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
   return (
     <div>
       <header className="header-register">
@@ -82,7 +83,7 @@ function Register() {
                   navigate("/login");
                 }, 1000);
               } catch (error) {
-                console.log(error.response.data);
+                setError(error.response.data.error);
               }
             }}
           >
@@ -145,7 +146,14 @@ function Register() {
                     fullWidth
                   />
                 </div>
-
+                {error && (
+                  <Stack sx={{ width: "100%", margin: 1 }} spacing={2}>
+                    <Alert severity="error">
+                      <AlertTitle>Error</AlertTitle>
+                      {error}
+                    </Alert>
+                  </Stack>
+                )}
                 <div className="button-submit-container">
                   <Button
                     variant="contained"
