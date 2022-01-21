@@ -7,10 +7,14 @@ function ProductsGrid({ products }) {
   function onClickProduct(id) {
     navigate(`/products/${id}`);
   }
+  const 
+  isProductsAnArray = Array.isArray(products)
 
-  return (
-    <div>
-      {products.map((product) => (
+  return ( <div>
+    {
+      isProductsAnArray
+     ? 
+      products.map((product) => (
         <article
           key={product.idProduct}
           onClick={() => onClickProduct(product.idProduct)}
@@ -24,7 +28,8 @@ function ProductsGrid({ products }) {
             <p>{product.description}</p>
           </div>
         </article>
-      ))}
+      )) 
+     : <h1>{products}</h1>}
     </div>
   );
 }

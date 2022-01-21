@@ -80,7 +80,7 @@ function ProductPage() {
             <h2>{productInfo.price}</h2>
             {userProfile.idUser !== productInfo.idUser &&
             <div>
-              <FavoriteButton idProduct={idProduct} />
+              <FavoriteButton idProduct={idProduct}/>
               <a href="{urlContacto}">Contacta con el vendedor</a>
             </div>}
             <p>{productInfo.state}</p>
