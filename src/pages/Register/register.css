@@ -1,23 +1,22 @@
-.header-register{
-    display: flex;
-    justify-content: space-around;
-    margin-top: 50px;
-    margin-bottom: 50px;
+.header-register {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
-.img-register{
-    height: 70px;
-    border-radius: 4px;
-    margin-top: 20px;
+.img-register {
+  height: 70px;
+  border-radius: 4px;
+  margin-top: 20px;
 }
-.register-container{
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 12px;
-    background-color: #959CFC;
-
+.register-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 12px;
+  /* background-color: #959CFC; */
 }
-.field-container{
-    min-height: 80px;
-    margin:10px;
+.field-container {
+  min-height: 80px;
+  margin: 10px;
 }

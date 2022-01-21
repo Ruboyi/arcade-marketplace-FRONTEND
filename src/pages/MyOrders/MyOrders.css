@@ -1,0 +1,26 @@
+.order-container {
+  background-color: whitesmoke;
+  color: #222;
+  padding: 25px;
+  margin: 10px auto;
+  max-width: 75%;
+}
+
+.order-product-info {
+  border: 1px solid black;
+  text-align: left;
+  padding: 5px;
+}
+
+.order-product-title {
+  color: blue;
+}
+
+.order-info {
+  text-align: left;
+}
+
+.order-status {
+  text-align: right;
+  color: blue;
+}
