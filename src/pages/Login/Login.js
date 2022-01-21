@@ -11,9 +11,17 @@ import { Formik } from "formik";
 import "./login.css";
 import logo from "../../assets/logosinfondo.png";
 import { useAuthorization } from "../../hooks/useAuthorization";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
 
 function Login() {
   const { login, error, userSession } = useAuthorization();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (userSession) {
+      navigate("/profile");
+    }
+  }, [userSession, navigate]);
   return (
     <div>
       <header className="header-login">
@@ -85,12 +93,11 @@ function Login() {
                     fullWidth
                   />
                 </div>
-                {error && !userSession && (
+                {error && (
                   <Stack sx={{ width: "100%" }} spacing={2}>
                     <Alert severity="error">
                       <AlertTitle>Error</AlertTitle>
-                      No existe un usuario con ese email y/o password !
-                      {/* FALTA EL ERROR DE QUE NO HAYA VERIFICADO SU CUENTA TODAVIA  O QUE DEL SERVIDOR NO FUNCION*/}
+                      {error}
                     </Alert>
                   </Stack>
                 )}

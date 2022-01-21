@@ -5,7 +5,7 @@ import { useAuthorization } from "../../hooks/useAuthorization";
 
 function TapBar() {
   const { userProfile } = useAuthorization();
-  console.log(userProfile);
+
   return (
     <nav className="tapBar-navigation">
       <div>

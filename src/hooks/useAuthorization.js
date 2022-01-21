@@ -40,7 +40,7 @@ function AuthProvider(props) {
 
       navigate("/profile");
     } catch (error) {
-      console.log("Error: ", error);
+      setError(error.response.data.error);
     }
   }
 
