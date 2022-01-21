@@ -22,6 +22,7 @@ function AuthProvider(props) {
   );
 
   const [userProfile, setUserProfile] = useState({});
+  const [favs, setFavs] = useState({});
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -74,6 +75,28 @@ function AuthProvider(props) {
     }
   }, [userSession]);
 
+  useEffect(() => {
+    if (userSession) {
+      async function getFavorites() {
+        try {
+          const config = {
+            headers: {
+              Authorization: `Bearer ${userSession}`,
+            },
+          };
+          const response = await axios.get(
+            `http://localhost:3000/api/v1/users/favorites`,
+            config
+          );
+          setFavs(response);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      getFavorites();
+    }
+  }, [userSession]);
+
   const value = {
     userSession,
     login,
@@ -81,6 +104,8 @@ function AuthProvider(props) {
     userProfile,
     setUserProfile,
     error,
+    favs,
+    setFavs,
   };
 
   return (
