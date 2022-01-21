@@ -88,7 +88,7 @@ function AuthProvider(props) {
             `http://localhost:3000/api/v1/users/favorites`,
             config
           );
-          setFavs(response);
+          setFavs(response.data.data);
         } catch (error) {
           console.log(error);
         }
