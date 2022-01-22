@@ -4,7 +4,7 @@ import { useAuthorization } from "../../hooks/useAuthorization";
 import "./FavoriteButton.css";
 
 function FavoriteButton({ idProduct }) {
-  const { userSession } = useAuthorization();
+  const { userSession, favs } = useAuthorization();
 
   async function addOrDeleteFavorites() {
     try {
@@ -20,7 +20,7 @@ function FavoriteButton({ idProduct }) {
         config
       );
 
-      if (typeof favorites.data.data === "string") {
+      if (typeof favs === "string") {
         //Add to favorites
         await axios.post(
           `http://localhost:3000/api/v1/products/${idProduct}`,
@@ -28,7 +28,7 @@ function FavoriteButton({ idProduct }) {
           config
         );
       } else {
-        const favMap = favorites.data.data.map((object) => object.idProduct);
+        const favMap = favs.map((object) => object.idProduct);
 
         if (favMap.some((e) => e === Number(idProduct))) {
           //Delete from favorites
