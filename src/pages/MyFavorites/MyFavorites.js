@@ -11,6 +11,7 @@ function MyFavorites() {
   const { userSession, userProfile } = useAuthorization();
   const navigate = useNavigate();
   const [myFavorites, setMyFavorites] = useState();
+  const [favLengthZero, setFavLengthZero] = useState(false)
   const { idUser } = userProfile;
 
   useEffect(() => {
@@ -27,8 +28,9 @@ function MyFavorites() {
         `${REACT_APP_BACKEND_API}users/favorites`,
         config
       );
-      console.log(response.data.data);
-      setMyFavorites(response.data.data);
+      if (response.data.data.length === 0) { setFavLengthZero(true) }
+      setMyFavorites(response.data.data)
+
     }
     getMyFavorites();
   }, [userSession, navigate, idUser]);
@@ -41,6 +43,7 @@ function MyFavorites() {
       ) : (
         <CircularProgress />
       )}
+      {favLengthZero && (<h2>Aún no tienes favoritos!</h2>)}
     </div>
   );
 }
