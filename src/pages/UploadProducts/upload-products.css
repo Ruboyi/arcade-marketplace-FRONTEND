@@ -48,3 +48,8 @@
   display: flex;
   justify-content: flex-start;
 }
+
+.img-preview {
+  height: 50px;
+  margin-top: 20px;
+}
