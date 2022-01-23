@@ -7,6 +7,9 @@ import {
   InputLabel,
   Button,
   InputAdornment,
+  Stack,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import ListIcon from "@mui/icons-material/List";
@@ -18,10 +21,16 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useAuthorization } from "../../hooks/useAuthorization";
 
+const { REACT_APP_BACKEND_API } = process.env;
+
 function UploadProduct() {
   const [fichero, setFichero] = useState();
   const navigate = useNavigate();
   const { userSession } = useAuthorization();
+  const [error, setError] = useState();
+  const [preview, setPreview] = useState();
+
+  console.log(fichero);
 
   useEffect(() => {
     if (!userSession) {
@@ -29,11 +38,22 @@ function UploadProduct() {
     }
   }, [userSession, navigate]);
 
-  console.log(fichero);
+  useEffect(() => {
+    if (fichero) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreview(reader.result);
+      };
+      reader.readAsDataURL(fichero);
+    } else {
+      setPreview(null);
+    }
+  }, [fichero]);
+
   return (
     <Paper
       className="upload-product-form"
-      style={{ backgroundColor: "#959CFC" }}
+      style={{ backgroundColor: "white", marginTop: "20px" }}
     >
       <Formik
         initialValues={{
@@ -70,6 +90,11 @@ function UploadProduct() {
             values;
 
           try {
+            const config = {
+              headers: {
+                Authorization: `Bearer ${userSession}`,
+              },
+            };
             const response = await axios.post(
               "http://localhost:3000/api/v1/products/",
               {
@@ -79,16 +104,27 @@ function UploadProduct() {
                 price,
                 state,
                 location,
-              }
+              },
+              config
             );
 
-            console.log(response.data);
+            const { productId } = response.data;
+
+            const formData = new FormData();
+
+            formData.append("productImage", fichero);
+
+            await axios.post(
+              `${REACT_APP_BACKEND_API}products/images/${productId}`,
+              formData,
+              config
+            );
 
             setTimeout(() => {
               navigate("/products");
             }, 10000);
           } catch (error) {
-            console.log(error.response.data);
+            setError(error.response.data.error);
           }
         }}
       >
@@ -106,58 +142,29 @@ function UploadProduct() {
             </h2>
             <div>
               <label>
-                <Field type="radio" name="category" value="consola" /> Consola
+                <Field type="radio" name="category" value="consolas" /> Consola
               </label>
               <label>
                 <Field type="radio" name="category" value="arcades" /> Arcades
               </label>
               <label>
                 <Field type="radio" name="category" value="videojuegos" />{" "}
-                Consola
+                Videojuegos
               </label>
               <label>
                 <Field type="radio" name="category" value="accesorios" />{" "}
                 Accesorios
               </label>
             </div>
-            {/* <FormControl>
-              <FormLabel id="demo-radio-buttons-group-label"></FormLabel>
-              <RadioGroup
-                row
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue=""
-                name="radio-buttons-group"
-              >
-                <FormControlLabel
-                  value="consola"
-                  control={<Radio />}
-                  label="consola"
-                />
-
-                <FormControlLabel
-                  value="arcades"
-                  control={<Radio />}
-                  label="arcades"
-                />
-                <FormControlLabel
-                  value="videojuegos"
-                  control={<Radio />}
-                  label="videojuegos"
-                />
-                <FormControlLabel
-                  value="accesorios"
-                  control={<Radio />}
-                  label="accesorios"
-                />
-              </RadioGroup>
-            </FormControl> */}
             <h2>Información</h2> <InfoIcon />
             <div className="titulo-precio">
               <TextField
+                margin="dense"
+                sx={{ marginRight: 1 }}
                 className="titulo-producto"
                 id="title"
                 label="Título"
-                variant="standard"
+                variant="outlined"
                 onChange={handleChange}
                 value={values.title}
                 error={errors.title && touched.title}
@@ -165,9 +172,10 @@ function UploadProduct() {
               />
 
               <TextField
+                margin="dense"
                 id="price"
                 label="Precio (€)"
-                variant="standard"
+                variant="outlined"
                 onChange={handleChange}
                 value={values.price}
                 error={errors.price && touched.price}
@@ -182,6 +190,7 @@ function UploadProduct() {
               errors.location} */}
             <div>
               <TextField
+                margin="dense"
                 id="description"
                 label="Descripción del producto"
                 multiline
@@ -195,7 +204,12 @@ function UploadProduct() {
               />
             </div>
             <div className="estado-localidad">
-              <FormControl fullWidth>
+              <FormControl
+                fullWidth
+                margin="dense"
+                sx={{ marginRight: 1 }}
+                variant="outlined"
+              >
                 <InputLabel id="state">Estado</InputLabel>
 
                 <Select
@@ -212,20 +226,21 @@ function UploadProduct() {
                   <MenuItem value="" disabled>
                     Selecciona el estado del producto
                   </MenuItem>
-                  <MenuItem value={"Nuevo"}>Nuevo</MenuItem>
-                  <MenuItem value={"Seminuevo"}>Seminuevo</MenuItem>
-                  <MenuItem value={"Buen estado"}>Buen estado</MenuItem>
-                  <MenuItem value={"Usado"}>Usado</MenuItem>
-                  <MenuItem value={"Malas condiciones"}>
+                  <MenuItem value={"nuevo"}>Nuevo</MenuItem>
+                  <MenuItem value={"seminuevo"}>Seminuevo</MenuItem>
+                  {/* <MenuItem value={"buen estado"}>Buen estado</MenuItem> */}
+                  <MenuItem value={"usado"}>Usado</MenuItem>
+                  {/* <MenuItem value={"Malas condiciones"}>
                     Malas condiciones
-                  </MenuItem>
+                  </MenuItem> */}
                 </Select>
               </FormControl>
 
               <TextField
+                margin="dense"
                 id="location"
                 label="Localidad"
-                variant="standard"
+                variant="outlined"
                 onChange={handleChange}
                 value={values.location}
                 error={errors.location && touched.location}
@@ -251,16 +266,35 @@ function UploadProduct() {
                 <label>
                   Imagen:{" "}
                   <input
+                    required
                     multiple
+                    accept="image/*"
                     type={"file"}
                     onChange={(event) => {
-                      const fichero = event.target.files[0];
-                      setFichero(fichero);
+                      const file = event.target.files[0];
+                      if (file && file.type.substr(0, 5) === "image") {
+                        setFichero(file);
+                      } else {
+                        setFichero(null);
+                      }
                     }}
                   />
                 </label>
+                {fichero && (
+                  <div>
+                    <img className="img-preview" src={preview} alt="img" />
+                  </div>
+                )}
               </div>
             </div>
+            {error && (
+              <Stack sx={{ width: "100%", margin: 1 }} spacing={2}>
+                <Alert severity="error">
+                  <AlertTitle>Error</AlertTitle>
+                  {error}
+                </Alert>
+              </Stack>
+            )}
             <Button
               type="submit"
               variant="contained"
@@ -268,7 +302,7 @@ function UploadProduct() {
                 backgroundColor: "#3742A3",
                 width: 200,
                 marginBottom: 1,
-                marginTop: 1,
+                marginTop: 2,
               }}
             >
               Publicar
