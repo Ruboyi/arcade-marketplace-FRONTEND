@@ -22,7 +22,6 @@ function AuthProvider(props) {
   );
 
   const [userProfile, setUserProfile] = useState({});
-  const [favs, setFavs] = useState({});
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -76,8 +75,8 @@ function AuthProvider(props) {
   }, [userSession]);
 
 
-  //! Es useless porque solo se van a setear los favoritos cuando te logeas
-  useEffect(() => {
+  //! Es useless porque solo se van a setear los favoritos cuando te logeas y no se van a actualizar con esta llamada
+  /* useEffect(() => {
     if (userSession) {
       async function getFavorites() {
         try {
@@ -97,7 +96,7 @@ function AuthProvider(props) {
       }
       getFavorites();
     }
-  }, [userSession]);
+  }, [userSession]); */
 
   const value = {
     userSession,
@@ -106,8 +105,6 @@ function AuthProvider(props) {
     userProfile,
     setUserProfile,
     error,
-    favs,
-    setFavs,
   };
 
   return (
