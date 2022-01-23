@@ -75,6 +75,8 @@ function AuthProvider(props) {
     }
   }, [userSession]);
 
+
+  //! Es useless porque solo se van a setear los favoritos cuando te logeas
   useEffect(() => {
     if (userSession) {
       async function getFavorites() {
