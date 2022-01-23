@@ -22,7 +22,6 @@ function FavoriteButton({ idProduct }) {
         );
 
         const favMap = favorites.data.data.map((object) => object.idProduct);
-        console.log(favMap);
         if (favMap.some((e) => e === Number(idProduct))) { setNameClass('deleteButton') } else { setNameClass('addButton') }
 
       } catch (error) {

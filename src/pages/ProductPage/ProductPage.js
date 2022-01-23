@@ -7,7 +7,7 @@ import { useAuthorization } from '../../hooks/useAuthorization';
 import FavoriteButton from '../../components/FavoriteButton/FavoriteButton';
 import SimpleImageSlider from 'react-simple-image-slider';
 
-const { REACT_APP_BACKEND_API, REACT_APP_BACKEND_PUBLIC } = process.env;
+const { REACT_APP_BACKEND_API } = process.env;
 
 function ProductPage() {
   const [productInfo, setProductInfo] = useState({});
