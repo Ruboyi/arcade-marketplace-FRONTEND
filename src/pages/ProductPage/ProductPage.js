@@ -12,8 +12,7 @@ const { REACT_APP_BACKEND_API } = process.env;
 function ProductPage() {
   const [productInfo, setProductInfo] = useState({});
   const [sellerInfo, setSellerInfo] = useState({});
-  const [arrayImg, setArrayImg] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [arrayImages, setArrayImages] = useState();
   const { idProduct } = useParams();
   const { userProfile } = useAuthorization();
 
@@ -24,49 +23,49 @@ function ProductPage() {
 
   useEffect(() => {
     async function getProductInfo() {
-      setIsLoading(true);
-
       const responseData = await axios.get(
         `${REACT_APP_BACKEND_API}products/${idProduct}`
       );
       const productData = responseData.data.data;
       setProductInfo(productData);
 
+      const productImages = productData.imagesURL.map((img) => {
+        return {
+          url: img
+        };
+      });
+      setArrayImages(productImages);
+
+      console.log('PRODUCTIMAGES', productImages);
+      console.log('arrayImages', arrayImages);
+
       const responseSeller = await axios.get(
         `${REACT_APP_BACKEND_API}users/user/${productData.idUser}`
       );
       setSellerInfo(responseSeller.data);
-
-      const responseImage = await axios.get(
-        `${REACT_APP_BACKEND_API}products/images/${idProduct}`
-      );
-      const imgData = responseImage.data.data;
-
-      setArrayImg(imgData);
-
-      setIsLoading(false);
     }
 
     getProductInfo();
   }, [idProduct]);
 
-  const images = arrayImg.map((img) => {
-    return {
-      url: img.image
-    };
-  });
+  const fakeImages = [
+    {
+      url: 'https://thispersondoesnotexist.com/image'
+    },
+    {
+      url: 'https://thispersondoesnotexist.com/image'
+    }
+  ];
 
   return (
     <div>
-      {isLoading ? (
-        <CircularProgress />
-      ) : (
+      {productInfo ? (
         <div>
           <div className='slider'>
             <SimpleImageSlider
               width={325}
               height={325}
-              images={images}
+              images={fakeImages}
               showBullets={true}
               showNavs={true}
             />
@@ -97,6 +96,8 @@ function ProductPage() {
             <a href='/update-product'>Editar</a>
           )}
         </div>
+      ) : (
+        <CircularProgress />
       )}
     </div>
   );

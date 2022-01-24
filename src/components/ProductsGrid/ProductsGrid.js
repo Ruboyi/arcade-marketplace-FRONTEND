@@ -19,7 +19,7 @@ function ProductsGrid({ products }) {
             className='grid-product'>
             <img
               className='img-grid'
-              src={product.image}
+              src={product.images[0]}
               alt='default-logo'
             />
             <div>
