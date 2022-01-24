@@ -12,6 +12,7 @@ function Myproducts() {
   const { userSession, userProfile } = useAuthorization();
   const navigate = useNavigate();
   const [myProducts, setMyProducts] = useState();
+  const [myProductsLengthZero, setMyProductsLengthZero] = useState(false)
   const { idUser } = userProfile;
 
   useEffect(() => {
@@ -28,7 +29,7 @@ function Myproducts() {
         `${REACT_APP_BACKEND_API}products/user/${idUser}`,
         config
       );
-      console.log(response.data.data);
+      if (response.data.data.length === 0) { setMyProductsLengthZero(true) }
       setMyProducts(response.data.data);
     }
     getMyProducts();
@@ -41,7 +42,7 @@ function Myproducts() {
         <ProductsGrid products={myProducts} />
       ) : (
         <CircularProgress />
-      )}
+      )}{myProductsLengthZero && (<h2>Aún no has publicado ningún producto!</h2>)}
     </div>
   );
 
