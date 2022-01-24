@@ -14,7 +14,7 @@ function ProductPage() {
   const [sellerInfo, setSellerInfo] = useState({});
   const [arrayImages, setArrayImages] = useState();
   const { idProduct } = useParams();
-  const { userProfile } = useAuthorization();
+  const { userProfile, userSession } = useAuthorization();
 
   //TODO urls para botones
   //const urlContacto = "";
@@ -36,36 +36,23 @@ function ProductPage() {
       });
       setArrayImages(productImages);
 
-      console.log('PRODUCTIMAGES', productImages);
-      console.log('arrayImages', arrayImages);
-
       const responseSeller = await axios.get(
         `${REACT_APP_BACKEND_API}users/user/${productData.idUser}`
       );
       setSellerInfo(responseSeller.data);
     }
-
     getProductInfo();
-  }, [idProduct]);
-
-  const fakeImages = [
-    {
-      url: 'https://thispersondoesnotexist.com/image'
-    },
-    {
-      url: 'https://thispersondoesnotexist.com/image'
-    }
-  ];
+  }, [idProduct, arrayImages]);
 
   return (
     <div>
-      {productInfo ? (
+      {productInfo && arrayImages ? (
         <div>
           <div className='slider'>
             <SimpleImageSlider
               width={325}
               height={325}
-              images={fakeImages}
+              images={arrayImages}
               showBullets={true}
               showNavs={true}
             />
@@ -78,7 +65,7 @@ function ProductPage() {
             <h2>{productInfo.price}</h2>
             {userProfile.idUser !== productInfo.idUser && (
               <div>
-                <FavoriteButton idProduct={idProduct} />
+                {userSession && <FavoriteButton idProduct={idProduct} />}
                 <a href='{urlContacto}'>Contacta con el vendedor</a>
               </div>
             )}
