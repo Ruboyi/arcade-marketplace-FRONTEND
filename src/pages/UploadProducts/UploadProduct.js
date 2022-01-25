@@ -38,17 +38,18 @@ function UploadProduct() {
     }
   }, [userSession, navigate]);
 
-  useEffect(() => {
-    if (fichero) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(fichero);
-    } else {
-      setPreview(null);
-    }
-  }, [fichero]);
+  // useEffect(() => {
+  //   if (fichero) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPreview(reader.result);
+  //     };
+  //     reader.readAsDataURL(fichero);
+  //   } else {
+  //     setPreview(null);
+  //   }
+  // }, [fichero]);
+  console.log(fichero);
 
   return (
     <Paper
@@ -111,8 +112,10 @@ function UploadProduct() {
             const { productId } = response.data;
 
             const formData = new FormData();
+            const newFichero = [...fichero];
+            console.log(newFichero);
 
-            formData.append("productImage", fichero);
+            formData.append("productImage", newFichero);
 
             await axios.post(
               `${REACT_APP_BACKEND_API}products/images/${productId}`,
@@ -271,12 +274,16 @@ function UploadProduct() {
                     accept="image/*"
                     type={"file"}
                     onChange={(event) => {
-                      const file = event.target.files[0];
-                      if (file && file.type.substr(0, 5) === "image") {
-                        setFichero(file);
-                      } else {
-                        setFichero(null);
-                      }
+                      // console.log(event.target.files);
+                      // console.log(event.target.files[0]);
+                      const file = event.target.files;
+                      // if (file && file.type.substr(0, 5) === "image") {
+                      //   setFichero(file);
+                      // } else {
+                      //   setFichero(null);
+                      // }
+                      console.log(file);
+                      setFichero(file);
                     }}
                   />
                 </label>
