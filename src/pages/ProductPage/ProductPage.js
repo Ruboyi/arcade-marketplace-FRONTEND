@@ -23,6 +23,8 @@ function ProductPage() {
 
   useEffect(() => {
     async function getProductInfo() {
+      await axios.put(`${REACT_APP_BACKEND_API}products/times-visited/${idProduct}`)
+
       const responseData = await axios.get(
         `${REACT_APP_BACKEND_API}products/${idProduct}`
       );
@@ -42,7 +44,7 @@ function ProductPage() {
       setSellerInfo(responseSeller.data);
     }
     getProductInfo();
-  }, [idProduct, arrayImages]);
+  }, [idProduct]);
 
   return (
     <div>
@@ -69,6 +71,7 @@ function ProductPage() {
                 <a href='{urlContacto}'>Contacta con el vendedor</a>
               </div>
             )}
+            <p>{productInfo.timesVisited} Visitas 👀</p>
             <p>{productInfo.state}</p>
             <p>{productInfo.description}</p>
             <p>{productInfo.location}</p>
