@@ -14,9 +14,15 @@ import {
   Stack,
   Alert,
   AlertTitle,
+  ImageList,
+  ImageListItem,
+  ListSubheader,
+  ImageListItemBar,
+  IconButton,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import ListIcon from "@mui/icons-material/List";
+import DeleteIcon from "@mui/icons-material/Delete";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import { Formik, Field } from "formik";
 const { REACT_APP_BACKEND_API } = process.env;
@@ -271,14 +277,50 @@ function UpdateProduct() {
                 errors.description &&
                 errors.price &&
                 errors.state &&
-              errors.location} */}
+            errors.location} */}
+                {Array.isArray(productData.imagesURL) ? (
+                  <div className="img-container-preview">
+                    <ImageList sx={{ width: 400, height: 250 }}>
+                      <ImageListItem key="Subheader" cols={2}></ImageListItem>
+                      {productData.imagesURL.map((item) => (
+                        <ImageListItem key={item}>
+                          <img
+                            src={`${item}?w=248&fit=crop&auto=format`}
+                            srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                            alt={"img"}
+                            loading="lazy"
+                          />
+                          <ImageListItemBar
+                            title={productData.title}
+                            subtitle={`Creada : ${productData.createdAt.toString()}`}
+                            actionIcon={
+                              <IconButton
+                                sx={{ color: "rgba(255, 255, 255, 0.54)" }}
+                                aria-label="delete"
+                              >
+                                <DeleteIcon />
+                              </IconButton>
+                            }
+                          />
+                        </ImageListItem>
+                      ))}
+                    </ImageList>
+                  </div>
+                ) : (
+                  <div>
+                    <img
+                      className="img-preview"
+                      src={productData.imagesURL}
+                      alt="img"
+                    />
+                  </div>
+                )}
                 <div>
                   <h2>Subir imagen</h2>
                   <div>
                     <label>
                       Imagen:{" "}
                       <input
-                        required
                         multiple
                         accept="image/*"
                         type={"file"}
