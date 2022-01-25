@@ -29,14 +29,12 @@ function MyOrders() {
         `${REACT_APP_BACKEND_API}orders/user/${idUser}`,
         config
       );
-      console.log(response.data.data);
       setMyOrders(response.data.data);
     }
     getMyOrders();
 
     async function getProducts() {
       const response = await axios.get(`${REACT_APP_BACKEND_API}products`);
-      console.log(response.data.data);
       setProducts(response.data.data);
     }
     getProducts();
@@ -52,7 +50,7 @@ function MyOrders() {
   return (
     <div>
       <h1>Mis reservas</h1>
-      {myOrders ? (
+      {myOrders && idUser && products ? (
         myOrders.map((order) => {
           let productoSolicitado = products.find(
             (product) => product.idProduct === order.idProduct
@@ -70,7 +68,7 @@ function MyOrders() {
                 </span>
               </div>
               <div className='order-product-info'>
-                {/* HACER LLAMADA A LAS IMAGENES PARA AÑADIRLA ACA */}
+                {/* TODO HACER LLAMADA A LAS IMAGENES PARA AÑADIRLA ACA */}
                 <div className='order-product-title'>
                   {productoSolicitado.title}
                 </div>
@@ -93,7 +91,7 @@ function MyOrders() {
                 )}
                 <div className='order-status'>Estado: {order.status}</div>
               </div>
-              {/* FALTA BOTON PARA CANCELAR RESERVA ETC */}
+              {/* TODO FALTA BOTON PARA CANCELAR RESERVA ETC */}
             </div>
           );
         })
