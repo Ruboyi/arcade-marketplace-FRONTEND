@@ -14,6 +14,7 @@ import MyFavorites from "./pages/MyFavorites/MyFavorites";
 import Activation from "./pages/Activation/Activation";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import MyReviews from "./pages/MyReviews/MyReviews";
+import UpdateProduct from "./pages/UpdateProduct/UpdateProduct";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/activacion" element={<Activation />} />
         <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/my-reviews" element={<MyReviews />} />
+        <Route path="/update-product/:idProduct" element={<UpdateProduct />} />
       </Routes>
       <TapBar />
     </div>
