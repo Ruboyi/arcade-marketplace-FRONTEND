@@ -13,6 +13,7 @@ import logo from '../../assets/logosinfondo.png';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
+import GoBack from '../../components/GoBack/GoBack';
 
 function Login() {
   const { login, error, userSession } = useAuthorization();
@@ -28,6 +29,7 @@ function Login() {
         <img className='img-login' src={logo} alt='logo' />
         <h1>Inicia sesión</h1>
       </header>
+      <GoBack />
       {!userSession && (
         <Paper className='login-container'>
           <Formik

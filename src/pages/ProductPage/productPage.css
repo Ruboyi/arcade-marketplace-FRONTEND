@@ -6,3 +6,7 @@
  justify-content: center;
  margin-top: 20px;
 }
+.profileImage {
+    height: 50px;
+    border-radius: 50%;
+}

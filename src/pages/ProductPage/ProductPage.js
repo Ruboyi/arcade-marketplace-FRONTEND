@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { CircularProgress } from "@mui/material";
-import "./productPage.css";
-import { useAuthorization } from "../../hooks/useAuthorization";
-import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
-import SimpleImageSlider from "react-simple-image-slider";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { CircularProgress } from '@mui/material';
+import './productPage.css';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import FavoriteButton from '../../components/FavoriteButton/FavoriteButton';
+import SimpleImageSlider from 'react-simple-image-slider';
+import GoBack from '../../components/GoBack/GoBack';
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -35,7 +36,7 @@ function ProductPage() {
 
       const productImages = productData.imagesURL.map((img) => {
         return {
-          url: img,
+          url: img
         };
       });
       setArrayImages(productImages);
@@ -50,9 +51,10 @@ function ProductPage() {
 
   return (
     <div>
+      <GoBack />
       {productInfo && arrayImages ? (
         <div>
-          <div className="slider">
+          <div className='slider'>
             <SimpleImageSlider
               width={325}
               height={325}
@@ -63,14 +65,14 @@ function ProductPage() {
           </div>
           <div>
             {userProfile.idUser !== productInfo.idUser && (
-              <a href="{urlDenuncia}">Denuncia</a>
+              <a href='{urlDenuncia}'>Denuncia</a>
             )}
             <h1>{productInfo.title}</h1>
             <h2>{productInfo.price}</h2>
             {userProfile.idUser !== productInfo.idUser && (
               <div>
                 {userSession && <FavoriteButton idProduct={idProduct} />}
-                <a href="{urlContacto}">Contacta con el vendedor</a>
+                <a href='{urlContacto}'>Contacta con el vendedor</a>
               </div>
             )}
             <p>{productInfo.timesVisited} Visitas 👀</p>
@@ -80,9 +82,9 @@ function ProductPage() {
           </div>
           {userProfile.idUser !== productInfo.idUser ? (
             <div>
-              <p>img de perfil???</p>
+              <img src={sellerInfo.image} alt="foto de perfil" className="profileImage" />
               <p>{sellerInfo.nameUser}</p>
-              <a href="{urlPerfil}">Ir al Perfil</a>
+              <a href='{urlPerfil}'>Ir al Perfil</a>
             </div>
           ) : (
             <a href={`/update-product/${idProduct}`}>Editar</a>

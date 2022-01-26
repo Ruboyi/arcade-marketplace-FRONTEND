@@ -28,12 +28,3 @@
 .buttons-container-profile button:active {
   background-color: #222;
 }
-
-.goBack-button {
-  background-color: aqua;
-  border: 2px solid #222;
-  border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  margin: 25px 0 0 25px;
-}
