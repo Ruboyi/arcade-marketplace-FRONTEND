@@ -2,6 +2,7 @@ import { CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import ProductsGrid from '../../components/ProductsGrid/ProductsGrid';
+const { REACT_APP_BACKEND_API } = process.env
 
 function Products() {
   const [products, setProducts] = useState('');
@@ -9,8 +10,8 @@ function Products() {
   useEffect(() => {
     async function getProducts() {
       const response = await axios.get(
-        'http://localhost:3000/api/v1/products'
-      ); // METER LA VARIABLE DEL .ENV
+        `${REACT_APP_BACKEND_API}products`
+      );
       console.log(response.data.data);
 
       setProducts(response.data.data);

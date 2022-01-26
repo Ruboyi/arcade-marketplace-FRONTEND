@@ -80,7 +80,7 @@ function ProductPage() {
           </div>
           {userProfile.idUser !== productInfo.idUser ? (
             <div>
-              <p>img de perfil???</p>
+              <img src={sellerInfo.image} alt="foto de perfil" className="profileImage" />
               <p>{sellerInfo.nameUser}</p>
               <a href="{urlPerfil}">Ir al Perfil</a>
             </div>
