@@ -43,13 +43,12 @@ function PaperComponent(props) {
 }
 
 function Settings() {
-  const { userProfile, userSession, getUserProfile, logout } =
+  const { userProfile, setUserProfile, userSession, logout } =
     useAuthorization();
   const navigate = useNavigate();
   const [error, setError] = useState();
   const [fichero, setFichero] = useState();
   const [open, setOpen] = useState(false);
-  console.log(open);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -61,6 +60,27 @@ function Settings() {
   const Input = styled("input")({
     display: "none",
   });
+
+  async function getUserProfile() {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userSession}`,
+        },
+      };
+
+      const response = await axios.get(
+        `${REACT_APP_BACKEND_API}users/profile`,
+        config
+      );
+
+      setUserProfile(response.data);
+    } catch (error) {
+      console.log("ERROR: ", error);
+      setError(error);
+    }
+  }
+
   async function deleteAccount() {
     try {
       const config = {
@@ -139,8 +159,8 @@ function Settings() {
 
               if (!values.nameUser) {
                 errors.nameUser = "Nombre requerido!";
-              } else {
-                // TODO: mas comprobaciones
+              } else if (values.nameUser.length > 25) {
+                errors.nameUser = "Nombre demasiado largo!";
               }
 
               if (!values.password) {
@@ -194,18 +214,20 @@ function Settings() {
 
                 formData.append("profileImage", fichero);
 
-                console.log("FORMADATA", formData);
-
-                await axios.post(
-                  `${REACT_APP_BACKEND_API}users/upload`,
-                  formData,
-                  config
-                );
+                if (fichero) {
+                  await axios.post(
+                    `${REACT_APP_BACKEND_API}users/upload`,
+                    formData,
+                    config
+                  );
+                }
                 getUserProfile();
 
-                setTimeout(() => {
-                  navigate("/profile");
-                }, 1000);
+
+                navigate("/profile");
+                window.location.reload()
+
+
               } catch (error) {
                 setError(error);
               }
@@ -327,15 +349,15 @@ function Settings() {
                   </DialogTitle>
                   <DialogContent>
                     <DialogContentText>
-                      ¿Estas seguro de eliminar tu cuenta? Si comfirmas no hay
-                      vuelta atrás.
+                      ¿Estas seguro de eliminar tu cuenta? Si confirmas no hay
+                      vuelta atrás!
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
                     <Button autoFocus onClick={handleClose}>
                       Cancelar
                     </Button>
-                    <Button onClick={deleteAccount}>Comfirmar</Button>
+                    <Button onClick={deleteAccount}>Confirmar</Button>
                   </DialogActions>
                 </Dialog>
                 {error && (
@@ -355,7 +377,7 @@ function Settings() {
                       backgroundColor: "#090D41",
                     }}
                   >
-                    Comfirmar
+                    Confirmar
                   </Button>
                 </div>
               </form>

@@ -18,7 +18,7 @@ function Activation() {
         <Alert severity="success">
           <AlertTitle>Success</AlertTitle>
           Enhorabuena ya eres miembro de Arcade-MarketPlace
-          <strong> Cuenta comfirmada correctamente !!</strong>
+          <strong> Cuenta confirmada correctamente !!</strong>
         </Alert>
       </Stack>
     </div>

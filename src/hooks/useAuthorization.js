@@ -52,31 +52,31 @@ function AuthProvider(props) {
     window.location.reload();
   }
 
-  async function getUserProfile() {
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userSession}`,
-        },
-      };
-
-      const response = await axios.get(
-        `${REACT_APP_BACKEND_API}users/profile`,
-        config
-      );
-
-      setUserProfile(response.data);
-    } catch (error) {
-      console.log("ERROR: ", error);
-      setError(error);
-    }
-  }
 
   useEffect(() => {
     if (userSession) {
+      async function getUserProfile() {
+        try {
+          const config = {
+            headers: {
+              Authorization: `Bearer ${userSession}`,
+            },
+          };
+
+          const response = await axios.get(
+            `${REACT_APP_BACKEND_API}users/profile`,
+            config
+          );
+
+          setUserProfile(response.data);
+        } catch (error) {
+          console.log("ERROR: ", error);
+          setError(error);
+        }
+      }
       getUserProfile();
     }
-  });
+  }, [userSession]);
 
   const value = {
     userSession,
@@ -85,7 +85,7 @@ function AuthProvider(props) {
     userProfile,
     setUserProfile,
     error,
-    getUserProfile,
+    /* getUserProfile, */
     setUserSession,
   };
 

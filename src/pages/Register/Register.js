@@ -183,7 +183,7 @@ function Register() {
           <Alert severity='success'>
             <AlertTitle>Success</AlertTitle>
             Revisa la bandeja de entrada de tu correo y{' '}
-            <strong>Comfirma tu cuenta !!</strong>
+            <strong>Confirma tu cuenta !!</strong>
           </Alert>
         </Stack>
       )}
