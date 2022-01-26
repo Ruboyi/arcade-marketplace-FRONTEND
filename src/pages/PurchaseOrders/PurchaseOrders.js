@@ -2,19 +2,23 @@ import { Button, Paper, TextField } from "@mui/material";
 import axios from "axios";
 import { Formik } from "formik";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useAuthorization } from "../../hooks/useAuthorization";
+
+const { REACT_APP_BACKEND_API } = process.env;
 
 function PurchaseOrders() {
   const navigate = useNavigate();
   const { userSession } = useAuthorization();
   const [error, setError] = useState();
+  const { idProduct, idUser } = useParams();
 
   useEffect(() => {
     if (!userSession) {
       navigate("/login");
     }
   }, [userSession, navigate]);
+
   return (
     <Paper
       className="upload-product-form"
@@ -55,8 +59,9 @@ function PurchaseOrders() {
                 Authorization: `Bearer ${userSession}`,
               },
             };
-            const response = await axios.post(
-              "http://localhost:3000/api/v1/orders/:idProduct/:idUserBuyer",
+
+            await axios.post(
+              `${REACT_APP_BACKEND_API}orders/${idProduct}/${idUser}`,
               {
                 saleDate,
                 saleLocation,
@@ -72,6 +77,12 @@ function PurchaseOrders() {
       >
         {({ values, errors, touched, handleChange, handleSubmit }) => (
           <form onSubmit={handleSubmit}>
+            <button
+              className="goBack-button"
+              onClick={() => navigate("/profile")}
+            >
+              Atras
+            </button>
             <h1>Indica la información de encuentro</h1>
             <h2>Título de anuncio</h2>
             <h3>Día y hora</h3>
