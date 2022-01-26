@@ -1,6 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useAuthorization } from "../../hooks/useAuthorization";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import GoBack from '../../components/GoBack/GoBack';
 
 // const reviews = [
 //   {
@@ -48,6 +49,7 @@ function MyReviews() {
   }, [idUser]);
   return (
     <div>
+      <GoBack />
       <h1>Mis valoraciones</h1>
       {reviews &&
         reviews.map((review) => {
@@ -55,7 +57,9 @@ function MyReviews() {
             <div key={review.idReview}>
               <h2> Rating: {review.rating}</h2>
               <h2> Opinión: {review.opinion}</h2>
-              <h2> {review.isSeller === 1 ? "Es vendedor" : "Es comprador"}</h2>
+              <h2>
+                {review.isSeller === 1 ? 'Es vendedor' : 'Es comprador'}
+              </h2>
             </div>
           );
         })}

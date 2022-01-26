@@ -2,6 +2,7 @@ import { CircularProgress } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import GoBack from '../../components/GoBack/GoBack';
 import { useAuthorization } from '../../hooks/useAuthorization';
 import './MyOrders.css';
 
@@ -50,6 +51,7 @@ function MyOrders() {
   return (
     <div>
       <h1>Mis reservas</h1>
+      <GoBack />
       {myOrders && idUser && products ? (
         myOrders.map((order) => {
           let productoSolicitado = products.find(
