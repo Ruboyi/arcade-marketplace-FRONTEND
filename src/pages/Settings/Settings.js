@@ -4,6 +4,7 @@ import {
   Button,
   CircularProgress,
   IconButton,
+  Link,
   Paper,
   Rating,
   Stack,
@@ -20,27 +21,73 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import "./Settings.css";
 import { Input, PhotoCamera } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Draggable from "react-draggable";
 
 const { REACT_APP_BACKEND_API } = process.env;
+
+function PaperComponent(props) {
+  return (
+    <Draggable
+      handle="#draggable-dialog-title"
+      cancel={'[class*="MuiDialogContent-root"]'}
+    >
+      <Paper {...props} />
+    </Draggable>
+  );
+}
 
 function Settings() {
   const { userProfile, userSession, getUserProfile } = useAuthorization();
   const navigate = useNavigate();
   const [error, setError] = useState();
   const [fichero, setFichero] = useState();
+  const [open, setOpen] = useState(false);
+  console.log(open);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   console.log(fichero);
 
   const Input = styled("input")({
     display: "none",
   });
+  async function deleteAccount() {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userSession}`,
+        },
+      };
+      const { idUser } = userProfile;
+
+      const response = await axios.delete(
+        `${REACT_APP_BACKEND_API}users/${idUser}`,
+        config
+      );
+
+      handleClose();
+      navigate("/home");
+    } catch (error) {
+      setError(error.response);
+    }
+  }
 
   useEffect(() => {
     if (!userSession) {
       navigate("/login");
     }
   }, [userSession, navigate]);
-  console.log(userProfile);
+  console.table(userProfile);
   return (
     <div>
       <header className="header-Editar">
@@ -259,6 +306,39 @@ function Settings() {
                     fullWidth
                   />
                 </div>
+                <Link
+                  component="button"
+                  variant="body2"
+                  type="button"
+                  onClick={() => handleClickOpen()}
+                >
+                  Quiero darme de baja
+                </Link>
+                <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  PaperComponent={PaperComponent}
+                  aria-labelledby="draggable-dialog-title"
+                >
+                  <DialogTitle
+                    style={{ cursor: "move" }}
+                    id="draggable-dialog-title"
+                  >
+                    ¡OJO!
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      ¿Estas seguro de eliminar tu cuenta? Si comfirmas no hay
+                      vuelta atrás.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button autoFocus onClick={handleClose}>
+                      Cancelar
+                    </Button>
+                    <Button onClick={deleteAccount}>Comfirmar</Button>
+                  </DialogActions>
+                </Dialog>
                 {error && (
                   <Stack sx={{ width: "100%", margin: 1 }} spacing={2}>
                     <Alert severity="error">
@@ -272,6 +352,7 @@ function Settings() {
                     type="submit"
                     variant="contained"
                     sx={{
+                      marginTop: 2,
                       backgroundColor: "#090D41",
                     }}
                   >
