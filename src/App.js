@@ -16,6 +16,7 @@ import MyOrders from "./pages/MyOrders/MyOrders";
 import MyReviews from "./pages/MyReviews/MyReviews";
 import UpdateProduct from "./pages/UpdateProduct/UpdateProduct";
 import Settings from "./pages/Settings/Settings";
+import PurchaseOrders from "./pages/PurchaseOrders/PurchaseOrders";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/my-reviews" element={<MyReviews />} />
         <Route path="/update-product/:idProduct" element={<UpdateProduct />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/purchase-orders" element={<PurchaseOrders />} />
       </Routes>
       <TapBar />
     </div>
