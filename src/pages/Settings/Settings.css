@@ -1,0 +1,15 @@
+.header-settings{
+    display: flex;
+    justify-content: space-around;
+}
+.header-register {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+.img-settings {
+    height: 130px;
+    border-radius: 50%;
+}

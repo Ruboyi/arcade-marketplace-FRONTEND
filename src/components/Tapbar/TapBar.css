@@ -1,13 +1,12 @@
 .tapBar-navigation{
     display: flex;
     justify-content: space-around;
-    position: fixed;
+    position: sticky;
     bottom: 0;
     width: 100%;
     background-color: black;
     border-radius: 8px;
     align-items: center;
-    
     
 }
 .favorite-icon {

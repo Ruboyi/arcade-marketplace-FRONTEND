@@ -1,8 +1,8 @@
-.header-register {
+.header-Editar {
   display: flex;
-  justify-content: space-around;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .img-register {
