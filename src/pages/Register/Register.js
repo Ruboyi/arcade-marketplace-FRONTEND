@@ -11,6 +11,7 @@ import { Formik } from 'formik';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import logo from '../../assets/logosinfondo.png';
+import GoBack from '../../components/GoBack/GoBack';
 import './register.css';
 
 function Register() {
@@ -23,6 +24,7 @@ function Register() {
         <img className='img-register' src={logo} alt='logo' />
         <h1>Regístrate</h1>
       </header>
+      <GoBack />
       {!backendResponse && (
         <Paper className='register-container'>
           <Formik
