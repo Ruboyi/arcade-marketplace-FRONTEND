@@ -3,10 +3,13 @@
 }
 
 .profile-paper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   margin: 0 auto;
-  width: 75vw;
-  height: 400px;
+  width: 50vw;
+  height: 200px;
 }
 
 .buttons-container-profile {
