@@ -1,6 +1,4 @@
-html {
-  height: 100%;
-}
+
 
 body {
   margin: 0;
@@ -11,7 +9,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #090d41;
   color: white;
-  height: 100%;
 }
 
 code {

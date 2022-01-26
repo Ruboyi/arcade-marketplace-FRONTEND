@@ -49,31 +49,31 @@ function AuthProvider(props) {
     sessionStorage.setItem("userSession", null);
   }
 
+  async function getUserProfile() {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userSession}`,
+        },
+      };
+
+      const response = await axios.get(
+        `${REACT_APP_BACKEND_API}users/profile`,
+        config
+      );
+
+      setUserProfile(response.data);
+    } catch (error) {
+      console.log("ERROR: ", error);
+      setError(error);
+    }
+  }
+
   useEffect(() => {
     if (userSession) {
-      async function getUserProfile() {
-        try {
-          const config = {
-            headers: {
-              Authorization: `Bearer ${userSession}`,
-            },
-          };
-
-          const response = await axios.get(
-            `${REACT_APP_BACKEND_API}users/profile`,
-            config
-          );
-
-          setUserProfile(response.data);
-        } catch (error) {
-          console.log("ERROR: ", error);
-          setError(error);
-        }
-      }
       getUserProfile();
     }
   }, [userSession]);
-
 
   //! Es useless porque solo se van a setear los favoritos cuando te logeas y no se van a actualizar con esta llamada
   /* useEffect(() => {
@@ -105,6 +105,7 @@ function AuthProvider(props) {
     userProfile,
     setUserProfile,
     error,
+    getUserProfile,
   };
 
   return (

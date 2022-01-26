@@ -13,7 +13,7 @@ function Profile() {
       navigate("/login");
     }
   }, [userSession, navigate]);
-
+  console.log(userProfile);
   return (
     <div className="profile">
       <button className="goBack-button" onClick={() => navigate("/")}>
@@ -29,7 +29,7 @@ function Profile() {
           ) : (
             <span className="default-image-profile">IMAGEN DE PERFIL</span>
           )}
-          <p>DESCRIPCION DESCRIPCION ESCRIPCION DESCRIPCION</p>
+          <p>{userProfile.bio}</p>
         </Paper>
       ) : (
         <CircularProgress />
