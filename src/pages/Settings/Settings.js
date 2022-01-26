@@ -19,7 +19,7 @@ import logo from "../../assets/logosinfondo.png";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import "./Settings.css";
-import { Input, PhotoCamera } from "@mui/icons-material";
+import { PhotoCamera } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -58,8 +58,6 @@ function Settings() {
     setOpen(false);
   };
 
-  console.log(fichero);
-
   const Input = styled("input")({
     display: "none",
   });
@@ -74,10 +72,7 @@ function Settings() {
 
       logout();
 
-      const response = await axios.delete(
-        `${REACT_APP_BACKEND_API}users/${idUser}`,
-        config
-      );
+      await axios.delete(`${REACT_APP_BACKEND_API}users/${idUser}`, config);
 
       handleClose();
     } catch (error) {
@@ -90,7 +85,7 @@ function Settings() {
       navigate("/login");
     }
   }, [userSession, navigate]);
-  console.table(userProfile);
+
   return (
     <div>
       <GoBack />
