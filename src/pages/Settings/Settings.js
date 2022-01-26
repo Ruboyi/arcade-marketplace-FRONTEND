@@ -3,6 +3,7 @@ import {
   AlertTitle,
   Button,
   CircularProgress,
+  IconButton,
   Paper,
   Rating,
   Stack,
@@ -17,17 +18,28 @@ import logo from "../../assets/logosinfondo.png";
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import "./Settings.css";
+import { Input, PhotoCamera } from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
+
+const { REACT_APP_BACKEND_API } = process.env;
 
 function Settings() {
   const { userProfile, userSession, getUserProfile } = useAuthorization();
   const navigate = useNavigate();
   const [error, setError] = useState();
+  const [fichero, setFichero] = useState();
+
+  console.log(fichero);
+
+  const Input = styled("input")({
+    display: "none",
+  });
 
   useEffect(() => {
     if (!userSession) {
       navigate("/login");
     }
-  }, [userSession]);
+  }, [userSession, navigate]);
   console.log(userProfile);
   return (
     <div>
@@ -43,6 +55,21 @@ function Settings() {
               src={userProfile.image}
               alt="foto-perfil"
             />
+            <label htmlFor="icon-button-file">
+              <Input
+                accept="image/*"
+                id="icon-button-file"
+                type="file"
+                onChange={(e) => setFichero(e.target.files[0])}
+              />
+              <IconButton
+                color="primary"
+                aria-label="upload picture"
+                component="span"
+              >
+                <PhotoCamera />
+              </IconButton>
+            </label>
             <div>
               <h1>{userProfile.nameUser}</h1>
               <Rating name="read-only" value={4} readOnly />
@@ -117,13 +144,24 @@ function Settings() {
 
                 console.log("usuario modificado!: ", response.data);
 
+                const formData = new FormData();
+
+                formData.append("profileImage", fichero);
+
+                console.log("FORMADATA", formData);
+
+                await axios.post(
+                  `${REACT_APP_BACKEND_API}users/upload`,
+                  formData,
+                  config
+                );
                 getUserProfile();
 
                 setTimeout(() => {
                   navigate("/profile");
                 }, 1000);
               } catch (error) {
-                setError(error.response.data.error);
+                setError(error);
               }
             }}
           >
