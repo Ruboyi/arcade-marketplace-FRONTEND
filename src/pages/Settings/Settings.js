@@ -27,8 +27,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Draggable from "react-draggable";
-import GoBack from '../../components/GoBack/GoBack';
-
+import GoBack from "../../components/GoBack/GoBack";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -44,7 +43,8 @@ function PaperComponent(props) {
 }
 
 function Settings() {
-  const { userProfile, userSession, getUserProfile } = useAuthorization();
+  const { userProfile, userSession, getUserProfile, logout } =
+    useAuthorization();
   const navigate = useNavigate();
   const [error, setError] = useState();
   const [fichero, setFichero] = useState();
@@ -72,13 +72,14 @@ function Settings() {
       };
       const { idUser } = userProfile;
 
+      logout();
+
       const response = await axios.delete(
         `${REACT_APP_BACKEND_API}users/${idUser}`,
         config
       );
 
       handleClose();
-      navigate("/home");
     } catch (error) {
       setError(error.response);
     }
@@ -86,24 +87,24 @@ function Settings() {
 
   useEffect(() => {
     if (!userSession) {
-      navigate('/login');
+      navigate("/login");
     }
   }, [userSession, navigate]);
   console.table(userProfile);
   return (
     <div>
       <GoBack />
-      <header className='header-Editar'>
-        <img className='img-register' src={logo} alt='logo' />
+      <header className="header-Editar">
+        <img className="img-register" src={logo} alt="logo" />
         <h1>Edita tu perfi</h1>
       </header>
       {userProfile ? (
-        <Paper className='register-container'>
-          <header className='header-settings'>
+        <Paper className="register-container">
+          <header className="header-settings">
             <img
-              className='img-settings'
+              className="img-settings"
               src={userProfile.image}
-              alt='foto-perfil'
+              alt="foto-perfil"
             />
             <label htmlFor="icon-button-file">
               <Input
@@ -122,77 +123,77 @@ function Settings() {
             </label>
             <div>
               <h1>{userProfile.nameUser}</h1>
-              <Rating name='read-only' value={4} readOnly />
+              <Rating name="read-only" value={4} readOnly />
             </div>
           </header>
           <Formik
             initialValues={{
               email: userProfile.email,
-              password: '',
-              repeatedPassword: '',
+              password: "",
+              repeatedPassword: "",
               nameUser: userProfile.nameUser,
               bio: userProfile.bio,
-              phone: userProfile.phone
+              phone: userProfile.phone,
             }}
             validate={(values) => {
               const errors = {};
 
               if (!values.email) {
-                errors.email = 'Email requerido!';
+                errors.email = "Email requerido!";
               }
 
               if (!values.nameUser) {
-                errors.nameUser = 'Nombre requerido!';
+                errors.nameUser = "Nombre requerido!";
               } else {
                 // TODO: mas comprobaciones
               }
 
               if (!values.password) {
-                errors.password = 'Contraseña requerida!';
+                errors.password = "Contraseña requerida!";
               }
 
               if (!values.bio) {
                 errors.bio =
-                  'Porfavor introduce una pequeña información sobre ti';
+                  "Porfavor introduce una pequeña información sobre ti";
               }
 
               if (!values.phone) {
-                error.phone = 'Introduce tu numero de teléfono';
+                error.phone = "Introduce tu numero de teléfono";
               }
 
               if (!values.repeatedPassword) {
-                errors.repeatedPassword = 'Repite la contraseña!';
+                errors.repeatedPassword = "Repite la contraseña!";
               } else {
                 if (values.password !== values.repeatedPassword) {
-                  errors.repeatedPassword = 'Contraseñas deben coincidir!';
+                  errors.repeatedPassword = "Contraseñas deben coincidir!";
                 }
               }
 
               return errors;
             }}
             onSubmit={async (values) => {
-              console.log('SUBMIT: ', values);
+              console.log("SUBMIT: ", values);
               const { nameUser, password, email, bio, phone } = values;
 
               try {
                 const config = {
                   headers: {
-                    Authorization: `Bearer ${userSession}`
-                  }
+                    Authorization: `Bearer ${userSession}`,
+                  },
                 };
                 const response = await axios.put(
-                  'http://localhost:3000/api/v1/users',
+                  "http://localhost:3000/api/v1/users",
                   {
                     nameUser,
                     password,
                     email,
                     bio,
-                    phone
+                    phone,
                   },
                   config
                 );
 
-                console.log('usuario modificado!: ', response.data);
+                console.log("usuario modificado!: ", response.data);
 
                 const formData = new FormData();
 
@@ -208,23 +209,24 @@ function Settings() {
                 getUserProfile();
 
                 setTimeout(() => {
-                  navigate('/profile');
+                  navigate("/profile");
                 }, 1000);
               } catch (error) {
                 setError(error);
               }
-            }}>
+            }}
+          >
             {({ values, errors, touched, handleChange, handleSubmit }) => (
               <form onSubmit={handleSubmit}>
-                <div className='field-container'>
+                <div className="field-container">
                   <h3>
-                    <AssignmentIndOutlinedIcon /> Información personal{' '}
+                    <AssignmentIndOutlinedIcon /> Información personal{" "}
                   </h3>
                   <TextField
-                    id='nameUser'
-                    name='nameUser'
-                    label='Nombre'
-                    variant='standard'
+                    id="nameUser"
+                    name="nameUser"
+                    label="Nombre"
+                    variant="standard"
                     onChange={handleChange}
                     value={values.nameUser}
                     error={errors.nameUser && touched.nameUser}
@@ -232,13 +234,13 @@ function Settings() {
                     fullWidth
                   />
                 </div>
-                <div className='field-container'>
+                <div className="field-container">
                   <TextField
-                    id='email'
-                    name='email'
-                    type='email'
-                    label='Email'
-                    variant='standard'
+                    id="email"
+                    name="email"
+                    type="email"
+                    label="Email"
+                    variant="standard"
                     onChange={handleChange}
                     value={values.email}
                     error={errors.email && touched.email}
@@ -246,13 +248,13 @@ function Settings() {
                     fullWidth
                   />
                 </div>
-                <div className='field-container'>
+                <div className="field-container">
                   <TextField
-                    id='phone'
-                    name='phone'
-                    label='Teléfono'
-                    type='tel'
-                    variant='standard'
+                    id="phone"
+                    name="phone"
+                    label="Teléfono"
+                    type="tel"
+                    variant="standard"
                     onChange={handleChange}
                     value={values.phone}
                     error={errors.phone && touched.phone}
@@ -260,12 +262,12 @@ function Settings() {
                     fullWidth
                   />
                 </div>
-                <div className='field-container'>
+                <div className="field-container">
                   <TextField
-                    id='bio'
-                    name='bio'
-                    label='Descripción personal'
-                    variant='outlined'
+                    id="bio"
+                    name="bio"
+                    label="Descripción personal"
+                    variant="outlined"
                     multiline
                     rows={4}
                     onChange={handleChange}
@@ -278,13 +280,13 @@ function Settings() {
                 <h3>
                   <SecurityOutlinedIcon /> Seguridad
                 </h3>
-                <div className='field-container'>
+                <div className="field-container">
                   <TextField
-                    id='password'
-                    name='password'
-                    type={'password'}
-                    label='Contraseña'
-                    variant='standard'
+                    id="password"
+                    name="password"
+                    type={"password"}
+                    label="Contraseña"
+                    variant="standard"
                     onChange={handleChange}
                     value={values.password}
                     error={errors.password && touched.password}
@@ -292,18 +294,16 @@ function Settings() {
                     fullWidth
                   />
                 </div>
-                <div className='field-container'>
+                <div className="field-container">
                   <TextField
-                    id='repeated-password'
-                    name='repeatedPassword'
-                    type={'password'}
-                    label='Repetir Contraseña'
-                    variant='standard'
+                    id="repeated-password"
+                    name="repeatedPassword"
+                    type={"password"}
+                    label="Repetir Contraseña"
+                    variant="standard"
                     onChange={handleChange}
                     value={values.repeatedPassword}
-                    error={
-                      errors.repeatedPassword && touched.repeatedPassword
-                    }
+                    error={errors.repeatedPassword && touched.repeatedPassword}
                     helperText={
                       touched.repeatedPassword && errors.repeatedPassword
                     }
@@ -344,17 +344,17 @@ function Settings() {
                   </DialogActions>
                 </Dialog>
                 {error && (
-                  <Stack sx={{ width: '100%', margin: 1 }} spacing={2}>
-                    <Alert severity='error'>
+                  <Stack sx={{ width: "100%", margin: 1 }} spacing={2}>
+                    <Alert severity="error">
                       <AlertTitle>Error</AlertTitle>
                       {error}
                     </Alert>
                   </Stack>
                 )}
-                <div className='button-submit-container'>
+                <div className="button-submit-container">
                   <Button
-                    type='submit'
-                    variant='contained'
+                    type="submit"
+                    variant="contained"
                     sx={{
                       marginTop: 2,
                       backgroundColor: "#090D41",
