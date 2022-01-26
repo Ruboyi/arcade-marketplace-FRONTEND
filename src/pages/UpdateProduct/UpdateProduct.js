@@ -61,8 +61,8 @@ function UpdateProduct() {
     } else {
       setPreview(null);
     }
-  }, []);
-  console.log(productData);
+  }, [userSession, fichero, navigate, idProduct]);
+
   return (
     <main>
       <GoBack />
@@ -144,14 +144,12 @@ function UpdateProduct() {
                     config
                   );
 
-                  setTimeout(() => {
-                    navigate('/products');
-                  }, 10000);
+                  navigate(`/products/${productId}`);
+
                 } catch (error) {
                   setError(error.response);
                 }
               }}>
-              {/* TODO Radials no funcionan */}
               {({
                 values,
                 errors,
