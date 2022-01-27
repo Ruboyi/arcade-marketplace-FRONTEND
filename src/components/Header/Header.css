@@ -8,6 +8,7 @@
     position: sticky;
     top:0;
     width: 100%;
+    z-index: 2;
     
 }
 .small-logo {

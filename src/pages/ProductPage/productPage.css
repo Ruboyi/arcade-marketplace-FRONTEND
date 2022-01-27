@@ -10,3 +10,16 @@
     height: 50px;
     border-radius: 50%;
 }
+.productPage-container {
+    max-width: 70vh;
+    margin: 0 auto;
+    padding: 12px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    /* background-color: #959CFC; */
+  }
+
+.favorites-views {
+    display: flex;
+    justify-content:flex-start;
+}
