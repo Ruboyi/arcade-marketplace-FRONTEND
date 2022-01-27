@@ -12,16 +12,15 @@ function ProductsGrid({ products }) {
   }
 
   let productsProcessed = products
-  //sacar search params
-  let actualUrl = window.location.href
+  const actualUrl = window.location.href
 
-  if (actualUrl.length > 38) {
-    const search = window.location.href.slice(38)
+  if (actualUrl.includes('search')) {
+    const position = actualUrl.search('search=') + 7
+    const search = actualUrl.slice(position)
     console.log(search);
     productsProcessed = products.filter(product => product.title.toLowerCase().includes(search.toLocaleLowerCase()))
     console.log(productsProcessed);
   }
-
 
   const isProductsAnArray = Array.isArray(productsProcessed);
 
