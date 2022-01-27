@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Badge,
-  Button,
   CircularProgress,
   IconButton,
   Paper,
@@ -113,7 +112,12 @@ function ProductPage() {
                   <h2>{sellerInfo.nameUser} </h2>
                   <Rating name="read-only" value={4} readOnly />
                 </div>
-                {userSession && <SellerContact className="button-contacta" />}
+                {userSession && (
+                  <SellerContact
+                    idProduct={idProduct}
+                    className="button-contacta"
+                  />
+                )}
               </Paper>
             )}
           </div>
