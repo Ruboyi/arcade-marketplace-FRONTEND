@@ -1,12 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { CircularProgress, Paper } from "@mui/material";
+import {
+  Badge,
+  Button,
+  CircularProgress,
+  IconButton,
+  Paper,
+  Rating,
+} from "@mui/material";
 import "./productPage.css";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
 import SimpleImageSlider from "react-simple-image-slider";
 import GoBack from "../../components/GoBack/GoBack";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import ReportIcon from "@mui/icons-material/Report";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -48,6 +57,7 @@ function ProductPage() {
     }
     getProductInfo();
   }, [idProduct]);
+  console.log(productInfo);
 
   return (
     <div>
@@ -71,33 +81,43 @@ function ProductPage() {
                   {userSession && <FavoriteButton idProduct={idProduct} />}
                 </div>
               )}
-              <p>👀{productInfo.timesVisited}</p>
-            </div>
-            {userSession && (
-              <a href="{urlContacto}">Contacta con el vendedor</a>
-            )}
-            <div>
+              <div className="favorites-views visibility">
+                <IconButton>
+                  <Badge badgeContent={productInfo.timesVisited}>
+                    <VisibilityOutlinedIcon fontSize="large" />
+                  </Badge>
+                </IconButton>
+              </div>
               {userProfile.idUser !== productInfo.idUser && (
-                <a href="{urlDenuncia}">Denuncia</a>
+                <IconButton>
+                  <ReportIcon fontSize="small" sx={{ color: "grey" }} />
+                </IconButton>
               )}
-              <h1>{productInfo.title}</h1>
-              <h2>{productInfo.price}</h2>
+            </div>
+            <div>
+              <h1>{productInfo.price}€</h1>
+              <h2>{productInfo.title}</h2>
               <p>{productInfo.state}</p>
               <p>{productInfo.description}</p>
-              <p>{productInfo.location}</p>
+              <p>Localizacion: {productInfo.location}</p>
             </div>
-            {userProfile.idUser !== productInfo.idUser ? (
-              <div>
+            {userProfile.idUser !== productInfo.idUser && (
+              <Paper elevation={3} className="user-card">
                 <img
                   src={sellerInfo.image}
                   alt="foto de perfil"
                   className="profileImage"
                 />
-                <p>{sellerInfo.nameUser}</p>
-                <a href="{urlPerfil}">Ir al Perfil</a>
-              </div>
-            ) : (
-              <a href={`/update-product/${idProduct}`}>Editar</a>
+                <div className="name-rating">
+                  <h2>{sellerInfo.nameUser} </h2>
+                  <Rating name="read-only" value={4} readOnly />
+                </div>
+                {userSession && (
+                  <Button className="button-contacta" variant="outlined">
+                    Contacta
+                  </Button>
+                )}
+              </Paper>
             )}
           </div>
         ) : (

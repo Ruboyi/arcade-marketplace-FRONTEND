@@ -2,7 +2,7 @@ import axios from "axios";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import { useEffect, useState } from "react";
 import "./FavoriteButton.css";
-import { IconButton } from "@mui/material";
+import { Badge, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function FavoriteButton({ idProduct }) {
@@ -87,8 +87,9 @@ function FavoriteButton({ idProduct }) {
         aria-label="add to favorites"
         onClick={() => addOrDeleteFavorites()}
       >
-        <FavoriteIcon sx={{ color: "red" }} />
-        {numberOfFavs}
+        <Badge badgeContent={numberOfFavs}>
+          <FavoriteIcon sx={{ color: "red" }} fontSize="large" />
+        </Badge>
       </IconButton>
     </div>
   );
