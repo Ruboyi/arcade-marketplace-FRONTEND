@@ -6,9 +6,10 @@ import { Badge, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 function FavoriteButton({ idProduct }) {
-  const [nameClass, setNameClass] = useState();
+  const [isFav, setIsFav] = useState();
   const [numberOfFavs, setNumberOfFavs] = useState();
   const { userSession } = useAuthorization();
+
   useEffect(() => {
     async function getFavorites() {
       try {
@@ -25,9 +26,9 @@ function FavoriteButton({ idProduct }) {
 
         const favMap = favorites.data.data.map((object) => object.idProduct);
         if (favMap.some((e) => e === Number(idProduct))) {
-          setNameClass("deleteButton");
+          setIsFav(true);
         } else {
-          setNameClass("addButton");
+          setIsFav(false);
         }
 
         const responseNumberOfFavs = await axios.get(
@@ -58,14 +59,14 @@ function FavoriteButton({ idProduct }) {
       const favMap = favorites.data.data.map((object) => object.idProduct);
 
       if (favMap.some((e) => e === Number(idProduct))) {
-        setNameClass("addButton");
+        setIsFav(false);
         //Delete from favorites
         await axios.delete(
           `http://localhost:3000/api/v1/products/favorites/${idProduct}`,
           config
         );
       } else {
-        setNameClass("deleteButton");
+        setIsFav(true);
         //Add to favorites
         await axios.post(
           `http://localhost:3000/api/v1/products/${idProduct}`,
@@ -81,16 +82,32 @@ function FavoriteButton({ idProduct }) {
       console.log(error);
     }
   }
+
   return (
     <div className="FavoriteComponent">
-      <IconButton
-        aria-label="add to favorites"
-        onClick={() => addOrDeleteFavorites()}
-      >
-        <Badge badgeContent={numberOfFavs}>
-          <FavoriteIcon sx={{ color: "red" }} fontSize="large" />
-        </Badge>
-      </IconButton>
+      {isFav ? (
+        <>
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => addOrDeleteFavorites()}
+          >
+            <Badge badgeContent={numberOfFavs}>
+              <FavoriteIcon sx={{ color: "red" }} fontSize="large" />
+            </Badge>
+          </IconButton>
+        </>
+      ) : (
+        <>
+          <IconButton
+            aria-label="add to favorites"
+            onClick={() => addOrDeleteFavorites()}
+          >
+            <Badge badgeContent={numberOfFavs}>
+              <FavoriteIcon fontSize="large" />
+            </Badge>
+          </IconButton>
+        </>
+      )}
     </div>
   );
 }
