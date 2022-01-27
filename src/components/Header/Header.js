@@ -1,30 +1,27 @@
-import { InputAdornment, TextField } from "@mui/material";
 import logo from "../../assets/joy.png";
-import SearchIcon from "@mui/icons-material/Search";
 
 import "./Header.css";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function Header() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
+
   return (
     <header className="header-principal">
       <img className="small-logo" src={logo} alt="small-logo" />
-      <TextField
-        id="input-with-icon-textfield"
-        label="Buscar"
-        placeholder="Buscar"
-        sx={{
-          backgroundColor: "white",
-          borderRadius: "4px",
+      <input
+        value={searchParams.get("search") || ""}
+        onChange={event => {
+          let search = event.target.value;
+          if (search) {
+            setSearchParams({ search });
+          } else {
+            setSearchParams({});
+          }
         }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-        variant="outlined"
       />
+      <button onClick={() => navigate(`/products?${searchParams}`)}>Lupa</button>
     </header>
   );
 }
