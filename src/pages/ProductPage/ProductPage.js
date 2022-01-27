@@ -16,6 +16,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import GoBack from "../../components/GoBack/GoBack";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ReportIcon from "@mui/icons-material/Report";
+import SellerContact from "../../components/SellerContact/SellerContact";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -112,11 +113,7 @@ function ProductPage() {
                   <h2>{sellerInfo.nameUser} </h2>
                   <Rating name="read-only" value={4} readOnly />
                 </div>
-                {userSession && (
-                  <Button className="button-contacta" variant="outlined">
-                    Contacta
-                  </Button>
-                )}
+                {userSession && <SellerContact className="button-contacta" />}
               </Paper>
             )}
           </div>
