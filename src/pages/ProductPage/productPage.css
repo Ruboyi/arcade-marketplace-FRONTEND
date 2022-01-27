@@ -7,8 +7,10 @@
  margin-top: 20px;
 }
 .profileImage {
-    height: 50px;
+    height: 80px;
     border-radius: 50%;
+    align-self: center;
+    margin: 7px;
 }
 .productPage-container {
     max-width: 70vh;
@@ -21,5 +23,30 @@
 
 .favorites-views {
     display: flex;
-    justify-content:flex-start;
+    border-bottom: 2px solid rgb(228, 228, 228);
+    width: 525px;
+    margin-left: 22px;
+
+}
+.visibility {
+    flex-grow: 1;
+    border: 0;
+}
+.user-card{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+.user-card:hover{
+    background-color: rgb(251, 249, 245);
+}
+
+.name-rating{
+    align-self: center;
+    flex-grow: 1;
+}
+.button-contacta{
+    height: 2rem;
+    align-self: center;
+
 }
