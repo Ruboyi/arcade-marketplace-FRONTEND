@@ -16,7 +16,6 @@ import MyOrders from './pages/MyOrders/MyOrders';
 import MyReviews from './pages/MyReviews/MyReviews';
 import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
 import Settings from './pages/Settings/Settings';
-import AcceptOrder from './pages/AcceptOrder/AcceptOrder';
 import MyProductsPurchaseOrders from './pages/MyProductPurchaseOrders/MyProductsPurchaseOrders';
 
 function App() {
@@ -38,11 +37,6 @@ function App() {
         <Route path='/my-reviews' element={<MyReviews />} />
         <Route path='/update-product/:idProduct' element={<UpdateProduct />} />
         <Route path='/settings' element={<Settings />} />
-        {/* TODO PASAR EL ACCEPT ORDER A UN COMPONENTE (MODAL) */}
-        <Route
-          path='/accept-order/'
-          element={<AcceptOrder idUserBuyer={5} idProduct={4} />}
-        />
         <Route
           path='/my-products/purchase-orders'
           element={<MyProductsPurchaseOrders />}
