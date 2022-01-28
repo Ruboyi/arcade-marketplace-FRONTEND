@@ -35,12 +35,9 @@ function App() {
         <Route path='/activacion' element={<Activation />} />
         <Route path='/my-orders' element={<MyOrders />} />
         <Route path='/my-reviews' element={<MyReviews />} />
-        <Route
-          path='/update-product/:idProduct'
-          element={<UpdateProduct />}
-        />
+        <Route path='/update-product/:idProduct' element={<UpdateProduct />} />
         <Route path='/settings' element={<Settings />} />
-        <Route path='/accept-order' element={<AcceptOrder />} />
+        <Route path='/accept-order/' element={<AcceptOrder idUserBuyer={5} idProduct={4} />} />
       </Routes>
       <TapBar />
     </div>
