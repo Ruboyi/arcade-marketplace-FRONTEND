@@ -13,10 +13,9 @@ import { useAuthorization } from "../../hooks/useAuthorization";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
-export default function SellerContact({ idProduct, setError }) {
+export default function SellerContact({ idProduct, setError, setIsCreated }) {
   const [open, setOpen] = useState(false);
   const { userSession } = useAuthorization();
-  const [backendResponse, setBackendResponse] = useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,7 +24,7 @@ export default function SellerContact({ idProduct, setError }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(backendResponse);
+
   return (
     <div>
       <Button variant="outlined" onClick={handleClickOpen}>
@@ -62,14 +61,12 @@ export default function SellerContact({ idProduct, setError }) {
                     Authorization: `Bearer ${userSession}`,
                   },
                 };
-                const response = await axios.post(
+                await axios.post(
                   `${REACT_APP_BACKEND_API}orders/${idProduct}`,
                   { orderSubject, orderTypeOfContact, orderMessage },
                   config
                 );
-                setBackendResponse(response.data);
-
-                handleClose();
+                setIsCreated(true);
               } catch (error) {
                 setError(error.response.data.error);
               }

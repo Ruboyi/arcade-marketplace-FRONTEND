@@ -41,9 +41,12 @@ function ProductPage() {
   const [sellerInfo, setSellerInfo] = useState({});
   const [arrayImages, setArrayImages] = useState();
   const [error, setError] = useState();
+  const [isCreated, setIsCreated] = useState(false);
   const { idProduct } = useParams();
   const { userProfile, userSession } = useAuthorization();
   const handleClose = () => setError(false);
+  const handleCloseIsCreated = () => setIsCreated(false);
+  console.log(isCreated);
 
   //TODO urls para botones
   //const urlContacto = "";
@@ -134,6 +137,7 @@ function ProductPage() {
                 {userSession && (
                   <SellerContact
                     idProduct={idProduct}
+                    setIsCreated={setIsCreated}
                     setError={setError}
                     className="button-contacta"
                   />
@@ -153,6 +157,27 @@ function ProductPage() {
                       <Alert severity="error">
                         <AlertTitle>¡Lo sentimos!</AlertTitle>
                         {error}
+                      </Alert>
+                    </Stack>
+                  </Box>
+                </Modal>
+              </div>
+            )}
+            {isCreated && (
+              <div>
+                <Modal
+                  open={true}
+                  onClose={handleCloseIsCreated}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box style={style}>
+                    <Stack sx={{ width: "100%" }} spacing={2}>
+                      <Alert severity="success">
+                        <AlertTitle>¡Todo ha ido bien!</AlertTitle>
+                        Orden de comprar creada correctamente, espere respuesta
+                        del vendedor
+                        <strong>;)</strong>
                       </Alert>
                     </Stack>
                   </Box>
