@@ -13,7 +13,7 @@ import { useAuthorization } from "../../hooks/useAuthorization";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
-export default function SellerContact({ idProduct }) {
+export default function SellerContact({ idProduct, setError }) {
   const [open, setOpen] = useState(false);
   const { userSession } = useAuthorization();
   const [backendResponse, setBackendResponse] = useState();
@@ -71,7 +71,7 @@ export default function SellerContact({ idProduct }) {
 
                 handleClose();
               } catch (error) {
-                console.log(error);
+                setError(error.response.data.error);
               }
             }}
           >
