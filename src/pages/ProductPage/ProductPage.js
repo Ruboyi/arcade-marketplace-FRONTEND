@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
+  Alert,
+  AlertTitle,
   Badge,
   CircularProgress,
   IconButton,
+  Modal,
   Paper,
   Rating,
+  Stack,
 } from "@mui/material";
 import "./productPage.css";
 import { useAuthorization } from "../../hooks/useAuthorization";
@@ -16,15 +20,30 @@ import GoBack from "../../components/GoBack/GoBack";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ReportIcon from "@mui/icons-material/Report";
 import SellerContact from "../../components/SellerContact/SellerContact";
+import { Box } from "@mui/system";
 
 const { REACT_APP_BACKEND_API } = process.env;
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function ProductPage() {
   const [productInfo, setProductInfo] = useState({});
   const [sellerInfo, setSellerInfo] = useState({});
   const [arrayImages, setArrayImages] = useState();
+  const [error, setError] = useState();
   const { idProduct } = useParams();
   const { userProfile, userSession } = useAuthorization();
+  const handleClose = () => setError(false);
 
   //TODO urls para botones
   //const urlContacto = "";
@@ -115,10 +134,30 @@ function ProductPage() {
                 {userSession && (
                   <SellerContact
                     idProduct={idProduct}
+                    setError={setError}
                     className="button-contacta"
                   />
                 )}
               </Paper>
+            )}
+            {error && (
+              <div>
+                <Modal
+                  open={true}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box style={style}>
+                    <Stack sx={{ width: "100%" }} spacing={2}>
+                      <Alert severity="error">
+                        <AlertTitle>¡Lo sentimos!</AlertTitle>
+                        {error}
+                      </Alert>
+                    </Stack>
+                  </Box>
+                </Modal>
+              </div>
             )}
           </div>
         ) : (
