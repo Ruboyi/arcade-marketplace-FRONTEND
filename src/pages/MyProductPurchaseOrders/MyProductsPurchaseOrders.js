@@ -14,6 +14,7 @@ function MyProductsPurchaseOrders() {
   const navigate = useNavigate();
   const [myProducts, setMyProducts] = useState();
   const [isMyProductsEmpty, setIsMyProductsEmpty] = useState(false);
+  const [error, setError] = useState();
 
   const { idUser } = userProfile;
 
@@ -48,14 +49,21 @@ function MyProductsPurchaseOrders() {
       <h1>Solicitudes de compra de Mis Productos</h1>
       <GoBack />
 
+      {/* TODO ¿porque se pinta el producto antes de pintar el error? */}
+
       {isMyProductsEmpty ? (
-        <div>hola no hay products</div>
+        <div>Aun no tienes Productos a la venta!</div>
       ) : myProducts ? (
         myProducts.map((product) => {
+          console.log(product);
           return (
             <Paper className='my-product-orders-paper' key={product.idProduct}>
               <h1>{product.title}</h1>
-              <ProductOrders idProduct={product.idProduct} />
+              {error ? (
+                <div>{error} para este producto</div>
+              ) : (
+                <ProductOrders idProduct={product.idProduct} setError={setError} />
+              )}
             </Paper>
           );
         })
