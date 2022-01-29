@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import "./FavoriteButton.css";
 import { Badge, IconButton } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useNavigate } from "react-router";
 
 function FavoriteButton({ idProduct }) {
   const [isFav, setIsFav] = useState();
+  const navigate = useNavigate();
   const [numberOfFavs, setNumberOfFavs] = useState();
   const { userSession } = useAuthorization();
 
@@ -40,10 +42,13 @@ function FavoriteButton({ idProduct }) {
       }
     }
     getFavorites();
-  }, [idProduct, userSession, numberOfFavs]);
+  }, [idProduct, userSession, numberOfFavs, navigate]);
 
   async function addOrDeleteFavorites() {
     try {
+      if (!userSession) {
+        navigate("/login");
+      }
       const config = {
         headers: {
           Authorization: `Bearer ${userSession}`,

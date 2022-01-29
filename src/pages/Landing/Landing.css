@@ -4,5 +4,24 @@
     padding: 12px;
     margin-top: 20px;
     margin-bottom: 20px;
+}
+.product-card-container{
+    display: flex;
+    overflow-x: scroll;
+    align-self: center;
+    margin-bottom: 10px;
+}
 
+.product-card {
+    width:500px;
+    height: 300px;
+    margin: 5px;
+
+}
+.product-card-header{
+    display: flex;
+    align-self:flex-start;
+}
+.title-product-card{
+    flex-grow: 1;
 }
