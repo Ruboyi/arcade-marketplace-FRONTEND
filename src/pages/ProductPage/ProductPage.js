@@ -22,6 +22,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ReportIcon from "@mui/icons-material/Report";
 import SellerContact from "../../components/SellerContact/SellerContact";
 import { Box } from "@mui/system";
+import ReviewsUser from "../../components/Reviews/Reviews";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -124,30 +125,34 @@ function ProductPage() {
               <p>Localizacion: {productInfo.location}</p>
             </div>
             {userProfile.idUser !== productInfo.idUser && (
-              <Paper
-                elevation={3}
-                className="user-card"
-                onClick={() =>
-                  navigate(`/user/${sellerInfo.nameUser}/${productInfo.idUser}`)
-                }
-              >
+              <Paper elevation={3} className="user-card">
                 <img
                   src={sellerInfo.image}
                   alt="foto de perfil"
                   className="profileImage"
                 />
-                <div className="name-rating">
+                <div
+                  className="name-rating"
+                  onClick={() =>
+                    navigate(
+                      `/user/${sellerInfo.nameUser}/${productInfo.idUser}`
+                    )
+                  }
+                >
                   <h2>{sellerInfo.nameUser} </h2>
                   <Rating name="read-only" value={4} readOnly />
                 </div>
-                {userSession && (
-                  <SellerContact
-                    idProduct={idProduct}
-                    setIsCreated={setIsCreated}
-                    setError={setError}
-                    className="button-contacta"
-                  />
-                )}
+                <div className="buttons-user-card">
+                  {userSession && (
+                    <SellerContact
+                      idProduct={idProduct}
+                      setIsCreated={setIsCreated}
+                      setError={setError}
+                      className="button-contacta"
+                    />
+                  )}
+                  <ReviewsUser idUser={productInfo.idUser} />
+                </div>
               </Paper>
             )}
             {error && (

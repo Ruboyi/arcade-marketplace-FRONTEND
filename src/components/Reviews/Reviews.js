@@ -3,14 +3,21 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Rating } from "@mui/material";
 import { useState } from "react";
+import "./Reviews.css";
+import axios from "axios";
+import { useAuthorization } from "../../hooks/useAuthorization";
 
-export default function ReviewsUser() {
+const { REACT_APP_BACKEND_API } = process.env;
+
+export default function ReviewsUser({ idUser }) {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(2);
+  const [rating, setRating] = useState(2);
+  const [opinion, setOpinion] = useState("");
+  const { userSession } = useAuthorization();
+  const [isSeller] = useState(1);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,23 +27,53 @@ export default function ReviewsUser() {
     setOpen(false);
   };
 
-  const addReviews = async () => {};
+  const addReviews = async (e) => {
+    e.preventDefault();
+    console.log("Submit!!", rating, opinion);
+
+    const body = {
+      rating,
+      opinion,
+      isSeller,
+    };
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userSession}`,
+      },
+    };
+
+    try {
+      const response = await axios.post(
+        `${REACT_APP_BACKEND_API}reviews/${idUser}`,
+        body,
+        config
+      );
+
+      console.log(response.data);
+
+      handleClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Valora al comprador
+      <Button variant="outlined" onClick={handleClickOpen} sx={{ margin: 1 }}>
+        Dar valoración
       </Button>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>¡Valora al comprador!</DialogTitle>
+      <Dialog open={open} onClose={handleClose} sx={{ textAlign: "center" }}>
+        <DialogTitle>¡Valora al vendedor!</DialogTitle>
         <DialogContent>
-          <form>
+          <form onSubmit={addReviews}>
             <Rating
+              sx={{ fontSize: "3.875rem", textAlign: "center" }}
               size="large"
               name="simple-controlled"
-              value={value}
+              value={rating}
               onChange={(event, newValue) => {
-                setValue(newValue);
+                setRating(newValue);
               }}
             />
             <TextField
@@ -46,16 +83,18 @@ export default function ReviewsUser() {
               margin="dense"
               id="Valoración"
               label="Valoración"
+              value={opinion}
+              onChange={(e) => setOpinion(e.target.value)}
               type="text"
               fullWidth
               variant="outlined"
             />
+            <DialogActions>
+              <Button onClick={handleClose}>Cancelar</Button>
+              <Button type="submit">Enviar</Button>
+            </DialogActions>
           </form>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancelar</Button>
-          <Button onClick={handleClose}>Enviar</Button>
-        </DialogActions>
       </Dialog>
     </div>
   );
