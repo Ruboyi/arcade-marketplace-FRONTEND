@@ -86,7 +86,10 @@ export default function Landing() {
                   />
                   <div className="product-card-header">
                     <h2 className="title-product-card">{product.price}€</h2>
-                    <FavoriteButton className="favorite-button-product-card" />
+                    <FavoriteButton
+                      className="favorite-button-product-card"
+                      idProduct={product.idProduct}
+                    />
                   </div>
                   <p>{product.title}</p>
                 </Paper>
