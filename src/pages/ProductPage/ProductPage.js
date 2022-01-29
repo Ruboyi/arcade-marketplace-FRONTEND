@@ -15,6 +15,7 @@ import {
 import "./productPage.css";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
+import { useNavigate } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
 import GoBack from "../../components/GoBack/GoBack";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
@@ -46,6 +47,7 @@ function ProductPage() {
   const { userProfile, userSession } = useAuthorization();
   const handleClose = () => setError(false);
   const handleCloseIsCreated = () => setIsCreated(false);
+  const navigate = useNavigate();
   console.log(isCreated);
 
   //TODO urls para botones
@@ -80,6 +82,7 @@ function ProductPage() {
     getProductInfo();
   }, [idProduct]);
   console.log(productInfo);
+  console.log(sellerInfo);
 
   return (
     <div>
@@ -124,7 +127,13 @@ function ProductPage() {
               <p>Localizacion: {productInfo.location}</p>
             </div>
             {userProfile.idUser !== productInfo.idUser && (
-              <Paper elevation={3} className="user-card">
+              <Paper
+                elevation={3}
+                className="user-card"
+                onClick={() =>
+                  navigate(`/user/${sellerInfo.nameUser}/${productInfo.idUser}`)
+                }
+              >
                 <img
                   src={sellerInfo.image}
                   alt="foto de perfil"
