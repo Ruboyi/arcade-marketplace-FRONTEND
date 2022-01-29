@@ -1,0 +1,65 @@
+.product-order-info-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  background-color: tomato;
+  border: 2px solid tomato;
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  position: relative;
+}
+
+.product-order-message-container {
+  text-align: left;
+  border: 2px solid #121212;
+  border-radius: 4px;
+  padding: 5px;
+}
+.product-order-message {
+  margin-top: 5px;
+  border-top: 1px solid #121212;
+}
+
+.product-order-status {
+  position: absolute;
+  font-size: large;
+  right: 5px;
+  top: 5px;
+  text-transform: capitalize;
+  background-color: #121212;
+  color: tomato;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.product-order-answer-container {
+  text-align: left;
+  position: relative;
+  margin-top: 5px;
+  border: 2px solid #121212;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.product-order-answer-date {
+  font-weight: 500;
+  position: absolute;
+  right: 5px;
+}
+.product-order-button-answer {
+  padding: 10px 20px;
+  background-color: #121212;
+  border: 2px solid tomato;
+  border-radius: 4px;
+  min-width: 145px;
+  color: tomato;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 5px;
+}
+.product-order-button-answer:active {
+  background-color: tomato;
+  color: #121212;
+}
