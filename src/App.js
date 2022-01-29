@@ -17,11 +17,11 @@ import MyReviews from './pages/MyReviews/MyReviews';
 import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
 import Settings from './pages/Settings/Settings';
 import MyProductsPurchaseOrders from './pages/MyProductPurchaseOrders/MyProductsPurchaseOrders';
-import UserProfile from "./pages/UserProfile/UserProfile";
+import UserProfile from './pages/UserProfile/UserProfile';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
@@ -41,8 +41,8 @@ function App() {
         <Route
           path='/my-products/purchase-orders'
           element={<MyProductsPurchaseOrders />}
-        <Route path="/user/:nameUser/:idUser" element={<UserProfile />} />
         />
+        <Route path='/user/:nameUser/:idUser' element={<UserProfile />} />
       </Routes>
       <TapBar />
     </div>
