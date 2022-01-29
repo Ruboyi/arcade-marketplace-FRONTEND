@@ -76,9 +76,9 @@ export default function Landing() {
                   key={product.idProduct}
                   elevation={6}
                   className="product-card"
-                  onClick={() => navigate(`/products/${product.idProduct}`)}
                 >
                   <img
+                    onClick={() => navigate(`/products/${product.idProduct}`)}
                     src={product.images[0]}
                     alt="product-img"
                     width="180vh"
