@@ -34,7 +34,6 @@ const data = [
 export default function UserProfile() {
   const { nameUser, idUser } = useParams();
   const [userData, setUserData] = useState();
-  const [productsData, setProductsData] = useState();
   const [productsImages, setProductsImages] = useState();
 
   useEffect(() => {
@@ -54,23 +53,20 @@ export default function UserProfile() {
         const filterProducts = response.data.data.filter(
           (product) => product.idUser === Number(idUser)
         );
-        setProductsData(filterProducts);
+        const productImages = filterProducts.map((product) => {
+          return {
+            url: product.images[0],
+          };
+        });
+        setProductsImages(productImages);
       } catch (error) {
         console.log(error);
       }
     }
-    if (productsData) {
-      const productImages = productsData.map((product) => {
-        return {
-          url: product.images[0],
-        };
-      });
-      setProductsImages(productImages);
-    }
+
     getUserData();
     getProductsData();
   }, [idUser]);
-  console.log(productsData);
 
   return (
     <div>

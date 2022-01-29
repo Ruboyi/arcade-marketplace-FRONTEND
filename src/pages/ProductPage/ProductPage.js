@@ -48,7 +48,6 @@ function ProductPage() {
   const handleClose = () => setError(false);
   const handleCloseIsCreated = () => setIsCreated(false);
   const navigate = useNavigate();
-  console.log(isCreated);
 
   //TODO urls para botones
   //const urlContacto = "";
@@ -81,8 +80,6 @@ function ProductPage() {
     }
     getProductInfo();
   }, [idProduct]);
-  console.log(productInfo);
-  console.log(sellerInfo);
 
   return (
     <div>
