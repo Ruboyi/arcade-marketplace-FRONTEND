@@ -1,0 +1,28 @@
+.userProfile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 12px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+.header-userProfile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    width: 50vw;
+    height: 200px;
+}
+.data-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    width: 49vw;
+    height: 110px;
+    margin:10px;
+    padding: 10px;
+
+}
