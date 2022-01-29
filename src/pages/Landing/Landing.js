@@ -3,6 +3,7 @@ import Tab from "@mui/material/Tab";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router";
 import SimpleImageSlider from "react-simple-image-slider";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
 import "./Landing.css";
@@ -13,6 +14,7 @@ export default function Landing() {
   const [value, setValue] = useState(0);
   const [productsImages, setProductsImages] = useState();
   const [productsData, setProductsData] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getProducts() {
@@ -74,6 +76,7 @@ export default function Landing() {
                   key={product.idProduct}
                   elevation={6}
                   className="product-card"
+                  onClick={() => navigate(`/products/${product.idProduct}`)}
                 >
                   <img
                     src={product.images[0]}

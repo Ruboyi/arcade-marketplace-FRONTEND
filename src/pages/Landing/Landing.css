@@ -18,6 +18,9 @@
     margin: 5px;
 
 }
+.product-card:hover{
+    background-color: rgb(246, 243, 238);
+}
 .product-card-header{
     display: flex;
     align-self:flex-start;
