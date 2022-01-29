@@ -29,7 +29,7 @@ export default function ReviewsUser({ idUser }) {
 
   const addReviews = async (e) => {
     e.preventDefault();
-    console.log("Submit!!", rating, opinion);
+    console.log("Submit!!", rating, opinion, isSeller);
 
     const body = {
       rating,
