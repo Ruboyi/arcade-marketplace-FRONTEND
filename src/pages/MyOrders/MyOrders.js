@@ -26,11 +26,13 @@ function MyOrders() {
           Authorization: `Bearer ${userSession}`
         }
       };
-      const response = await axios.get(
-        `${REACT_APP_BACKEND_API}orders/user/${idUser}`,
-        config
-      );
-      setMyOrders(response.data.data);
+      if (idUser) {
+        const response = await axios.get(
+          `${REACT_APP_BACKEND_API}orders/user/${idUser}`,
+          config
+        );
+        setMyOrders(response.data.data);
+      }
     }
     getMyOrders();
 
@@ -63,17 +65,12 @@ function MyOrders() {
               <div>
                 <span>Fecha: </span>
                 <span>
-                  {new Date(order.orderDate).toLocaleString(
-                    'es-ES',
-                    options
-                  )}
+                  {new Date(order.orderDate).toLocaleString('es-ES', options)}
                 </span>
               </div>
               <div className='order-product-info'>
                 {/* TODO HACER LLAMADA A LAS IMAGENES PARA AÑADIRLA ACA */}
-                <div className='order-product-title'>
-                  {productoSolicitado.title}
-                </div>
+                <div className='order-product-title'>{productoSolicitado.title}</div>
                 <div>Precio: {productoSolicitado.price}</div>
                 <div>Ubicacion: {productoSolicitado.location}</div>
               </div>
@@ -85,10 +82,7 @@ function MyOrders() {
                 {order.saleDate && (
                   <div>
                     Fecha acordada de venta:{' '}
-                    {new Date(order.saleDate).toLocaleString(
-                      'es-ES',
-                      options
-                    )}
+                    {new Date(order.saleDate).toLocaleString('es-ES', options)}
                   </div>
                 )}
                 <div className='order-status'>Estado: {order.status}</div>
