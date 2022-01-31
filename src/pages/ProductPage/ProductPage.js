@@ -49,6 +49,7 @@ function ProductPage() {
   const handleClose = () => setError(false);
   const handleCloseIsCreated = () => setIsCreated(false);
   const navigate = useNavigate();
+  const [avgRating, setAvgRating] = useState()
 
   //TODO urls para botones
   //const urlContacto = "";
@@ -78,6 +79,13 @@ function ProductPage() {
         `${REACT_APP_BACKEND_API}users/user/${productData.idUser}`
       );
       setSellerInfo(responseSeller.data);
+
+      const responseAvgRating = await axios.get(`${REACT_APP_BACKEND_API}reviews/rating/${productData.idUser}`)
+      console.log(responseAvgRating.data.data[0].avgRating);
+      if (responseAvgRating.data.data[0].avgRating > 0) {
+
+        setAvgRating(responseAvgRating.data.data[0].avgRating)
+      } else { setAvgRating('No hay valoraciones') }
     }
     getProductInfo();
   }, [idProduct]);
@@ -124,7 +132,7 @@ function ProductPage() {
               <p>{productInfo.description}</p>
               <p>Localizacion: {productInfo.location}</p>
             </div>
-            {userProfile.idUser !== productInfo.idUser && (
+            {userProfile.idUser !== productInfo.idUser && !isNaN(avgRating) && (
               <Paper elevation={3} className="user-card">
                 <img
                   src={sellerInfo.image}
@@ -140,7 +148,38 @@ function ProductPage() {
                   }
                 >
                   <h2>{sellerInfo.nameUser} </h2>
-                  <Rating name="read-only" value={4} readOnly />
+                  <Rating name="read-only" value={avgRating} readOnly />
+                </div>
+                <div className="buttons-user-card">
+                  {userSession && (
+                    <SellerContact
+                      idProduct={idProduct}
+                      setIsCreated={setIsCreated}
+                      setError={setError}
+                      className="button-contacta"
+                    />
+                  )}
+                  <ReviewsUser idUser={productInfo.idUser} />
+                </div>
+              </Paper>
+            )}
+            {userProfile.idUser !== productInfo.idUser && isNaN(avgRating) && (
+              <Paper elevation={3} className="user-card">
+                <img
+                  src={sellerInfo.image}
+                  alt="foto de perfil"
+                  className="profileImage"
+                />
+                <div
+                  className="name-rating"
+                  onClick={() =>
+                    navigate(
+                      `/user/${sellerInfo.nameUser}/${productInfo.idUser}`
+                    )
+                  }
+                >
+                  <h2>{sellerInfo.nameUser} </h2>
+                  <h3>No hay valoraciones</h3>
                 </div>
                 <div className="buttons-user-card">
                   {userSession && (
