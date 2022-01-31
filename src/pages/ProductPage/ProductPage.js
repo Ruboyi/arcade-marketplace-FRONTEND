@@ -44,6 +44,7 @@ function ProductPage() {
   const [arrayImages, setArrayImages] = useState();
   const [error, setError] = useState();
   const [isCreated, setIsCreated] = useState(false);
+  const [isReservado, setIsReservado] = useState(false);
   const { idProduct } = useParams();
   const { userProfile, userSession } = useAuthorization();
   const handleClose = () => setError(false);
@@ -65,6 +66,9 @@ function ProductPage() {
         `${REACT_APP_BACKEND_API}products/${idProduct}`
       );
       const productData = responseData.data.data;
+      if (productData.status) {
+        setIsReservado(true);
+      }
       setProductInfo(productData);
 
       const productImages = productData.imagesURL.map((img) => {
@@ -81,6 +85,7 @@ function ProductPage() {
     }
     getProductInfo();
   }, [idProduct]);
+  console.log(productInfo);
 
   return (
     <div>
@@ -143,7 +148,7 @@ function ProductPage() {
                   <Rating name="read-only" value={4} readOnly />
                 </div>
                 <div className="buttons-user-card">
-                  {userSession && (
+                  {userSession && !isReservado && (
                     <SellerContact
                       idProduct={idProduct}
                       setIsCreated={setIsCreated}
