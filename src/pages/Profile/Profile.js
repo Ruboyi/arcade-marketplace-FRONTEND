@@ -64,7 +64,7 @@ function Profile() {
           )}
           <div>
             <h1>{userProfile.nameUser}</h1>
-            {avgRating > 0 ? <Rating name='read-only' value={avgRating} readOnly /> : <h2>No hay reviews</h2>}
+            {avgRating > 0 ? <Rating name='read-only' value={avgRating} readOnly /> : <h2>No hay valoraciones</h2>}
             {avgRating > 0 && <h3>{reviews.length} Valoraciones</h3>}
             <p>{userProfile.bio}</p>
           </div>
