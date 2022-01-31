@@ -1,10 +1,4 @@
-import {
-  CircularProgress,
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup
-} from '@mui/material';
+import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useAuthorization } from '../../hooks/useAuthorization';
@@ -21,7 +15,7 @@ import { DateTimePicker } from '@mui/lab';
 
 const { REACT_APP_BACKEND_API } = process.env;
 
-export default function ProductOrders({ idProduct, setError }) {
+export default function ProductOrders({ idProduct }) {
   const [productOrders, setProductOrders] = useState();
   const { userSession } = useAuthorization();
   const [saleDate, setSaleDate] = useState(new Date());
@@ -48,13 +42,17 @@ export default function ProductOrders({ idProduct, setError }) {
           config
         );
         let orders = response.data.data;
-        setProductOrders(orders);
+        if (orders.length === 0) {
+          setProductOrders(false);
+        } else {
+          setProductOrders(orders);
+        }
       } catch (error) {
-        setError(error.response.data.error);
+        console.log(error.response.data.error);
       }
     }
     getProductOrders();
-  }, [userSession, idProduct, setError]);
+  }, [userSession, idProduct]);
 
   const options = {
     weekday: 'long',
@@ -114,6 +112,8 @@ export default function ProductOrders({ idProduct, setError }) {
                           const { saleLocation, saleMessage, saleTypeOfContact } =
                             values;
 
+                          const mySQLDateString = saleDate.format();
+
                           try {
                             const config = {
                               headers: {
@@ -124,7 +124,7 @@ export default function ProductOrders({ idProduct, setError }) {
                             await axios.put(
                               `${REACT_APP_BACKEND_API}orders/${idProduct}/${order.idUserBuyer}`,
                               {
-                                saleDate,
+                                saleDate: mySQLDateString,
                                 saleLocation,
                                 saleMessage,
                                 saleTypeOfContact
@@ -132,9 +132,7 @@ export default function ProductOrders({ idProduct, setError }) {
                               config
                             );
 
-                            // setTimeout(() => {
-                            //   navigate('/profile'); // TODO NAVIGATE A MY PRODUCT ORDERS
-                            // }, 500);
+                            window.location.reload();
                           } catch (error) {
                             // setError(error.response.data.error);
                             console.log(error.response.data.error);
@@ -271,7 +269,7 @@ export default function ProductOrders({ idProduct, setError }) {
           );
         })
       ) : (
-        <CircularProgress />
+        <div>No tienes ordenes de compra para este producto</div>
       )}
     </div>
   );

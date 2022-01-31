@@ -25,14 +25,16 @@ function Myproducts() {
           Authorization: `Bearer ${userSession}`
         }
       };
-      const response = await axios.get(
-        `${REACT_APP_BACKEND_API}products/user/${idUser}`,
-        config
-      );
-      if (response.data.data.length === 0) {
-        setMyProductsLengthZero(true);
+      if (idUser) {
+        const response = await axios.get(
+          `${REACT_APP_BACKEND_API}products/user/${idUser}`,
+          config
+        );
+        if (response.data.data.length === 0) {
+          setMyProductsLengthZero(true);
+        }
+        setMyProducts(response.data.data);
       }
-      setMyProducts(response.data.data);
     }
     getMyProducts();
   }, [userSession, navigate, idUser]);
@@ -41,14 +43,8 @@ function Myproducts() {
     <div>
       <h1>Mis productos</h1>
       <GoBack />
-      {myProducts ? (
-        <ProductsGrid products={myProducts} />
-      ) : (
-        <CircularProgress />
-      )}
-      {myProductsLengthZero && (
-        <h2>Aún no has publicado ningún producto!</h2>
-      )}
+      {myProducts ? <ProductsGrid products={myProducts} /> : <CircularProgress />}
+      {myProductsLengthZero && <h2>Aún no has publicado ningún producto!</h2>}
     </div>
   );
 }
