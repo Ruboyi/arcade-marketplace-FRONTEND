@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Alert,
@@ -50,7 +50,7 @@ function ProductPage() {
   const handleClose = () => setError(false);
   const handleCloseIsCreated = () => setIsCreated(false);
   const navigate = useNavigate();
-  const [avgRating, setAvgRating] = useState()
+  const [avgRating, setAvgRating] = useState();
 
   //TODO urls para botones
   //const urlContacto = "";
@@ -84,16 +84,18 @@ function ProductPage() {
       );
       setSellerInfo(responseSeller.data);
 
-      const responseAvgRating = await axios.get(`${REACT_APP_BACKEND_API}reviews/rating/${productData.idUser}`)
+      const responseAvgRating = await axios.get(
+        `${REACT_APP_BACKEND_API}reviews/rating/${productData.idUser}`
+      );
       console.log(responseAvgRating.data.data[0].avgRating);
       if (responseAvgRating.data.data[0].avgRating > 0) {
-
-        setAvgRating(responseAvgRating.data.data[0].avgRating)
-      } else { setAvgRating('No hay valoraciones') }
+        setAvgRating(responseAvgRating.data.data[0].avgRating);
+      } else {
+        setAvgRating("No hay valoraciones");
+      }
     }
     getProductInfo();
   }, [idProduct]);
-  console.log(productInfo);
 
   return (
     <div>
@@ -198,6 +200,9 @@ function ProductPage() {
                   <ReviewsUser idUser={productInfo.idUser} />
                 </div>
               </Paper>
+            )}
+            {userProfile.idUser === productInfo.idUser && (
+              <Link to={`/update-product/${idProduct}`}>Editar</Link>
             )}
             {error && (
               <div>
