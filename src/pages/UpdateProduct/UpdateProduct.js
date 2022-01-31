@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
-import { useAuthorization } from '../../hooks/useAuthorization';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { useAuthorization } from "../../hooks/useAuthorization";
 import {
   Paper,
   TextField,
@@ -17,16 +17,29 @@ import {
   ImageList,
   ImageListItem,
   ImageListItemBar,
-  IconButton
-} from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
-import ListIcon from '@mui/icons-material/List';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddLocationIcon from '@mui/icons-material/AddLocation';
-import { Formik, Field } from 'formik';
-import GoBack from '../../components/GoBack/GoBack';
+  IconButton,
+  Modal,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import ListIcon from "@mui/icons-material/List";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
+import { Formik, Field } from "formik";
+import GoBack from "../../components/GoBack/GoBack";
+import { Box } from "@mui/system";
 
 const { REACT_APP_BACKEND_API } = process.env;
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 function UpdateProduct() {
   const { userSession } = useAuthorization();
@@ -36,10 +49,31 @@ function UpdateProduct() {
   const [error, setError] = useState();
   const [fichero, setFichero] = useState();
   const [preview, setPreview] = useState();
+  const [isDelete, setIsDelete] = useState(false);
+
+  const handleCloseIsDelete = () => setIsDelete(false);
+
+  async function deleteProduct() {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userSession}`,
+        },
+      };
+      await axios.delete(
+        `${REACT_APP_BACKEND_API}products/${idProduct}`,
+        config
+      );
+      setIsDelete(true);
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  }
+  console.log(isDelete);
 
   useEffect(() => {
     if (!userSession) {
-      navigate('/login');
+      navigate("/login");
     }
     async function getProductoData() {
       try {
@@ -69,8 +103,9 @@ function UpdateProduct() {
       <div>
         {productData && (
           <Paper
-            className='upload-product-form'
-            style={{ backgroundColor: 'white', marginTop: '20px' }}>
+            className="upload-product-form"
+            style={{ backgroundColor: "white", marginTop: "20px" }}
+          >
             <Formik
               initialValues={{
                 category: productData.category,
@@ -78,44 +113,38 @@ function UpdateProduct() {
                 description: productData.description,
                 price: productData.price,
                 state: productData.state,
-                location: productData.location
+                location: productData.location,
               }}
               validate={(values) => {
                 const errors = {};
 
                 if (!values.title) {
-                  errors.title = 'Título Required';
+                  errors.title = "Título Required";
                 }
                 if (!values.description) {
-                  errors.description = 'description Required';
+                  errors.description = "description Required";
                 }
                 if (!values.price) {
-                  errors.price = 'price Required';
+                  errors.price = "price Required";
                 }
                 if (!values.state) {
-                  errors.state = 'state Required';
+                  errors.state = "state Required";
                 }
                 if (!values.location) {
-                  errors.location = 'location Required';
+                  errors.location = "location Required";
                 }
                 return errors;
               }}
               onSubmit={async (values) => {
-                console.log('SUBMIT: ', values);
-                const {
-                  category,
-                  title,
-                  description,
-                  price,
-                  state,
-                  location
-                } = values;
+                console.log("SUBMIT: ", values);
+                const { category, title, description, price, state, location } =
+                  values;
 
                 try {
                   const config = {
                     headers: {
-                      Authorization: `Bearer ${userSession}`
-                    }
+                      Authorization: `Bearer ${userSession}`,
+                    },
                   };
                   const response = await axios.put(
                     `http://localhost:3000/api/v1/products/${idProduct}`,
@@ -125,7 +154,7 @@ function UpdateProduct() {
                       description,
                       price,
                       state,
-                      location
+                      location,
                     },
                     config
                   );
@@ -136,7 +165,7 @@ function UpdateProduct() {
                   const newFichero = [...fichero];
                   console.log(newFichero);
 
-                  formData.append('productImage', newFichero);
+                  formData.append("productImage", newFichero);
 
                   await axios.post(
                     `${REACT_APP_BACKEND_API}products/images/${productId}`,
@@ -145,65 +174,43 @@ function UpdateProduct() {
                   );
 
                   navigate(`/products/${productId}`);
-
                 } catch (error) {
                   setError(error.response);
                 }
-              }}>
-              {({
-                values,
-                errors,
-                touched,
-                handleChange,
-                handleSubmit
-              }) => (
+              }}
+            >
+              {({ values, errors, touched, handleChange, handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
                   <h2>
-                    Categoría <ListIcon />{' '}
+                    Categoría <ListIcon />{" "}
                   </h2>
                   <div>
                     <label>
-                      <Field
-                        type='radio'
-                        name='category'
-                        value='consolas'
-                      />{' '}
+                      <Field type="radio" name="category" value="consolas" />{" "}
                       Consola
                     </label>
                     <label>
-                      <Field
-                        type='radio'
-                        name='category'
-                        value='arcades'
-                      />{' '}
+                      <Field type="radio" name="category" value="arcades" />{" "}
                       Arcades
                     </label>
                     <label>
-                      <Field
-                        type='radio'
-                        name='category'
-                        value='videojuegos'
-                      />{' '}
+                      <Field type="radio" name="category" value="videojuegos" />{" "}
                       Videojuegos
                     </label>
                     <label>
-                      <Field
-                        type='radio'
-                        name='category'
-                        value='accesorios'
-                      />{' '}
+                      <Field type="radio" name="category" value="accesorios" />{" "}
                       Accesorios
                     </label>
                   </div>
                   <h2>Información</h2> <InfoIcon />
-                  <div className='titulo-precio'>
+                  <div className="titulo-precio">
                     <TextField
-                      margin='dense'
+                      margin="dense"
                       sx={{ marginRight: 1 }}
-                      className='titulo-producto'
-                      id='title'
-                      label='Título'
-                      variant='outlined'
+                      className="titulo-producto"
+                      id="title"
+                      label="Título"
+                      variant="outlined"
                       onChange={handleChange}
                       value={values.title}
                       error={errors.title && touched.title}
@@ -211,10 +218,10 @@ function UpdateProduct() {
                     />
 
                     <TextField
-                      margin='dense'
-                      id='price'
-                      label='Precio (€)'
-                      variant='outlined'
+                      margin="dense"
+                      id="price"
+                      label="Precio (€)"
+                      variant="outlined"
                       onChange={handleChange}
                       value={values.price}
                       error={errors.price && touched.price}
@@ -229,46 +236,46 @@ function UpdateProduct() {
                 errors.location} */}
                   <div>
                     <TextField
-                      margin='dense'
-                      id='description'
-                      label='Descripción del producto'
+                      margin="dense"
+                      id="description"
+                      label="Descripción del producto"
                       multiline
                       rows={4}
-                      variant='outlined'
+                      variant="outlined"
                       onChange={handleChange}
                       value={values.description}
                       error={errors.description && touched.description}
-                      helperText={
-                        touched.description && errors.description
-                      }
+                      helperText={touched.description && errors.description}
                       fullWidth
                     />
                   </div>
-                  <div className='estado-localidad'>
+                  <div className="estado-localidad">
                     <FormControl
                       fullWidth
-                      margin='dense'
+                      margin="dense"
                       sx={{ marginRight: 1 }}
-                      variant='outlined'>
-                      <InputLabel id='state'>Estado</InputLabel>
+                      variant="outlined"
+                    >
+                      <InputLabel id="state">Estado</InputLabel>
 
                       <Select
-                        className='estado'
+                        className="estado"
                         value={values.state}
-                        id='state'
-                        name='state'
-                        label='Estado'
-                        variant='standard'
+                        id="state"
+                        name="state"
+                        label="Estado"
+                        variant="standard"
                         onChange={handleChange}
                         error={errors.state && touched.state}
-                        state>
-                        <MenuItem value='' disabled>
+                        state
+                      >
+                        <MenuItem value="" disabled>
                           Selecciona el estado del producto
                         </MenuItem>
-                        <MenuItem value={'nuevo'}>Nuevo</MenuItem>
-                        <MenuItem value={'seminuevo'}>Seminuevo</MenuItem>
+                        <MenuItem value={"nuevo"}>Nuevo</MenuItem>
+                        <MenuItem value={"seminuevo"}>Seminuevo</MenuItem>
                         {/* <MenuItem value={"buen estado"}>Buen estado</MenuItem> */}
-                        <MenuItem value={'usado'}>Usado</MenuItem>
+                        <MenuItem value={"usado"}>Usado</MenuItem>
                         {/* <MenuItem value={"Malas condiciones"}>
                       Malas condiciones
                     </MenuItem> */}
@@ -276,20 +283,20 @@ function UpdateProduct() {
                     </FormControl>
 
                     <TextField
-                      margin='dense'
-                      id='location'
-                      label='Localidad'
-                      variant='outlined'
+                      margin="dense"
+                      id="location"
+                      label="Localidad"
+                      variant="outlined"
                       onChange={handleChange}
                       value={values.location}
                       error={errors.location && touched.location}
                       helperText={touched.location && errors.location}
                       InputProps={{
                         endAdornment: (
-                          <InputAdornment position='end'>
+                          <InputAdornment position="end">
                             <AddLocationIcon />
                           </InputAdornment>
-                        )
+                        ),
                       }}
                     />
                   </div>
@@ -300,18 +307,16 @@ function UpdateProduct() {
                 errors.state &&
             errors.location} */}
                   {Array.isArray(productData.imagesURL) ? (
-                    <div className='img-container-preview'>
+                    <div className="img-container-preview">
                       <ImageList sx={{ width: 400, height: 250 }}>
-                        <ImageListItem
-                          key='Subheader'
-                          cols={2}></ImageListItem>
+                        <ImageListItem key="Subheader" cols={2}></ImageListItem>
                         {productData.imagesURL.map((item) => (
                           <ImageListItem key={item}>
                             <img
                               src={`${item}?w=248&fit=crop&auto=format`}
                               srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                              alt={'img'}
-                              loading='lazy'
+                              alt={"img"}
+                              loading="lazy"
                             />
                             <ImageListItemBar
                               title={productData.title}
@@ -319,9 +324,10 @@ function UpdateProduct() {
                               actionIcon={
                                 <IconButton
                                   sx={{
-                                    color: 'rgba(255, 255, 255, 0.54)'
+                                    color: "rgba(255, 255, 255, 0.54)",
                                   }}
-                                  aria-label='delete'>
+                                  aria-label="delete"
+                                >
                                   <DeleteIcon />
                                 </IconButton>
                               }
@@ -333,9 +339,9 @@ function UpdateProduct() {
                   ) : (
                     <div>
                       <img
-                        className='img-preview'
+                        className="img-preview"
                         src={productData.imagesURL}
-                        alt='img'
+                        alt="img"
                       />
                     </div>
                   )}
@@ -343,19 +349,16 @@ function UpdateProduct() {
                     <h2>Subir imagen</h2>
                     <div>
                       <label>
-                        Imagen:{' '}
+                        Imagen:{" "}
                         <input
                           multiple
-                          accept='image/*'
-                          type={'file'}
+                          accept="image/*"
+                          type={"file"}
                           onChange={(event) => {
                             // console.log(event.target.files);
                             // console.log(event.target.files[0]);
                             const file = event.target.files[0];
-                            if (
-                              file &&
-                              file.type.substr(0, 5) === 'image'
-                            ) {
+                            if (file && file.type.substr(0, 5) === "image") {
                               setFichero(file);
                             } else {
                               setFichero(null);
@@ -368,32 +371,57 @@ function UpdateProduct() {
                       {fichero && (
                         <div>
                           <img
-                            className='img-preview'
+                            className="img-preview"
                             src={preview}
-                            alt='img'
+                            alt="img"
                           />
                         </div>
                       )}
                     </div>
                   </div>
                   {error && (
-                    <Stack sx={{ width: '100%', margin: 1 }} spacing={2}>
-                      <Alert severity='error'>
+                    <Stack sx={{ width: "100%", margin: 1 }} spacing={2}>
+                      <Alert severity="error">
                         <AlertTitle>Error</AlertTitle>
                         {error}
                       </Alert>
                     </Stack>
                   )}
+                  {isDelete && (
+                    <div>
+                      <Modal
+                        open={true}
+                        onClose={handleCloseIsDelete}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box style={style}>
+                          <Stack sx={{ width: "100%" }} spacing={2}>
+                            <Alert severity="success">
+                              <AlertTitle>Success</AlertTitle>
+                              Producto borrado correctamente
+                              <strong>;)</strong>
+                            </Alert>
+                          </Stack>
+                        </Box>
+                      </Modal>
+                    </div>
+                  )}
                   <Button
-                    type='submit'
-                    variant='contained'
+                    type="submit"
+                    variant="contained"
                     sx={{
-                      backgroundColor: '#3742A3',
+                      backgroundColor: "#3742A3",
                       width: 200,
                       marginBottom: 1,
-                      marginTop: 2
-                    }}>
+                      marginTop: 2,
+                    }}
+                  >
                     Editar
+                  </Button>
+                  <Button onClick={() => deleteProduct()}>
+                    {" "}
+                    Borrar producto
                   </Button>
                 </form>
               )}
