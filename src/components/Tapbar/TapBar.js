@@ -9,7 +9,7 @@ function TapBar() {
   return (
     <nav className='tapBar-navigation'>
       <div>
-        <Link to={'/'}>
+        <Link to={'/landing'}>
           <Icon className={'home-icon'}>home</Icon>
         </Link>
       </div>

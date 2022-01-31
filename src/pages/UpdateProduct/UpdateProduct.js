@@ -65,6 +65,9 @@ function UpdateProduct() {
         config
       );
       setIsDelete(true);
+      setTimeout(() => {
+        navigate('/my-products')
+      }, 3000);
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -399,7 +402,7 @@ function UpdateProduct() {
                           <Stack sx={{ width: "100%" }} spacing={2}>
                             <Alert severity="success">
                               <AlertTitle>Success</AlertTitle>
-                              Producto borrado correctamente
+                              Producto borrado correctamente, redireccionando a tus productos!
                               <strong>;)</strong>
                             </Alert>
                           </Stack>
