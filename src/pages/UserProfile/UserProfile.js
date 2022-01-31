@@ -8,34 +8,13 @@ import SimpleImageSlider from "react-simple-image-slider";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
-const data = [
-  {
-    userName: "Ruben",
-    img: "https://thispersondoesnotexist.com/",
-    rating: 5,
-    assessment: "Muy puntual y amable, el producto en buen estado",
-  },
-  {
-    userName: "Nacho",
-    img: "https://thispersondoesnotexist.com/",
-    rating: 3,
-    assessment:
-      "Como persona guay, pero el producto estaba un poquito en mal estado.",
-  },
-  {
-    userName: "Aaron",
-    img: "https://thispersondoesnotexist.com/",
-    rating: 4,
-    assessment:
-      "Todo bien, el producto tal y como esperaba, llego un poco tarde pero dentro de lo normal",
-  },
-];
 
 export default function UserProfile() {
   const { nameUser, idUser } = useParams();
   const [userData, setUserData] = useState();
   const [productsImages, setProductsImages] = useState();
   const [reviews, setReviews] = useState()
+  const [avgRating, setAvgRating] = useState()
 
   useEffect(() => {
     async function getUserData() {
@@ -67,11 +46,23 @@ export default function UserProfile() {
     async function getReviews() {
       try {
         const response = await axios.get(`${REACT_APP_BACKEND_API}reviews/${idUser}`)
-        setReviews(response.data.data);
+        const responseData = response.data.data
+
+        setReviews(responseData);
+        if (responseData.length > 1) {
+
+          const reducer = (previousValue, currentValue) => previousValue.rating + currentValue.rating;
+          const totalRating = responseData.reduce(reducer)
+
+          setAvgRating(Math.round(totalRating / responseData.length))
+        } else if (responseData.length === 1) {
+          setAvgRating(responseData[0].rating)
+        } else { setAvgRating('No hay valoraciones') }
       } catch (error) {
         console.log(error);
       }
     }
+
     getUserData();
     getProductsData();
     getReviews()
@@ -79,7 +70,7 @@ export default function UserProfile() {
 
   return (
     <div>
-      {userData ? (
+      {userData && avgRating ? (
         <Paper className="userProfile-container">
           <header className="header-userProfile">
             {userData.image ? (
@@ -99,7 +90,9 @@ export default function UserProfile() {
             )}
             <div>
               <h1>{nameUser}</h1>
-              <Rating name="read-only" value={4} readOnly />
+              {avgRating > 0 ? <Rating name='read-only' value={avgRating} readOnly /> : <h2>No hay reviews</h2>}
+              {avgRating > 0 && reviews.length > 1 ? <h3>{reviews.length} Valoraciones</h3> : null}
+              {avgRating > 0 && reviews.length === 1 ? <h3>1 Valoracion</h3> : null}
               <p>{userData.bio}</p>
             </div>
           </header>
