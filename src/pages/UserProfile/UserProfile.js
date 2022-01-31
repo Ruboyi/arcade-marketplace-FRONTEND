@@ -35,6 +35,7 @@ export default function UserProfile() {
   const { nameUser, idUser } = useParams();
   const [userData, setUserData] = useState();
   const [productsImages, setProductsImages] = useState();
+  const [reviews, setReviews] = useState()
 
   useEffect(() => {
     async function getUserData() {
@@ -63,9 +64,17 @@ export default function UserProfile() {
         console.log(error);
       }
     }
-
+    async function getReviews() {
+      try {
+        const response = await axios.get(`${REACT_APP_BACKEND_API}reviews/${idUser}`)
+        setReviews(response.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     getUserData();
     getProductsData();
+    getReviews()
   }, [idUser]);
 
   return (
@@ -96,18 +105,18 @@ export default function UserProfile() {
           </header>
           <main>
             <h1>Valoraciones</h1>
-            {data ? (
-              data.map((data) => (
-                <Paper elevation={6} className="data-card" key={data.userName}>
+            {reviews ? (
+              reviews.map((data) => (
+                <Paper elevation={6} className="data-card" key={data.nameUser}>
                   {data.image ? (
-                    <img src={data.img} alt="img" height={80} />
+                    <img src={data.image} alt="img" height={80} />
                   ) : (
                     <img src={defaultAvatar} alt="profile" height={80} />
                   )}
                   <div>
-                    <h2>{data.userName}</h2>
+                    <h2>{data.nameUser}</h2>
                     <Rating name="read-only" value={data.rating} readOnly />
-                    <p>{data.assessment}</p>
+                    <p>{data.opinion}</p>
                   </div>
                 </Paper>
               ))
