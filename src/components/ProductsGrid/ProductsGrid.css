@@ -14,3 +14,13 @@
  height: 120px ;
  margin-right: 20px;
 }
+.productGrid-card-container{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+   max-width: 600px;
+   margin: 0 auto;
+
+}
