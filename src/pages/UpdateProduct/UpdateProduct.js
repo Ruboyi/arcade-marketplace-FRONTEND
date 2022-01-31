@@ -19,6 +19,10 @@ import {
   ImageListItemBar,
   IconButton,
   Modal,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 import ListIcon from "@mui/icons-material/List";
@@ -27,6 +31,7 @@ import AddLocationIcon from "@mui/icons-material/AddLocation";
 import { Formik, Field } from "formik";
 import GoBack from "../../components/GoBack/GoBack";
 import { Box } from "@mui/system";
+import DialogContentText from "@mui/material/DialogContentText";
 
 const { REACT_APP_BACKEND_API } = process.env;
 const style = {
@@ -50,29 +55,43 @@ function UpdateProduct() {
   const [fichero, setFichero] = useState();
   const [preview, setPreview] = useState();
   const [isDelete, setIsDelete] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleCloseIsDelete = () => setIsDelete(false);
 
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userSession}`,
+    },
+  };
+
   async function deleteProduct() {
     try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userSession}`,
-        },
-      };
+      handleClose();
+
       await axios.delete(
         `${REACT_APP_BACKEND_API}products/${idProduct}`,
         config
       );
       setIsDelete(true);
       setTimeout(() => {
-        navigate('/my-products')
+        navigate("/my-products");
       }, 3000);
     } catch (error) {
       setError(error.response.data.error);
     }
   }
-  console.log(isDelete);
+
+  async function deleteImageProduct(id) {
+    try {
+      await axios.delete(`${REACT_APP_BACKEND_API}products/image/${id}`);
+    } catch (error) {
+      setError(error.response.data.error);
+    }
+  }
 
   useEffect(() => {
     if (!userSession) {
@@ -99,6 +118,8 @@ function UpdateProduct() {
       setPreview(null);
     }
   }, [userSession, fichero, navigate, idProduct]);
+
+  console.log(productData);
 
   return (
     <main>
@@ -326,6 +347,7 @@ function UpdateProduct() {
                               subtitle={`Creada : ${productData.createdAt.toString()}`}
                               actionIcon={
                                 <IconButton
+                                  onClick={() => deleteImageProduct(item.id)}
                                   sx={{
                                     color: "rgba(255, 255, 255, 0.54)",
                                   }}
@@ -402,7 +424,8 @@ function UpdateProduct() {
                           <Stack sx={{ width: "100%" }} spacing={2}>
                             <Alert severity="success">
                               <AlertTitle>Success</AlertTitle>
-                              Producto borrado correctamente, redireccionando a tus productos!
+                              Producto borrado correctamente, redireccionando a
+                              tus productos!
                               <strong>;)</strong>
                             </Alert>
                           </Stack>
@@ -422,10 +445,40 @@ function UpdateProduct() {
                   >
                     Editar
                   </Button>
-                  <Button onClick={() => deleteProduct()}>
-                    {" "}
-                    Borrar producto
+                  <Button
+                    sx={{
+                      width: 200,
+                      marginBottom: 1,
+                      marginTop: 2,
+                      marginLeft: 1,
+                    }}
+                    variant="outlined"
+                    onClick={handleClickOpen}
+                  >
+                    Elimniar
                   </Button>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      ¿Estas seguro de borrar este producto?
+                    </DialogTitle>
+                    <DialogContent>
+                      <DialogContentText id="alert-dialog-description">
+                        Este proceso es irreversible y cancelará todas las
+                        ordenes de compra de este producto
+                      </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={handleClose}>Cancelar</Button>
+                      <Button onClick={deleteProduct} autoFocus>
+                        Eliminar
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                 </form>
               )}
             </Formik>
