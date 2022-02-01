@@ -119,8 +119,6 @@ function UpdateProduct() {
     }
   }, [userSession, fichero, navigate, idProduct]);
 
-  console.log(productData);
-
   return (
     <main>
       <GoBack />
@@ -170,7 +168,7 @@ function UpdateProduct() {
                       Authorization: `Bearer ${userSession}`,
                     },
                   };
-                  const response = await axios.put(
+                  await axios.put(
                     `http://localhost:3000/api/v1/products/${idProduct}`,
                     {
                       category,
@@ -183,22 +181,23 @@ function UpdateProduct() {
                     config
                   );
 
-                  const { productId } = response.data;
+                  if (fichero) {
+                    const formData = new FormData();
+                    // const newFichero = [...fichero];
+                    // console.log(newFichero);
 
-                  const formData = new FormData();
-                  const newFichero = [...fichero];
-                  console.log(newFichero);
+                    formData.append("productImage", fichero);
 
-                  formData.append("productImage", newFichero);
+                    await axios.post(
+                      `${REACT_APP_BACKEND_API}products/images/${idProduct}`,
+                      formData,
+                      config
+                    );
+                  }
 
-                  await axios.post(
-                    `${REACT_APP_BACKEND_API}products/images/${productId}`,
-                    formData,
-                    config
-                  );
-
-                  navigate(`/products/${productId}`);
+                  navigate(`/products/${idProduct}`);
                 } catch (error) {
+                  console.log(error);
                   setError(error.response);
                 }
               }}
@@ -388,7 +387,6 @@ function UpdateProduct() {
                             } else {
                               setFichero(null);
                             }
-                            console.log(file);
                             setFichero(file);
                           }}
                         />
