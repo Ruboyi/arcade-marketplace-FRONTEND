@@ -1,19 +1,18 @@
 import { CircularProgress } from "@mui/material";
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
-const { REACT_APP_BACKEND_API } = process.env;
+import { getProducts } from "../../services/getData";
 
 function Products() {
   const [products, setProducts] = useState("");
 
   useEffect(() => {
-    async function getProducts() {
-      const response = await axios.get(`${REACT_APP_BACKEND_API}products`);
-
-      setProducts(response.data.data);
+    async function getData() {
+      const products = await getProducts();
+      setProducts(products);
     }
-    getProducts();
+    getData();
   }, []);
 
   return (
