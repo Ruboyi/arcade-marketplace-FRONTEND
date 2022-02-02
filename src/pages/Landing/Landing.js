@@ -3,10 +3,10 @@ import Tab from "@mui/material/Tab";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
 import SimpleImageSlider from "react-simple-image-slider";
-import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
+
 import "./Landing.css";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -14,7 +14,6 @@ export default function Landing() {
   const [value, setValue] = useState(0);
   const [productsImages, setProductsImages] = useState();
   const [productsData, setProductsData] = useState();
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function getProducts() {
@@ -71,29 +70,7 @@ export default function Landing() {
           <h1>Productos más buscados</h1>
           <div className="product-card-container">
             {productsData ? (
-              productsData.map((product) => (
-                <Paper
-                  key={product.idProduct}
-                  elevation={6}
-                  className="product-card"
-                >
-                  <img
-                    onClick={() => navigate(`/products/${product.idProduct}`)}
-                    src={product.images[0]}
-                    alt="product-img"
-                    width="180vh"
-                    height="150px"
-                  />
-                  <div className="product-card-header">
-                    <h2 className="title-product-card">{product.price}€</h2>
-                    <FavoriteButton
-                      className="favorite-button-product-card"
-                      idProduct={product.idProduct}
-                    />
-                  </div>
-                  <p>{product.title}</p>
-                </Paper>
-              ))
+              productsData.map((product) => <ProductCard product={product} />)
             ) : (
               <CircularProgress />
             )}
