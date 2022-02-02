@@ -19,6 +19,7 @@ import Settings from "./pages/Settings/Settings";
 import MyProductsPurchaseOrders from "./pages/MyProductPurchaseOrders/MyProductsPurchaseOrders";
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Landing from "./pages/Landing/Landing";
+import NotFoundComponent from "./components/NotFound/NotFound";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           element={<MyProductsPurchaseOrders />}
         />
         <Route path="/user/:nameUser/:idUser" element={<UserProfile />} />
+        <Route path="*" element={<NotFoundComponent />} />
       </Routes>
       <TapBar />
     </div>
