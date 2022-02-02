@@ -1,13 +1,10 @@
-import { Paper } from "@mui/material";
-import { useNavigate } from "react-router";
-import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import { CircularProgress, Paper } from "@mui/material";
+import ProductCard from "../ProductCard/ProductCard";
 
 // import imgDefault from '../../assets/imagen_articulo_por_defecto.jpg';
 import "./ProductsGrid.css";
 
 function ProductsGrid({ products }) {
-  const navigate = useNavigate();
-
   let productsProcessed = products;
   const actualUrl = window.location.href;
 
@@ -27,31 +24,9 @@ function ProductsGrid({ products }) {
     <div>
       <Paper className="productGrid-card-container">
         {isProductsAnArray ? (
-          productsProcessed.map((product) => (
-            <Paper
-              key={product.idProduct}
-              elevation={6}
-              className="product-card"
-            >
-              <img
-                onClick={() => navigate(`/products/${product.idProduct}`)}
-                src={product.images[0]}
-                alt="product-img"
-                width="180vh"
-                height="150px"
-              />
-              <div className="product-card-header">
-                <h2 className="title-product-card">{product.price}€</h2>
-                <FavoriteButton
-                  className="favorite-button-product-card"
-                  idProduct={product.idProduct}
-                />
-              </div>
-              <p>{product.title}</p>
-            </Paper>
-          ))
+          productsProcessed.map((product) => <ProductCard product={product} />)
         ) : (
-          <h1>{products}</h1>
+          <CircularProgress />
         )}
       </Paper>
     </div>
