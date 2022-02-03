@@ -1,6 +1,5 @@
 .header-principal{
-    background-color: black;
-    border-radius: 4px;
+    background-color: rgb(0, 17, 73);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -13,5 +12,22 @@
 }
 .small-logo {
     margin: 0;
-    height: 70px;
+    height: 60px;
+}
+
+.header-principal > div{
+    display: flex;
+}
+.header-principal > div > input {
+    border: none;
+    padding: 5px;
+    margin: 10px;
+}
+.header-principal > div > button{
+    border: none;
+    background-color: transparent;
+    
+}
+.header-principal > div > button > img{
+    height: 20px;
 }

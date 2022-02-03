@@ -97,7 +97,7 @@ function FavoriteButton({ idProduct }) {
             onClick={() => addOrDeleteFavorites()}
           >
             <Badge badgeContent={numberOfFavs}>
-              <FavoriteIcon sx={{ color: "red" }} fontSize="large" />
+              <FavoriteIcon sx={{ color: "rgba(244, 158, 255)" }} fontSize="large" />
             </Badge>
           </IconButton>
         </>

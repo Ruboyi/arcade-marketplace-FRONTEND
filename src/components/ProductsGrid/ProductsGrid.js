@@ -17,6 +17,15 @@ function ProductsGrid({ products }) {
     );
     console.log(productsProcessed);
   }
+  if (actualUrl.includes("category")) {
+    const position = actualUrl.search("category=") + 9;
+    const search = actualUrl.slice(position);
+    console.log(search);
+    productsProcessed = products.filter((product) =>
+      product.category.toLowerCase().includes(search.toLocaleLowerCase())
+    );
+    console.log(productsProcessed);
+  }
 
   const isProductsAnArray = Array.isArray(productsProcessed);
 
