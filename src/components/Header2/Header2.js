@@ -17,6 +17,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import logo from "../../assets/joy.png";
+import { useAuthorization } from "../../hooks/useAuthorization";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -64,6 +65,7 @@ export default function PrimarySearchAppBar() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isActualUrlProducts, setIsActualUrlProducts] = React.useState();
   const navigate = useNavigate();
+  const { logout } = useAuthorization();
   let actualUrl = window.location.href;
 
   React.useEffect(() => {
@@ -93,6 +95,15 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const toProfile = () => {
+    navigate("/profile");
+    handleMenuClose();
+  };
+  const toSettings = () => {
+    navigate("/settings");
+    handleMenuClose();
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -110,8 +121,11 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={toProfile}>Perfil</MenuItem>
+      <MenuItem onClick={toSettings}>Ajustes</MenuItem>
+      <MenuItem onClick={logout} onClose={handleMenuClose}>
+        Cerrar Sesión
+      </MenuItem>
     </Menu>
   );
 
@@ -133,7 +147,12 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+        <IconButton
+          size="large"
+          aria-label="show 4 new mails"
+          color="inherit"
+          onClick={() => navigate("/my-reviews")}
+        >
           <Badge badgeContent={4} color="error">
             <MailIcon />
           </Badge>
@@ -145,6 +164,7 @@ export default function PrimarySearchAppBar() {
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
+          onClick={() => navigate("/my-products/purchase-orders")}
         >
           <Badge badgeContent={17} color="error">
             <NotificationsIcon />
@@ -162,7 +182,7 @@ export default function PrimarySearchAppBar() {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Perfil</p>
       </MenuItem>
     </Menu>
   );
@@ -236,6 +256,7 @@ export default function PrimarySearchAppBar() {
               size="large"
               aria-label="show 4 new mails"
               color="inherit"
+              onClick={() => navigate("/my-reviews")}
             >
               <Badge badgeContent={4} color="error">
                 <MailIcon />
@@ -245,6 +266,7 @@ export default function PrimarySearchAppBar() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              onClick={() => navigate("/my-products/purchase-orders")}
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
