@@ -3,22 +3,25 @@ import { CircularProgress, Paper/* , Tabs */ } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router";
 import SimpleImageSlider from "react-simple-image-slider";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
 import consolasLogo from '../../assets/gameboy.png'
 import videojuegosLogo from '../../assets/cd.png'
 import accesoriosLogo from '../../assets/gamepad.png'
 import arcadesLogo from '../../assets/arcade.png'
+
 import "./Landing.css";
+import ProductCard from "../../components/ProductCard/ProductCard";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
 export default function Landing() {
+
   //const [value, setValue] = useState(0);
   const [productsDataMostViewed, setProductsDataMostViewed] = useState();
   const [newProductsImages, setNewProductsImages] = useState()
   const navigate = useNavigate();
+
 
   useEffect(() => {
     async function getMostViewedProducts() {

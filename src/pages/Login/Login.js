@@ -4,71 +4,78 @@ import {
   Button,
   Paper,
   Stack,
-  TextField
-} from '@mui/material';
-import { Link } from 'react-router-dom';
-import { Formik } from 'formik';
-import './login.css';
-import logo from '../../assets/logosinfondo.png';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router';
-import GoBack from '../../components/GoBack/GoBack';
+  TextField,
+} from "@mui/material";
+import { Link } from "react-router-dom";
+import { Formik } from "formik";
+import "./login.css";
+import logo from "../../assets/logosinfondo.png";
+import { useAuthorization } from "../../hooks/useAuthorization";
+import { useEffect } from "react";
+import { useNavigate } from "react-router";
+import GoBack from "../../components/GoBack/GoBack";
+import GoogleLogin from "react-google-login";
 
 function Login() {
   const { login, error, userSession } = useAuthorization();
   const navigate = useNavigate();
   useEffect(() => {
     if (userSession) {
-      navigate('/profile');
+      navigate("/profile");
     }
   }, [userSession, navigate]);
+
+  const responseGoogle = (response) => {
+    console.log(response);
+  };
+
   return (
     <div>
-      <header className='header-login'>
-        <img className='img-login' src={logo} alt='logo' />
+      <header className="header-login">
+        <img className="img-login" src={logo} alt="logo" />
         <h1>Inicia sesión</h1>
       </header>
       <GoBack />
       {!userSession && (
-        <Paper className='login-container'>
+        <Paper className="login-container">
           <Formik
             initialValues={{
-              email: '',
-              password: ''
+              email: "",
+              password: "",
             }}
             validate={(values) => {
               const errors = {};
 
               if (!values.email) {
-                errors.email = 'email requerido!';
+                errors.email = "email requerido!";
               }
 
               if (!values.password) {
-                errors.password = 'Contraseña requerida!';
+                errors.password = "Contraseña requerida!";
               }
 
               return errors;
             }}
             onSubmit={async (values) => {
               login(values.email, values.password);
-            }}>
+            }}
+          >
             {({
               values,
               errors,
               touched,
               handleChange,
 
-              handleSubmit
+              handleSubmit,
             }) => (
               <form onSubmit={handleSubmit}>
-                <div className='field-container'>
+                <div className="field-container">
                   <TextField
-                    id='email'
-                    name='email'
-                    type='email'
-                    label='Email'
-                    variant='standard'
+                    id="email"
+                    name="email"
+                    type="email"
+                    label="Email"
+                    variant="standard"
                     onChange={handleChange}
                     value={values.email}
                     error={errors.email && touched.email}
@@ -77,13 +84,13 @@ function Login() {
                   />
                 </div>
 
-                <div className='field-container'>
+                <div className="field-container">
                   <TextField
-                    id='password'
-                    name='password'
-                    type={'password'}
-                    label='Password'
-                    variant='standard'
+                    id="password"
+                    name="password"
+                    type={"password"}
+                    label="Password"
+                    variant="standard"
                     onChange={handleChange}
                     value={values.password}
                     error={errors.password && touched.password}
@@ -92,27 +99,28 @@ function Login() {
                   />
                 </div>
                 {error && (
-                  <Stack sx={{ width: '100%' }} spacing={2}>
-                    <Alert severity='error'>
+                  <Stack sx={{ width: "100%" }} spacing={2}>
+                    <Alert severity="error">
                       <AlertTitle>Error</AlertTitle>
                       {error}
                     </Alert>
                   </Stack>
                 )}
-                <div className='button-submit-container'>
+                <div className="button-submit-container">
                   <Button
-                    type='submit'
-                    variant='contained'
+                    type="submit"
+                    variant="contained"
                     sx={{
-                      backgroundColor: '#3742A3',
+                      backgroundColor: "#3742A3",
                       width: 200,
                       marginBottom: 1,
-                      marginTop: 1
-                    }}>
+                      marginTop: 1,
+                    }}
+                  >
                     Login
                   </Button>
                   <div>
-                    <Link to={'/register'}>
+                    <Link to={"/register"}>
                       ¿Aún no tienes cuenta ? Registrate aquí!
                     </Link>
                   </div>
@@ -120,11 +128,19 @@ function Login() {
               </form>
             )}
           </Formik>
+          <GoogleLogin
+            clientId="545228991511-smtjvog63lcuf028rddc2gjf0qtg3vn4.apps.googleusercontent.com"
+            buttonText="Inicia Session"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+          />
+          ,
         </Paper>
       )}
       {userSession && (
-        <Stack sx={{ width: '100%' }} spacing={2}>
-          <Alert severity='success'>
+        <Stack sx={{ width: "100%" }} spacing={2}>
+          <Alert severity="success">
             <AlertTitle>Success</AlertTitle>
             Redireccionando a tu perfil... — <strong>Logueado!</strong>
           </Alert>

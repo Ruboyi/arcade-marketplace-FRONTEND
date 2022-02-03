@@ -1,28 +1,8 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import GoBack from '../../components/GoBack/GoBack';
-
-// const reviews = [
-//   {
-//     opinion: "Buen comprador",
-//     rating: 2,
-//     isSeller: 0,
-//     idReview: 0,
-//   },
-//   {
-//     opinion: "Buen comprador",
-//     rating: 2,
-//     isSeller: 0,
-//     idReview: 1,
-//   },
-//   {
-//     opinion: "Buen comprador",
-//     rating: 2,
-//     isSeller: 0,
-//     idReview: 2,
-//   },
-// ];
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAuthorization } from "../../hooks/useAuthorization";
+import GoBack from "../../components/GoBack/GoBack";
+import ReviewCard from "../../components/ReviewCard/ReviewCard";
 
 function MyReviews() {
   const [reviews, setReviews] = useState();
@@ -51,18 +31,7 @@ function MyReviews() {
     <div>
       <GoBack />
       <h1>Mis valoraciones</h1>
-      {reviews &&
-        reviews.map((review) => {
-          return (
-            <div key={review.idReview}>
-              <h2> Rating: {review.rating}</h2>
-              <h2> Opinión: {review.opinion}</h2>
-              <h2>
-                {review.isSeller === 1 ? 'Es vendedor' : 'Es comprador'}
-              </h2>
-            </div>
-          );
-        })}
+      {reviews && reviews.map((review) => <ReviewCard review={review} />)}
       {error && <h2>{error}</h2>}
     </div>
   );
