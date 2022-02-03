@@ -1,5 +1,5 @@
 import logo from "../../assets/joy.png";
-
+import searchIcon from '../../assets/magnifying-glass.png'
 import "./Header.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ function Header() {
   return (
     <header className="header-principal">
       <img className="small-logo" src={logo} alt="small-logo" />
-      {isActualUrlProducts ? (<input
+      <div>{isActualUrlProducts ? (<input
         placeholder="Filtrar"
         value={searchParams.get("search") || ""}
         onChange={event => {
@@ -40,7 +40,8 @@ function Header() {
           }
         }}
       />)}
-      {isActualUrlProducts ? (null) : (<button onClick={() => navigate(`/products?${searchParams}`)}>Lupa</button>)}
+        {isActualUrlProducts ? (null) : (<button onClick={() => navigate(`/products?${searchParams}`)}><img src={searchIcon} /></button>)}
+      </div>
     </header>
   );
 }

@@ -4,34 +4,39 @@
     position: sticky;
     bottom: 0;
     width: 100%;
-    background-color: black;
-    border-radius: 8px;
+    background-color: rgb(0, 17, 73);
+    
     align-items: center;
+    border-top: rgba(174, 156, 255, 0.486) inset 1px;
     
 }
 .favorite-icon {
-    color: #D96BDD;
-    margin-top: 8px;
+    color: #fdb8ff;
+    margin: 10px;
     font-size: 40px !important;
 
 }
 .home-icon {
-    color: #D96BDD;
-    margin-top:8px;
+    color: #fdb8ff;
+    margin:10px;
     font-size: 40px !important;
 }
 .login-icon {
-    color: #D96BDD;
-    margin-top:8px;
+    color: #fbaefd;
+    margin: 10px;
     font-size: 40px !important;
+    border: #fdb8ff outset 5px;
+    border-radius: 50%;
 }
 .add-icon {
-    color: #D96BDD;
-    margin-top:8px;
+    color: #fdb8ff;
+    margin: 10px;
     font-size: 40px !important;
 }
 .img-tapbar {
-    height: 40px;
+    height: 30px;
+    margin: 10px;
     border-radius: 50%;
+    border: #fdb8ff outset 5px;
     
 }
