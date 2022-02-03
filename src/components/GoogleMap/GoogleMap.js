@@ -20,7 +20,7 @@ export default function GoogleMap() {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <AnyReactComponent lat={43.3715} lng={-8.39597} text="My Marker" />
+        <AnyReactComponent lat={43.3715} lng={-8.39597} text="Aquí" />
       </GoogleMapReact>
     </div>
   );
