@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
-import Header from "./components/Header/Header";
+import Header2 from "./components/Header2/Header2";
 import TapBar from "./components/Tapbar/TapBar";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -24,7 +24,7 @@ import NotFoundComponent from "./components/NotFound/NotFound";
 function App() {
   return (
     <div className="App">
-      <Header />
+      <Header2 />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/landing" element={<Landing />} />
