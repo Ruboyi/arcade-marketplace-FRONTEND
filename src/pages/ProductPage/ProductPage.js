@@ -23,6 +23,7 @@ import ReportIcon from "@mui/icons-material/Report";
 import SellerContact from "../../components/SellerContact/SellerContact";
 import { Box } from "@mui/system";
 import ReviewsUser from "../../components/Reviews/Reviews";
+import GoogleMap from "../../components/GoogleMap/GoogleMap";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -138,6 +139,7 @@ function ProductPage() {
               <p>{productInfo.state}</p>
               <p>{productInfo.description}</p>
               <p>Localizacion: {productInfo.location}</p>
+              <GoogleMap />
             </div>
             {userProfile.idUser !== productInfo.idUser && !isNaN(avgRating) && (
               <Paper elevation={3} className="user-card">
