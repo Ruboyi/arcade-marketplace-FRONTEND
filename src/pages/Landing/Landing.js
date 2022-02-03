@@ -1,32 +1,33 @@
-import { CircularProgress, Paper/* , Tabs */ } from "@mui/material";
+import { CircularProgress, Paper /* , Tabs */ } from "@mui/material";
 //import Tab from "@mui/material/Tab";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
-import consolasLogo from '../../assets/gameboy.png'
-import videojuegosLogo from '../../assets/cd.png'
-import accesoriosLogo from '../../assets/gamepad.png'
-import arcadesLogo from '../../assets/arcade.png'
+import consolasLogo from "../../assets/gameboy.png";
+import videojuegosLogo from "../../assets/cd.png";
+import accesoriosLogo from "../../assets/gamepad.png";
+import arcadesLogo from "../../assets/arcade.png";
+import { useNavigate } from "react-router";
 
 import "./Landing.css";
-import ProductCard from "../../components/ProductCard/ProductCard";
+// import ProductCard from "../../components/ProductCard/ProductCard";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
 export default function Landing() {
-
   //const [value, setValue] = useState(0);
   const [productsDataMostViewed, setProductsDataMostViewed] = useState();
-  const [newProductsImages, setNewProductsImages] = useState()
+  const [newProductsImages, setNewProductsImages] = useState();
   const navigate = useNavigate();
-
 
   useEffect(() => {
     async function getMostViewedProducts() {
       try {
-        const response = await axios.get(`${REACT_APP_BACKEND_API}products/ordered-by-times-visited`);
+        const response = await axios.get(
+          `${REACT_APP_BACKEND_API}products/ordered-by-times-visited`
+        );
         const products = response.data.data;
         setProductsDataMostViewed(products);
 
@@ -35,16 +36,16 @@ export default function Landing() {
             url: product.images[0],
           };
         });
-
       } catch (error) {
         console.log(error);
       }
     }
     async function getNewProducts() {
       try {
-        const response = await axios.get(`${REACT_APP_BACKEND_API}products/new-products`);
+        const response = await axios.get(
+          `${REACT_APP_BACKEND_API}products/new-products`
+        );
         const products = response.data.data;
-
 
         const productImages = products.map((product) => {
           return {
@@ -56,7 +57,7 @@ export default function Landing() {
         console.log(error);
       }
     }
-    getNewProducts()
+    getNewProducts();
     getMostViewedProducts();
   }, []);
 
@@ -66,16 +67,26 @@ export default function Landing() {
       <Paper elevation={2}>
         <nav className="categories">
           <div>
-            <a href="/products?category=consolas"><img src={consolasLogo} alt="consolas logo"></img>Consolas</a>
+            <a href="/products?category=consolas">
+              <img src={consolasLogo} alt="consolas logo"></img>Consolas
+            </a>
           </div>
           <div>
-            <a href="/products?category=videojuegos"><img src={videojuegosLogo} alt="videojuegos logo"></img>Videojuegos</a>
+            <a href="/products?category=videojuegos">
+              <img src={videojuegosLogo} alt="videojuegos logo"></img>
+              Videojuegos
+            </a>
           </div>
           <div>
-            <a href="/products?category=accesorios"><img src={accesoriosLogo} alt="accesorios logo"></img>Accesorios</a>
+            <a href="/products?category=accesorios">
+              <img src={accesoriosLogo} alt="accesorios logo"></img>Accesorios
+            </a>
           </div>
-          <div >
-            <a href="/products?category=arcades"> <img src={arcadesLogo} alt="arcades logo"></img>Arcades</a>
+          <div>
+            <a href="/products?category=arcades">
+              {" "}
+              <img src={arcadesLogo} alt="arcades logo"></img>Arcades
+            </a>
           </div>
         </nav>
         {/* <Tabs
@@ -127,7 +138,8 @@ export default function Landing() {
         <h1>Ultimos Productos Publicados</h1>
         {newProductsImages ? (
           <div className="slider">
-            <SimpleImageSlider className={'rsis-container'}
+            <SimpleImageSlider
+              className={"rsis-container"}
               width={250}
               height={225}
               images={newProductsImages}
