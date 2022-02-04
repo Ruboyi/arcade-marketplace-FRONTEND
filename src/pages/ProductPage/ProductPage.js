@@ -24,8 +24,9 @@ import SellerContact from "../../components/SellerContact/SellerContact";
 import { Box } from "@mui/system";
 import ReviewsUser from "../../components/Reviews/Reviews";
 import GoogleMap from "../../components/GoogleMap/GoogleMap";
+import { SettingsInputComponentRounded } from "@mui/icons-material";
 
-const { REACT_APP_BACKEND_API } = process.env;
+const { REACT_APP_BACKEND_API, REACT_APP_GOOGLE_MAP_KEY } = process.env;
 
 const style = {
   position: "absolute",
@@ -52,6 +53,7 @@ function ProductPage() {
   const handleCloseIsCreated = () => setIsCreated(false);
   const navigate = useNavigate();
   const [avgRating, setAvgRating] = useState();
+  const [coords, setCoords] = useState({});
 
   //TODO urls para botones
   //const urlContacto = "";
@@ -88,14 +90,26 @@ function ProductPage() {
       const responseAvgRating = await axios.get(
         `${REACT_APP_BACKEND_API}reviews/rating/${productData.idUser}`
       );
-      console.log(responseAvgRating.data.data[0].avgRating);
       if (responseAvgRating.data.data[0].avgRating > 0) {
         setAvgRating(responseAvgRating.data.data[0].avgRating);
       } else {
         setAvgRating("No hay valoraciones");
       }
     }
+
+    async function getGeolocatationProduct() {
+      try {
+        const { location } = productInfo;
+        const response = await axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?key=${REACT_APP_GOOGLE_MAP_KEY}&address=${location}`
+        );
+        setCoords(response.data.results[0].geometry.location);
+      } catch (error) {
+        console.log(error);
+      }
+    }
     getProductInfo();
+    if (productInfo) getGeolocatationProduct();
   }, [idProduct]);
 
   return (
@@ -139,7 +153,7 @@ function ProductPage() {
               <p>{productInfo.state}</p>
               <p>{productInfo.description}</p>
               <p>Localizacion: {productInfo.location}</p>
-              <GoogleMap />
+              <GoogleMap coords={coords} />
             </div>
             {userProfile.idUser !== productInfo.idUser && !isNaN(avgRating) && (
               <Paper elevation={3} className="user-card">

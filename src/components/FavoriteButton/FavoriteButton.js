@@ -41,7 +41,8 @@ function FavoriteButton({ idProduct }) {
         console.log(error);
       }
     }
-    getFavorites();
+
+    if (userSession) getFavorites();
   }, [idProduct, userSession, numberOfFavs, navigate]);
 
   async function addOrDeleteFavorites() {
@@ -97,7 +98,10 @@ function FavoriteButton({ idProduct }) {
             onClick={() => addOrDeleteFavorites()}
           >
             <Badge badgeContent={numberOfFavs}>
-              <FavoriteIcon sx={{ color: "rgba(244, 158, 255)" }} fontSize="large" />
+              <FavoriteIcon
+                sx={{ color: "rgba(244, 158, 255)" }}
+                fontSize="large"
+              />
             </Badge>
           </IconButton>
         </>
