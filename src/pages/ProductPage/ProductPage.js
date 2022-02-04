@@ -24,9 +24,8 @@ import SellerContact from "../../components/SellerContact/SellerContact";
 import { Box } from "@mui/system";
 import ReviewsUser from "../../components/Reviews/Reviews";
 import GoogleMap from "../../components/GoogleMap/GoogleMap";
-import { SettingsInputComponentRounded } from "@mui/icons-material";
 
-const { REACT_APP_BACKEND_API, REACT_APP_GOOGLE_MAP_KEY } = process.env;
+const { REACT_APP_BACKEND_API } = process.env;
 
 const style = {
   position: "absolute",
@@ -53,7 +52,6 @@ function ProductPage() {
   const handleCloseIsCreated = () => setIsCreated(false);
   const navigate = useNavigate();
   const [avgRating, setAvgRating] = useState();
-  const [coords, setCoords] = useState({});
 
   //TODO urls para botones
   //const urlContacto = "";
@@ -97,19 +95,7 @@ function ProductPage() {
       }
     }
 
-    async function getGeolocatationProduct() {
-      try {
-        const { location } = productInfo;
-        const response = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?key=${REACT_APP_GOOGLE_MAP_KEY}&address=${location}`
-        );
-        setCoords(response.data.results[0].geometry.location);
-      } catch (error) {
-        console.log(error);
-      }
-    }
     getProductInfo();
-    if (productInfo) getGeolocatationProduct();
   }, [idProduct]);
 
   return (
@@ -153,7 +139,7 @@ function ProductPage() {
               <p>{productInfo.state}</p>
               <p>{productInfo.description}</p>
               <p>Localizacion: {productInfo.location}</p>
-              <GoogleMap coords={coords} />
+              <GoogleMap location={productInfo.location} />
             </div>
             {userProfile.idUser !== productInfo.idUser && !isNaN(avgRating) && (
               <Paper elevation={3} className="user-card">
