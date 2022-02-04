@@ -18,6 +18,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import logo from "../../assets/joy.png";
 import { useAuthorization } from "../../hooks/useAuthorization";
+import useNotification from "../../hooks/useNotifications";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -66,7 +67,10 @@ export default function PrimarySearchAppBar() {
   const [isActualUrlProducts, setIsActualUrlProducts] = React.useState();
   const navigate = useNavigate();
   const { logout } = useAuthorization();
+  const { numbReviews, numbPurcharseOrders } = useNotification();
   let actualUrl = window.location.href;
+
+  console.log(numbPurcharseOrders);
 
   React.useEffect(() => {
     setIsActualUrlProducts(
@@ -146,27 +150,21 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 4 new mails"
-          color="inherit"
-          onClick={() => navigate("/my-reviews")}
-        >
-          <Badge badgeContent={4} color="error">
+      <MenuItem onClick={() => navigate("/my-reviews")}>
+        <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={numbReviews} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={() => navigate("/my-products/purchase-orders")}>
         <IconButton
           size="large"
           aria-label="show 17 new notifications"
           color="inherit"
-          onClick={() => navigate("/my-products/purchase-orders")}
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={1} color="error">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -258,7 +256,7 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               onClick={() => navigate("/my-reviews")}
             >
-              <Badge badgeContent={4} color="error">
+              <Badge badgeContent={numbReviews} color="error">
                 <MailIcon />
               </Badge>
             </IconButton>
