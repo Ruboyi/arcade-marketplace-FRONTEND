@@ -43,7 +43,7 @@ margin-right: 10px;
 }
 
 
-.product-card-container{
+.top-product-card-container{
     display: flex;
     overflow-x: scroll;
     align-self: center;
@@ -56,17 +56,18 @@ margin-right: 10px;
 }
 
 /*Product Card*/
-.product-card-container > div {
+.top-product-card-container > div {
   border: 2px solid rgba(0, 17, 73, 0.486);
-
   margin: 10px 5px 10px 5px;
   background-color: rgb(252, 252, 252);
+  width: 50%;
 }
-.product-card-container > div > img {
+
+.top-product-card-container > div > img {
     height: 145px;
     width: 145px;
 }
-.product-card-container > div > p {
+.top-product-card-container > div > p {
     margin: 0;
     font-weight: 500;
     padding: 10px;
@@ -76,11 +77,17 @@ margin-right: 10px;
   width: 125px;
   font-size: 15px;
 }
-.product-card-container > div > div > h2{
+.top-product-card-container > div > div > h2{
     font-size: 20px;
     padding: 5px;
 }
 
+.new-product-card-container > div >div >div{
+    width: 45%;
+}
+.new-product-card-container > div >div > div > img{
+    width: 100%;
+}
 /*categories*/
 .categories{
     padding: 10px;
@@ -107,7 +114,7 @@ margin-right: 10px;
 
 
 .landing-container > main > h1{
-    font-size: 17.5px;
+    font-size: 15px;
     color: rgb(39, 46, 71);
     font-family: gameOverFont;
     font-weight: 100;
@@ -128,18 +135,4 @@ margin-right: 10px;
 
 .slider{
     margin: 20px;
-}
-
-@media (min-width: 425px) {
-
-    /*elementos para modificar el slider*/
-
-.slider > div {
-    width: 350px !important;
-    height: 325px  !important;
-}
-.slider > div > div {
-    width: 350px !important;
-    height: 325px  !important;
-}
 }

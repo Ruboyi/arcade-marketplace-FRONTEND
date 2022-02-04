@@ -3,14 +3,14 @@ import { CircularProgress, Paper /* , Tabs */ } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SimpleImageSlider from "react-simple-image-slider";
 import FavoriteButton from "../../components/FavoriteButton/FavoriteButton";
 import consolasLogo from "../../assets/gameboy.png";
 import videojuegosLogo from "../../assets/cd.png";
 import accesoriosLogo from "../../assets/gamepad.png";
 import arcadesLogo from "../../assets/arcade.png";
 import { useNavigate } from "react-router";
-
+import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
+import { useAuthorization } from "../../hooks/useAuthorization";
 import "./Landing.css";
 // import ProductCard from "../../components/ProductCard/ProductCard";
 
@@ -19,7 +19,9 @@ const { REACT_APP_BACKEND_API } = process.env;
 export default function Landing() {
   //const [value, setValue] = useState(0);
   const [productsDataMostViewed, setProductsDataMostViewed] = useState();
-  const [newProductsImages, setNewProductsImages] = useState();
+  const [newProducts, setNewProducts] = useState();
+  const [areProductsByZone, setAreProductsByZone] = useState(false)
+  const { userProfile } = useAuthorization()
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,39 +33,39 @@ export default function Landing() {
         const products = response.data.data;
         setProductsDataMostViewed(products);
 
-        products.map((product) => {
-          return {
-            url: product.images[0],
-          };
-        });
       } catch (error) {
         console.log(error);
       }
     }
-    async function getNewProducts() {
+    async function getNewProductsByZone() {
       try {
         const response = await axios.get(
           `${REACT_APP_BACKEND_API}products/new-products`
         );
         const products = response.data.data;
-
-        const productImages = products.map((product) => {
-          return {
-            url: product.images[0],
-          };
-        });
-        setNewProductsImages(productImages);
+        if (userProfile) {
+          const productsByZone = products.filter((product) => product.location === userProfile.province)
+          if (productsByZone.length === 0) {
+            setAreProductsByZone(false)
+            setNewProducts(products)
+          } else {
+            setAreProductsByZone(true)
+            setNewProducts(productsByZone)
+          }
+        } else {
+          setAreProductsByZone(false)
+          setNewProducts(products)
+        }
       } catch (error) {
         console.log(error);
       }
     }
-    getNewProducts();
+    getNewProductsByZone();
     getMostViewedProducts();
-  }, []);
+  }, [userProfile]);
 
   return (
     <div className="landing-container">
-      {/* <Paper className="landing-container"> */}
       <Paper elevation={2}>
         <nav className="categories">
           <div>
@@ -89,20 +91,10 @@ export default function Landing() {
             </a>
           </div>
         </nav>
-        {/* <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="nav tabs example"
-        >
-          <LinkTab label="Consolas" href="/drafts" />
-          <LinkTab label="Arcades" href="/trash" />
-          <LinkTab label="Videojuegos" href="/spam" />
-          <LinkTab label="Acesorios" href="/spam" />
-        </Tabs> */}
       </Paper>
       <main>
         <h1>Productos mas buscados</h1>
-        <div className="product-card-container">
+        <div className="top-product-card-container">
           {productsDataMostViewed ? (
             productsDataMostViewed.map((product) => (
               <Paper
@@ -135,23 +127,14 @@ export default function Landing() {
           {" "}
           ¿Tienes alguno de estos? Clica aquí para venderlo!
         </Link>
-        <h1>Ultimos Productos Publicados</h1>
-        {newProductsImages ? (
-          <div className="slider">
-            <SimpleImageSlider
-              className={"rsis-container"}
-              width={250}
-              height={225}
-              images={newProductsImages}
-              showBullets={false}
-              showNavs={true}
-            />
-          </div>
-        ) : (
-          <CircularProgress />
-        )}
+        {areProductsByZone ? <h1>Últimos productos publicados en tu zona</h1 > : <h1>Últimos productos publicados</h1>}
+        <div className="new-product-card-container">
+          {newProducts ? (<ProductsGrid products={newProducts} />
+          ) : (
+            <CircularProgress />
+          )}
+        </div>
       </main>
-      {/* </Paper> */}
     </div>
   );
 }
