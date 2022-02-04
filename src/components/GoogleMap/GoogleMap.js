@@ -2,7 +2,9 @@ import GoogleMapReact from "google-map-react";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-export default function GoogleMap() {
+export default function GoogleMap({ coords }) {
+  const { lat, lng } = coords;
+
   const defaultProps = {
     center: {
       lat: 43.3715,
@@ -20,7 +22,7 @@ export default function GoogleMap() {
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
       >
-        <AnyReactComponent lat={43.3715} lng={-8.39597} text="Aquí" />
+        <AnyReactComponent lat={lat} lng={lng} text="Aquí" />
       </GoogleMapReact>
     </div>
   );
