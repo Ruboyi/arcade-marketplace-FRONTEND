@@ -149,6 +149,7 @@ function Settings() {
               nameUser: userProfile.nameUser,
               bio: userProfile.bio,
               phone: userProfile.phone,
+              province: userProfile.province
             }}
             validate={(values) => {
               const errors = {};
@@ -176,6 +177,10 @@ function Settings() {
                 error.phone = "Introduce tu numero de teléfono";
               }
 
+              if (!values.province) {
+                error.province = "Selecciona tu provincia";
+              }
+
               if (!values.repeatedPassword) {
                 errors.repeatedPassword = "Repite la contraseña!";
               } else {
@@ -188,7 +193,7 @@ function Settings() {
             }}
             onSubmit={async (values) => {
               console.log("SUBMIT: ", values);
-              const { nameUser, password, email, bio, phone } = values;
+              const { nameUser, password, email, bio, phone, province } = values;
 
               try {
                 const config = {
@@ -204,6 +209,7 @@ function Settings() {
                     email,
                     bio,
                     phone,
+                    province,
                   },
                   config
                 );
@@ -262,6 +268,19 @@ function Settings() {
                     value={values.email}
                     error={errors.email && touched.email}
                     helperText={touched.email && errors.email}
+                    fullWidth
+                  />
+                </div>
+                <div className="field-container">
+                  <TextField
+                    id="province"
+                    name="province"
+                    label="Provincia"
+                    variant="standard"
+                    onChange={handleChange}
+                    value={values.province}
+                    error={errors.province && touched.province}
+                    helperText={touched.province && errors.province}
                     fullWidth
                   />
                 </div>

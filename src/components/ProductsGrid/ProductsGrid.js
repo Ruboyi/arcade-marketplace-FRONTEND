@@ -10,7 +10,10 @@ function ProductsGrid({ products }) {
 
   if (actualUrl.includes("search")) {
     const position = actualUrl.search("search=") + 7;
-    const search = actualUrl.slice(position);
+    let search = actualUrl.slice(position);
+    if (search.includes('+')) {
+      search = search.replace('+', ' ')
+    }
     console.log(search);
     productsProcessed = products.filter((product) =>
       product.title.toLowerCase().includes(search.toLocaleLowerCase())
@@ -19,7 +22,7 @@ function ProductsGrid({ products }) {
   }
   if (actualUrl.includes("category")) {
     const position = actualUrl.search("category=") + 9;
-    const search = actualUrl.slice(position);
+    let search = actualUrl.slice(position);
     console.log(search);
     productsProcessed = products.filter((product) =>
       product.category.toLowerCase().includes(search.toLocaleLowerCase())
