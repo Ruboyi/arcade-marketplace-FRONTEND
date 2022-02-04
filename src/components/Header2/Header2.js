@@ -72,9 +72,8 @@ export default function PrimarySearchAppBar() {
   const [numbReviews, setNumbReviews] = useState();
   const [numbPurcharseOrders, setNumbPurcharseOrders] = useState()
   const { REACT_APP_BACKEND_API } = process.env
-  const { userProfile, userSession } = useAuthorization()
+  const { logout, userSession, userProfile } = useAuthorization();
   const { idUser } = userProfile
-  const { logout, userSession } = useAuthorization();
   let actualUrl = window.location.href;
 
 
