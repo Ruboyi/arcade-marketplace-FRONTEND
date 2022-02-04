@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { useAuthorization } from "../../hooks/useAuthorization";
 import GoBack from "../../components/GoBack/GoBack";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
@@ -7,31 +8,52 @@ import ReviewCard from "../../components/ReviewCard/ReviewCard";
 function MyReviews() {
   const [reviews, setReviews] = useState();
   const [error, setError] = useState();
-  const { userProfile } = useAuthorization();
+
+  const { userProfile, userSession } = useAuthorization();
   const { idUser } = userProfile;
+  const navigate = useNavigate();
+  const { REACT_APP_BACKEND_API } = process.env
 
   useEffect(() => {
+
+    if (!userSession) {
+      navigate('/login');
+    }
+
+    async function setCheckReviewNotifications() {
+      const data = {}
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userSession}`,
+        }
+      }
+      await axios.put(`${REACT_APP_BACKEND_API}reviews/${idUser}`, data, config)
+
+    }
+
     async function getReviews() {
       try {
         if (idUser) {
           const response = await axios.get(
-            `http://localhost:3000/api/v1/reviews/${idUser}`
-          ); // METER LA VARIABLE DEL .ENV
-          console.log(response.data.data);
-
+            `${REACT_APP_BACKEND_API}reviews/${idUser}`
+          );
           setReviews(response.data.data);
         }
       } catch (error) {
         setError(error.response.data.error);
       }
     }
-    getReviews();
-  }, [idUser]);
+
+    if (idUser) {
+      setCheckReviewNotifications()
+      getReviews();
+    }
+  }, [userSession, navigate, idUser, REACT_APP_BACKEND_API])
   return (
     <div>
       <GoBack />
       <h1>Mis valoraciones</h1>
-      {reviews && reviews.map((review) => <ReviewCard review={review} />)}
+      {reviews && reviews.map((review) => <ReviewCard review={review} key={review.idReview} />)}
       {error && <h2>{error}</h2>}
     </div>
   );
