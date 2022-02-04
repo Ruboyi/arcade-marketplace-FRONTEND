@@ -14,12 +14,21 @@ function MyProductsPurchaseOrders() {
   const navigate = useNavigate();
   const [myProducts, setMyProducts] = useState();
   const [isMyProductsEmpty, setIsMyProductsEmpty] = useState(false);
-
   const { idUser } = userProfile;
 
   useEffect(() => {
     if (!userSession) {
       navigate('/login');
+    }
+
+    async function setCheckOrderNotifications() {
+      const data = {}
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userSession}`,
+        }
+      }
+      await axios.put(`${REACT_APP_BACKEND_API}orders/sellerUser/${idUser}`, data, config)
     }
 
     async function getMyProducts() {
@@ -39,6 +48,7 @@ function MyProductsPurchaseOrders() {
     }
 
     if (idUser) {
+      setCheckOrderNotifications()
       getMyProducts();
     }
   }, [userSession, navigate, idUser]);

@@ -18,7 +18,9 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import logo from "../../assets/joy.png";
 import { useAuthorization } from "../../hooks/useAuthorization";
-import useNotification from "../../hooks/useNotifications";
+import axios from "axios";
+import { useState } from "react";
+import './Header2.css'
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -67,17 +69,67 @@ export default function PrimarySearchAppBar() {
   const [isActualUrlProducts, setIsActualUrlProducts] = React.useState();
   const navigate = useNavigate();
   const { logout } = useAuthorization();
-  const { numbReviews, numbPurcharseOrders } = useNotification();
+  const [numbReviews, setNumbReviews] = useState();
+  const [numbPurcharseOrders, setNumbPurcharseOrders] = useState()
   let actualUrl = window.location.href;
-
-  console.log(numbPurcharseOrders);
+  const { REACT_APP_BACKEND_API } = process.env
+  const { userProfile, userSession } = useAuthorization()
+  const { idUser } = userProfile
 
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-        actualUrl.startsWith("http://localhost:3001/my-favorites")
+      actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
-  }, [setIsActualUrlProducts, actualUrl]);
+
+    //! Work
+    async function getReviews() {
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${userSession}`,
+          }
+        }
+        if (idUser) {
+          const response = await axios.get(
+            `${REACT_APP_BACKEND_API}reviews/${idUser}`, config
+          );
+
+          const reviews = response.data.data
+          console.log(reviews);
+          const reviewsFiltered = reviews.filter((review) => review.isChecked === 0)
+          setNumbReviews(reviewsFiltered.length);
+        }
+      } catch (error) {
+        console.log(error.response.data.error);
+      }
+    }
+    //!
+
+    async function getPurchaseOrders() {
+
+      try {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${userSession}`,
+          }
+        }
+        if (idUser) {
+          const response = await axios.get(
+            `${REACT_APP_BACKEND_API}orders/sellerUser/${idUser}`, config
+          );
+          const orders = response.data.data
+          const ordersFiltered = orders.filter((order) => order.isChecked === 0)
+          setNumbPurcharseOrders(ordersFiltered.length);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getReviews()
+    getPurchaseOrders()
+
+  }, [REACT_APP_BACKEND_API, actualUrl, idUser, userSession]);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -266,7 +318,7 @@ export default function PrimarySearchAppBar() {
               color="inherit"
               onClick={() => navigate("/my-products/purchase-orders")}
             >
-              <Badge badgeContent={17} color="error">
+              <Badge badgeContent={numbPurcharseOrders} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>

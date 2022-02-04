@@ -36,7 +36,7 @@ function ProductsGrid({ products }) {
     <div>
       <Paper className="productGrid-card-container">
         {isProductsAnArray ? (
-          productsProcessed.map((product) => <ProductCard product={product} />)
+          productsProcessed.map((product) => <ProductCard key={product.idProduct} product={product} />)
         ) : (
           <CircularProgress />
         )}
