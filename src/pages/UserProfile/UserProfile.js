@@ -8,13 +8,12 @@ import SimpleImageSlider from "react-simple-image-slider";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
-
 export default function UserProfile() {
   const { nameUser, idUser } = useParams();
   const [userData, setUserData] = useState();
   const [productsImages, setProductsImages] = useState();
-  const [reviews, setReviews] = useState()
-  const [avgRating, setAvgRating] = useState()
+  const [reviews, setReviews] = useState();
+  const [avgRating, setAvgRating] = useState();
 
   useEffect(() => {
     async function getUserData() {
@@ -45,19 +44,26 @@ export default function UserProfile() {
     }
     async function getReviews() {
       try {
-        const response = await axios.get(`${REACT_APP_BACKEND_API}reviews/${idUser}`)
-        const responseData = response.data.data
+        const response = await axios.get(
+          `${REACT_APP_BACKEND_API}reviews/${idUser}`
+        );
+        const responseData = response.data.data;
 
         setReviews(responseData);
-        if (responseData.length > 1) {
-
-          const reducer = (previousValue, currentValue) => previousValue.rating + currentValue.rating;
-          const totalRating = responseData.reduce(reducer)
-
-          setAvgRating(Math.round(totalRating / responseData.length))
-        } else if (responseData.length === 1) {
-          setAvgRating(responseData[0].rating)
-        } else { setAvgRating('No hay valoraciones') }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    async function getRating() {
+      try {
+        const responseAvgRating = await axios.get(
+          `${REACT_APP_BACKEND_API}reviews/rating/${idUser}`
+        );
+        if (responseAvgRating.data.data[0].avgRating > 0) {
+          setAvgRating(Math.round(responseAvgRating.data.data[0].avgRating));
+        } else {
+          setAvgRating(null);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -65,12 +71,13 @@ export default function UserProfile() {
 
     getUserData();
     getProductsData();
-    getReviews()
+    getReviews();
+    getRating();
   }, [idUser]);
 
   return (
     <div>
-      {userData && avgRating ? (
+      {userData ? (
         <Paper className="userProfile-container">
           <header className="header-userProfile">
             {userData.image ? (
@@ -90,28 +97,32 @@ export default function UserProfile() {
             )}
             <div>
               <h1>{nameUser}</h1>
-              {avgRating > 0 ? <Rating name='read-only' value={avgRating} readOnly /> : <h2>No hay reviews</h2>}
-              {avgRating > 0 && reviews.length > 1 ? <h3>{reviews.length} Valoraciones</h3> : null}
-              {avgRating > 0 && reviews.length === 1 ? <h3>1 Valoracion</h3> : null}
+              {avgRating ? (
+                <Rating name="read-only" value={avgRating} readOnly />
+              ) : (
+                <Rating name="read-only" value={0} readOnly />
+              )}
               <p>{userData.bio}</p>
             </div>
           </header>
           <main>
-            <h1>Valoraciones</h1>
             {reviews ? (
               reviews.map((data) => (
-                <Paper elevation={6} className="data-card" key={data.nameUser}>
-                  {data.image ? (
-                    <img src={data.image} alt="img" height={80} />
-                  ) : (
-                    <img src={defaultAvatar} alt="profile" height={80} />
-                  )}
-                  <div>
-                    <h2>{data.nameUser}</h2>
-                    <Rating name="read-only" value={data.rating} readOnly />
-                    <p>{data.opinion}</p>
-                  </div>
-                </Paper>
+                <div key={data.nameUser}>
+                  <h1>Valoraciones</h1>
+                  <Paper elevation={6} className="data-card">
+                    {data.image ? (
+                      <img src={data.image} alt="img" height={80} />
+                    ) : (
+                      <img src={defaultAvatar} alt="profile" height={80} />
+                    )}
+                    <div>
+                      <h2>{data.nameUser}</h2>
+                      <Rating name="read-only" value={data.rating} readOnly />
+                      <p>{data.opinion}</p>
+                    </div>
+                  </Paper>
+                </div>
               ))
             ) : (
               <CircularProgress />

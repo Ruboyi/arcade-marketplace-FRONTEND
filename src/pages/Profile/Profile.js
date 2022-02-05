@@ -72,7 +72,7 @@ function Profile() {
             {avgRating > 0 ? (
               <Rating name="read-only" value={avgRating} readOnly />
             ) : (
-              <h2>No hay valoraciones</h2>
+              <Rating name="read-only" value={0} readOnly />
             )}
             {avgRating > 0 && <h3>{reviews.length} Valoraciones</h3>}
             <p>{userProfile.bio}</p>
