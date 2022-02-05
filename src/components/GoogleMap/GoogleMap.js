@@ -11,12 +11,10 @@ export default function GoogleMap({ location }) {
   useEffect(() => {
     async function getGeolocatationProduct() {
       try {
-        console.log(location);
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?key=${REACT_APP_GOOGLE_MAP_KEY}&address=${location}spain`
         );
         setCoords(response.data.results[0].geometry.location);
-        console.log(response.data.results[0].geometry.location);
       } catch (error) {
         console.log(error);
       }

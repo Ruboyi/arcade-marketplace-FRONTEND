@@ -91,7 +91,7 @@ function ProductPage() {
       if (responseAvgRating.data.data[0].avgRating > 0) {
         setAvgRating(responseAvgRating.data.data[0].avgRating);
       } else {
-        setAvgRating("No hay valoraciones");
+        setAvgRating(null);
       }
     }
 

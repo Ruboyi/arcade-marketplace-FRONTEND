@@ -49,6 +49,7 @@ function FavoriteButton({ idProduct }) {
     try {
       if (!userSession) {
         navigate("/login");
+        return false;
       }
       const config = {
         headers: {

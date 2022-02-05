@@ -19,9 +19,8 @@ import logo from "../../assets/joy.png";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import axios from "axios";
 import { useState } from "react";
-import './Header2.css'
+import "./Header2.css";
 import { Button } from "@mui/material";
-
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -70,17 +69,16 @@ export default function PrimarySearchAppBar() {
   const [isActualUrlProducts, setIsActualUrlProducts] = React.useState();
   const navigate = useNavigate();
   const [numbReviews, setNumbReviews] = useState();
-  const [numbPurcharseOrders, setNumbPurcharseOrders] = useState()
-  const { REACT_APP_BACKEND_API } = process.env
+  const [numbPurcharseOrders, setNumbPurcharseOrders] = useState();
+  const { REACT_APP_BACKEND_API } = process.env;
   const { logout, userSession, userProfile } = useAuthorization();
-  const { idUser } = userProfile
+  const { idUser } = userProfile;
   let actualUrl = window.location.href;
-
 
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-      actualUrl.startsWith("http://localhost:3001/my-favorites")
+        actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
 
     //! Work
@@ -89,16 +87,18 @@ export default function PrimarySearchAppBar() {
         const config = {
           headers: {
             Authorization: `Bearer ${userSession}`,
-          }
-        }
+          },
+        };
         if (idUser) {
           const response = await axios.get(
-            `${REACT_APP_BACKEND_API}reviews/${idUser}`, config
+            `${REACT_APP_BACKEND_API}reviews/${idUser}`,
+            config
           );
 
-          const reviews = response.data.data
-          console.log(reviews);
-          const reviewsFiltered = reviews.filter((review) => review.isChecked === 0)
+          const reviews = response.data.data;
+          const reviewsFiltered = reviews.filter(
+            (review) => review.isChecked === 0
+          );
           setNumbReviews(reviewsFiltered.length);
         }
       } catch (error) {
@@ -108,28 +108,29 @@ export default function PrimarySearchAppBar() {
     //!
 
     async function getPurchaseOrders() {
-
       try {
         const config = {
           headers: {
             Authorization: `Bearer ${userSession}`,
-          }
-        }
+          },
+        };
         if (idUser) {
           const response = await axios.get(
-            `${REACT_APP_BACKEND_API}orders/sellerUser/${idUser}`, config
+            `${REACT_APP_BACKEND_API}orders/sellerUser/${idUser}`,
+            config
           );
-          const orders = response.data.data
-          const ordersFiltered = orders.filter((order) => order.isChecked === 0)
+          const orders = response.data.data;
+          const ordersFiltered = orders.filter(
+            (order) => order.isChecked === 0
+          );
           setNumbPurcharseOrders(ordersFiltered.length);
         }
       } catch (error) {
         console.log(error);
       }
     }
-    getReviews()
-    getPurchaseOrders()
-
+    getReviews();
+    getPurchaseOrders();
   }, [REACT_APP_BACKEND_API, actualUrl, idUser, userSession]);
 
   const isMenuOpen = Boolean(anchorEl);
