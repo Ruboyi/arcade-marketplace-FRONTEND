@@ -16,22 +16,31 @@
     max-width: 70vh;
     margin: 0 auto;
     padding: 12px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+  
     /* background-color: #959CFC; */
   }
 
 .favorites-views {
     display: flex;
     border-bottom: 2px solid rgb(228, 228, 228);
-    width: 100%;
-    margin-left: 22px;
-
+    width: 90%;
+    margin: auto;
 }
+.reportP{
+    font-size: 15px;
+margin: 0px;
+position: relative;
+top: 2px;
+left: 2px;}
 .visibility {
     flex-grow: 1;
     border: 0;
 }
+.FavoriteComponent{
+    position: relative;
+    top: 5px;
+}
+.favorites-views
 .user-card{
     display: flex;
     justify-content: space-evenly;
@@ -52,4 +61,37 @@
 }
 .buttons-user-card {
     margin: 5px;
+}
+.cabeceraProduct{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    background-color: rgb(241 248 255);
+    border-radius: 5px;
+    margin: 5px;
+}
+.cabeceraProduct > .price{
+    margin: 20px;
+    width: 10%;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+.cabeceraProduct > .price > h1{
+    font-size: 20px;
+    
+    margin:0px
+}
+.cabeceraProduct > .price > p{
+    margin: 0px;
+    font-size: 15px;
+}
+.cabeceraProduct >h2{
+    width: 60%;
+    font-size: 20px;
+    margin: 10px;
 }
