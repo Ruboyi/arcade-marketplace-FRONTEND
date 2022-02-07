@@ -51,7 +51,8 @@ margin-right: 10px;
     width: 95%;
     border-top: rgba(0, 17, 73, 0.486) solid 2px;
     border-bottom: rgba(0, 17, 73, 0.486) solid 2px;
-    margin: 0 auto;
+    margin: 10px;
+    margin-bottom: 15px;
 
 }
 
@@ -82,11 +83,11 @@ margin-right: 10px;
     padding: 5px;
 }
 
-.new-product-card-container > div >div >div{
-    width: 45%;
-}
 .new-product-card-container > div >div > div > img{
-    width: 100%;
+    width: 145px;
+}
+.new-product-card-container > div >div > div > p{
+    width: 145px;
 }
 /*categories*/
 .categories{
@@ -126,9 +127,7 @@ margin-right: 10px;
 
 .landing-container > main > a {
     font-size: 12.5px;
-    
-    display: block;
-    margin: 10px;
+    padding: 7px;
     text-decoration: none;
     background-color: #fdb8ff80;
 }

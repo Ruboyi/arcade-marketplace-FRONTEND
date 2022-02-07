@@ -1,3 +1,14 @@
 header{
     background-color: rgb(0, 17, 73) !important
 }
+
+.css-yz9k0d-MuiInputBase-input{
+    padding-left: 10px !important;
+    
+}
+.css-96uuyl{
+    margin-left: 10px !important;
+}
+.search-icon{
+    height: 25px;
+}
