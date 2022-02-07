@@ -107,8 +107,8 @@ function ProductPage() {
           <div>
             <div className="slider">
               <SimpleImageSlider
-                width={525}
-                height={425}
+                width={325}
+                height={325}
                 images={arrayImages}
                 showBullets={true}
                 showNavs={true}
@@ -129,16 +129,18 @@ function ProductPage() {
               </div>
               {userProfile.idUser !== productInfo.idUser && (
                 <IconButton>
-                  <ReportIcon fontSize="small" sx={{ color: "grey" }} />
+                  <ReportIcon fontSize="small" sx={{ color: "grey" }} /><p className="reportP">Reportar</p>
                 </IconButton>
               )}
             </div>
             <div>
-              <h1>{productInfo.price}€</h1>
-              <h2>{productInfo.title}</h2>
-              <p>{productInfo.state}</p>
-              <p>{productInfo.description}</p>
-              <p>Localizacion: {productInfo.location}</p>
+              <div className="cabeceraProduct">
+                <div className="price"><h1>{productInfo.price}€</h1>
+                  <p>{productInfo.state}</p></div>
+                <h2>{productInfo.title}</h2>
+              </div>
+              <p className="descripcionProduct">{productInfo.description}</p>
+              <p className="localizacionProduct">Ubicación: {productInfo.location}</p>
               <GoogleMap location={productInfo.location} />
             </div>
             {userProfile.idUser !== productInfo.idUser && !isNaN(avgRating) && (
@@ -173,7 +175,7 @@ function ProductPage() {
               </Paper>
             )}
             {userProfile.idUser !== productInfo.idUser && isNaN(avgRating) && (
-              <Paper elevation={3} className="user-card">
+              <Paper elevation={1} className="user-card">
                 <img
                   src={sellerInfo.image}
                   alt="foto de perfil"

@@ -1,12 +1,16 @@
 .goBack-button {
   text-align: center;
-  background-color: tomato;
-  border: 2px solid #222;
+  background-color: rgb(255, 183, 255);
+  border: none;
   border-radius: 50%;
-  height: 50px;
-  width: 50px;
-  margin: 25px 0 0 25px;
+  height: 40px;
+  width: 40px;
+ 
   display: flex;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 80px;
+  left: 20px ;
+  z-index: 10;
 }
