@@ -44,7 +44,7 @@ export default function Landing() {
         );
         const products = response.data.data;
         if (userProfile) {
-          const productsByZone = products.filter((product) => product.location === userProfile.province)
+          const productsByZone = products.filter((product) => product.province === userProfile.province)
           if (productsByZone.length === 0) {
             setAreProductsByZone(false)
             setNewProducts(products)

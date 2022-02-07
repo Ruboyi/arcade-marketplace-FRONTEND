@@ -1,4 +1,4 @@
-import { CircularProgress, Paper } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import ProductCard from "../ProductCard/ProductCard";
 
 // import imgDefault from '../../assets/imagen_articulo_por_defecto.jpg';
@@ -33,14 +33,14 @@ function ProductsGrid({ products }) {
   const isProductsAnArray = Array.isArray(productsProcessed);
 
   return (
-    <div>
-      <Paper className="productGrid-card-container">
-        {isProductsAnArray ? (
-          productsProcessed.map((product) => <ProductCard key={product.idProduct} product={product} />)
-        ) : (
-          <CircularProgress />
-        )}
-      </Paper>
+    <div className="productGrid-card-container">
+
+      {isProductsAnArray ? (
+        productsProcessed.map((product) => <ProductCard key={product.idProduct} product={product} />)
+      ) : (
+        <CircularProgress />
+      )}
+
     </div>
   );
 }

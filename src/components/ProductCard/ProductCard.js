@@ -1,12 +1,13 @@
 import { Paper } from "@mui/material";
 import { useNavigate } from "react-router";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import './ProductCard.css'
 
 function ProductCard({ product }) {
   const navigate = useNavigate();
 
   return (
-    <Paper key={product.idProduct} elevation={6} className="product-card">
+    <Paper key={product.idProduct} elevation={0} className="product-card">
       <img
         onClick={() => navigate(`/products/${product.idProduct}`)}
         src={product.images[0]}

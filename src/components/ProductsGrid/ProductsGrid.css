@@ -20,7 +20,27 @@
     justify-content: center;
     margin-bottom: 10px;
     flex-wrap: wrap;
-   max-width: 600px;
+   max-width: 90%;
    margin: 0 auto;
 
 }
+
+.productGrid-card-container > div  > p
+    {
+        margin-right: 0px;
+        margin: 0px;
+        font-weight: 500;
+        padding: 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 125px;
+      font-size: 15px;
+    }
+    .productGrid-card-container > div{
+        width: 145px;
+    }
+    .productGrid-card-container > div > img{
+        width: 145px;
+        height: 145px;
+    }

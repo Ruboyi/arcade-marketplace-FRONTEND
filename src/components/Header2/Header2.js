@@ -9,7 +9,7 @@ import InputBase from "@mui/material/InputBase";
 import Badge from "@mui/material/Badge";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
+import searchIcon from "../../assets/loupe.png";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -38,7 +38,7 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled("div")(({ theme }) => ({
+/* const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: "100%",
   position: "absolute",
@@ -46,7 +46,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-}));
+})); */
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
@@ -78,7 +78,7 @@ export default function PrimarySearchAppBar() {
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-        actualUrl.startsWith("http://localhost:3001/my-favorites")
+      actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
 
     //! Work
@@ -254,40 +254,27 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </div>
           <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            {isActualUrlProducts ? (
-              <StyledInputBase
-                placeholder="Filtrar"
-                value={searchParams.get("search") || ""}
-                onChange={(event) => {
-                  let search = event.target.value;
-                  if (search) {
-                    setSearchParams({ search });
-                  } else {
-                    setSearchParams({});
-                  }
-                }}
-              />
-            ) : (
-              <StyledInputBase
-                placeholder="Buscar"
-                value={searchParams.get("search") || ""}
-                onChange={(event) => {
-                  let search = event.target.value;
-                  if (search) {
-                    setSearchParams({ search });
-                  } else {
-                    setSearchParams({});
-                  }
-                }}
-              />
-            )}
+            <StyledInputBase
+              className='searchBar'
+              placeholder="Buscar"
+              value={searchParams.get("search") || ""}
+              onChange={(event) => {
+                let search = event.target.value;
+                if (search) {
+                  setSearchParams({ search });
+                } else {
+                  setSearchParams({});
+                }
+              }}
+            />
           </Search>
-          {isActualUrlProducts ? null : (
+          {isActualUrlProducts ? (
+            <IconButton onClick={() => window.location.reload(false)}>
+              <img className="search-icon" src={searchIcon} alt="search-icon" />c
+            </IconButton>
+          ) : (
             <IconButton onClick={() => navigate(`/products?${searchParams}`)}>
-              <SearchIcon />
+              <img className="search-icon" src={searchIcon} alt="search-icon" />
             </IconButton>
           )}
           <Box sx={{ flexGrow: 1 }} />
