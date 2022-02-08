@@ -13,3 +13,12 @@
     height: 130px;
     border-radius: 50%;
 }
+.settings-container{
+    display: flex;
+    height: 100%;
+}
+.settings-target {
+    width: 100% ;
+    margin: 0 auto;
+    /* background-color: #959CFC; */
+  }

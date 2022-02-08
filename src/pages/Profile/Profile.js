@@ -5,11 +5,11 @@ import { useNavigate } from "react-router-dom";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import defaultAvatar from "../../assets/defaultAvatar.png";
 import "./Profile.css";
-import GoBack from "../../components/GoBack/GoBack";
+import MenuProfile from "../../components/MenuProfile/MenuProfile";
 
 function Profile() {
   const navigate = useNavigate();
-  const { userProfile, logout, userSession } = useAuthorization();
+  const { userProfile, userSession } = useAuthorization();
   const [avgRating, setAvgRating] = useState();
   const [reviews, setReviews] = useState();
   const { REACT_APP_BACKEND_API } = process.env;
@@ -49,51 +49,40 @@ function Profile() {
 
   return (
     <div className="profile">
-      <GoBack />
       {userProfile && avgRating ? (
-        <Paper className="profile-paper">
-          {userProfile.image !== null ? (
-            <img
-              className="img-settings"
-              src={userProfile.image}
-              alt="profile"
-              height={150}
-            />
-          ) : (
-            <img
-              className="img-settings"
-              src={defaultAvatar}
-              alt="profile"
-              height={150}
-            />
-          )}
-          <div>
-            <h1>{userProfile.nameUser}</h1>
-            {avgRating > 0 ? (
-              <Rating name="read-only" value={avgRating} readOnly />
+        <>
+          <MenuProfile />
+          <Paper className="profile-paper">
+            {userProfile.image !== null ? (
+              <img
+                className="img-settings"
+                src={userProfile.image}
+                alt="profile"
+                height={150}
+              />
             ) : (
-              <Rating name="read-only" value={0} readOnly />
+              <img
+                className="img-settings"
+                src={defaultAvatar}
+                alt="profile"
+                height={150}
+              />
             )}
-            {avgRating > 0 && <h3>{reviews.length} Valoraciones</h3>}
-            <p>{userProfile.bio}</p>
-          </div>
-        </Paper>
+            <div>
+              <h1>{userProfile.nameUser}</h1>
+              {avgRating > 0 ? (
+                <Rating name="read-only" value={avgRating} readOnly />
+              ) : (
+                <Rating name="read-only" value={0} readOnly />
+              )}
+              {avgRating > 0 && <h3>{reviews.length} Valoraciones</h3>}
+              <p>{userProfile.bio}</p>
+            </div>
+          </Paper>
+        </>
       ) : (
         <CircularProgress />
       )}
-
-      <div className="buttons-container-profile">
-        <button onClick={() => navigate("/my-products")}>Mis productos</button>
-        <button onClick={() => navigate("/my-products/purchase-orders")}>
-          Solicitudes de compra de Mis Productos
-        </button>
-        <button onClick={() => navigate("/my-orders")}>Mis reservas</button>
-        <button onClick={() => navigate("/my-reviews")}>
-          Mis valoraciones
-        </button>
-        <button onClick={() => navigate("/settings")}>Ajustes</button>
-        <button onClick={logout}>Cerrar Sesión</button>
-      </div>
     </div>
   );
 }
