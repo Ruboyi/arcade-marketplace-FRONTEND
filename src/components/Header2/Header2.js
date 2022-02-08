@@ -78,7 +78,7 @@ export default function PrimarySearchAppBar() {
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-      actualUrl.startsWith("http://localhost:3001/my-favorites")
+        actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
 
     //! Work
@@ -241,7 +241,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: "rgb(0, 17, 73)" }}>
         <Toolbar>
           <div>
             <Typography variant="h6" noWrap component="div">
@@ -255,7 +255,7 @@ export default function PrimarySearchAppBar() {
           </div>
           <Search>
             <StyledInputBase
-              className='searchBar'
+              className="searchBar"
               placeholder="Buscar"
               value={searchParams.get("search") || ""}
               onChange={(event) => {
@@ -270,7 +270,8 @@ export default function PrimarySearchAppBar() {
           </Search>
           {isActualUrlProducts ? (
             <IconButton onClick={() => window.location.reload(false)}>
-              <img className="search-icon" src={searchIcon} alt="search-icon" />c
+              <img className="search-icon" src={searchIcon} alt="search-icon" />
+              c
             </IconButton>
           ) : (
             <IconButton onClick={() => navigate(`/products?${searchParams}`)}>

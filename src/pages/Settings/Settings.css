@@ -1,6 +1,10 @@
 .header-settings{
     display: flex;
     justify-content: space-around;
+    background-color: white;
+    width: 70vh;
+    margin:0 auto;
+    padding: 12px;
 }
 .header-register {
     display: flex;
@@ -22,3 +26,6 @@
     margin: 0 auto;
     /* background-color: #959CFC; */
   }
+.settings-paper {
+    padding: 12px;
+}
