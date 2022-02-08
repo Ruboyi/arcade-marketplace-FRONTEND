@@ -1,10 +1,10 @@
-import { CircularProgress } from '@mui/material';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import GoBack from '../../components/GoBack/GoBack';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import './MyOrders.css';
+import { CircularProgress } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import MenuProfile from "../../components/MenuProfile/MenuProfile";
+import { useAuthorization } from "../../hooks/useAuthorization";
+import "./MyOrders.css";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -17,14 +17,14 @@ function MyOrders() {
 
   useEffect(() => {
     if (!userSession) {
-      navigate('/login');
+      navigate("/login");
     }
 
     async function getMyOrders() {
       const config = {
         headers: {
-          Authorization: `Bearer ${userSession}`
-        }
+          Authorization: `Bearer ${userSession}`,
+        },
       };
       if (idUser) {
         const response = await axios.get(
@@ -44,56 +44,63 @@ function MyOrders() {
   }, [userSession, navigate, idUser]);
 
   const options = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   return (
-    <div>
-      <h1>Mis reservas</h1>
-      <GoBack />
-      {myOrders && idUser && products ? (
-        myOrders.map((order) => {
-          let productoSolicitado = products.find(
-            (product) => product.idProduct === order.idProduct
-          );
+    <div className="my-orders-container">
+      <MenuProfile />
+      <div>
+        <h1>Mis reservas</h1>
+        {myOrders && idUser && products ? (
+          myOrders.map((order) => {
+            let productoSolicitado = products.find(
+              (product) => product.idProduct === order.idProduct
+            );
 
-          return (
-            <div key={order.idOrder} className='order-container'>
-              <div>
-                <span>Fecha: </span>
-                <span>
-                  {new Date(order.orderDate).toLocaleString('es-ES', options)}
-                </span>
-              </div>
-              <div className='order-product-info'>
-                {/* TODO HACER LLAMADA A LAS IMAGENES PARA AÑADIRLA ACA */}
-                <div className='order-product-title'>{productoSolicitado.title}</div>
-                <div>Precio: {productoSolicitado.price}</div>
-                <div>Ubicacion: {productoSolicitado.location}</div>
-              </div>
-              <div className='order-info'>
-                <div>Mensaje enviado: {order.orderMessage}</div>
-                {order.saleMessage && (
-                  <div>Mensaje del vendedor: {order.saleMessage}</div>
-                )}
-                {order.saleDate && (
-                  <div>
-                    Fecha acordada de venta:{' '}
-                    {new Date(order.saleDate).toLocaleString('es-ES', options)}
+            return (
+              <div key={order.idOrder} className="order-container">
+                <div>
+                  <span>Fecha: </span>
+                  <span>
+                    {new Date(order.orderDate).toLocaleString("es-ES", options)}
+                  </span>
+                </div>
+                <div className="order-product-info">
+                  {/* TODO HACER LLAMADA A LAS IMAGENES PARA AÑADIRLA ACA */}
+                  <div className="order-product-title">
+                    {productoSolicitado.title}
                   </div>
-                )}
-                <div className='order-status'>Estado: {order.status}</div>
+                  <div>Precio: {productoSolicitado.price}</div>
+                  <div>Ubicacion: {productoSolicitado.location}</div>
+                </div>
+                <div className="order-info">
+                  <div>Mensaje enviado: {order.orderMessage}</div>
+                  {order.saleMessage && (
+                    <div>Mensaje del vendedor: {order.saleMessage}</div>
+                  )}
+                  {order.saleDate && (
+                    <div>
+                      Fecha acordada de venta:{" "}
+                      {new Date(order.saleDate).toLocaleString(
+                        "es-ES",
+                        options
+                      )}
+                    </div>
+                  )}
+                  <div className="order-status">Estado: {order.status}</div>
+                </div>
+                {/* TODO FALTA BOTON PARA CANCELAR RESERVA ETC */}
               </div>
-              {/* TODO FALTA BOTON PARA CANCELAR RESERVA ETC */}
-            </div>
-          );
-        })
-      ) : (
-        <CircularProgress />
-      )}
+            );
+          })
+        ) : (
+          <CircularProgress />
+        )}
+      </div>
     </div>
   );
 }

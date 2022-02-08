@@ -1,5 +1,6 @@
 .profile {
   text-align: left;
+  display: flex;
 }
 
 .profile-paper {

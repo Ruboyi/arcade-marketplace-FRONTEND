@@ -1,3 +1,7 @@
+.my-orders-container{
+  display: flex;
+}
+
 .order-container {
   background-color: whitesmoke;
   color: #222;
