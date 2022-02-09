@@ -55,7 +55,7 @@ function MyReviews() {
   return (
     <div className="my-reviews-container">
       <MenuProfile />
-      <div>
+      <div className="my-reviews-div">
         <h1>Mis valoraciones</h1>
         {reviews &&
           reviews.map((review) => (

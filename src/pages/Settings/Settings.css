@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-around;
     background-color: white;
-    width: 70vh;
+    width: 70vw;
     margin:0 auto;
     padding: 12px;
 }
@@ -20,10 +20,13 @@
 .settings-container{
     display: flex;
     height: 100%;
+
 }
 .settings-target {
     width: 100% ;
-    margin: 0 auto;
+    margin-left: 200px;
+
+
     /* background-color: #959CFC; */
   }
 .settings-paper {

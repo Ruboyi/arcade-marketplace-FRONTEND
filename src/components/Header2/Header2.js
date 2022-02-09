@@ -240,7 +240,7 @@ export default function PrimarySearchAppBar() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <>
       <AppBar position="fixed" sx={{ backgroundColor: "rgb(0, 17, 73)" }}>
         <Toolbar>
           <div>
@@ -336,6 +336,6 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-    </Box>
+    </>
   );
 }

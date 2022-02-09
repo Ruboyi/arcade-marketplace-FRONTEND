@@ -42,7 +42,7 @@ function Myproducts() {
   return (
     <div className="my-products-container">
       <MenuProfile />
-      <div>
+      <div className="my-products-div">
         <h1>Mis productos</h1>
         {myProducts ? (
           <ProductsGrid products={myProducts} />
