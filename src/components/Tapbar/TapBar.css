@@ -7,17 +7,18 @@
     background-color: rgb(0, 17, 73);
     
     align-items: center;
-    border-top: rgba(174, 156, 255, 0.486) inset 1px;
+    border-top: rgba(24, 16, 61, 0.315) inset 1px;
+    z-index: 10000;
     
 }
 .favorite-icon {
-    color: #fdb8ff;
+    color: #ffffff;
     margin: 10px;
     font-size: 40px !important;
 
 }
 .home-icon {
-    color: #fdb8ff;
+    color: #ffffff;
     margin:10px;
     font-size: 40px !important;
 }
@@ -29,7 +30,7 @@
     border-radius: 50%;
 }
 .add-icon {
-    color: #fdb8ff;
+    color: #ffffff;
     margin: 10px;
     font-size: 40px !important;
 }
