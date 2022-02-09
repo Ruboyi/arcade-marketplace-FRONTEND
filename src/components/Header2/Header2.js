@@ -272,7 +272,6 @@ export default function PrimarySearchAppBar() {
           {isActualUrlProducts ? (
             <IconButton onClick={() => window.location.reload(false)}>
               <img className="search-icon" src={searchIcon} alt="search-icon" />
-              c
             </IconButton>
           ) : (
             <IconButton onClick={() => navigate(`/products?${searchParams}`)}>
