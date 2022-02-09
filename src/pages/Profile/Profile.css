@@ -8,9 +8,8 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 0 auto;
-  width: 50vw;
-  height: 200px;
+  margin-left: 200px;
+  width: 50%;
   flex-grow: 1;
 }
 
@@ -33,3 +32,9 @@
 .buttons-container-profile button:active {
   background-color: #222;
 }
+@media (max-width: 600px) {
+  .profile-paper{
+      z-index: 1100;
+  margin-left: 50px;
+  background-color: rgb(228, 241, 255);}
+  }

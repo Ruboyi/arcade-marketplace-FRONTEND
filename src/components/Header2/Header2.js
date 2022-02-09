@@ -79,7 +79,7 @@ export default function PrimarySearchAppBar() {
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-        actualUrl.startsWith("http://localhost:3001/my-favorites")
+      actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
 
     //! Work
@@ -242,7 +242,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <>
-      <AppBar position="fixed" sx={{ backgroundColor: "rgb(0, 17, 73)" }}>
+      <AppBar position="fixed" className="header" sx={{ zIndex: '12000', backgroundColor: "rgb(0, 17, 73)" }}>
         <Toolbar>
           <div>
             <Typography variant="h6" noWrap component="div">
@@ -330,6 +330,7 @@ export default function PrimarySearchAppBar() {
             </>
           ) : (
             <Button
+              className="loginButton"
               variant="contained"
               onClick={() => navigate("/login")}
               theme={theme}
