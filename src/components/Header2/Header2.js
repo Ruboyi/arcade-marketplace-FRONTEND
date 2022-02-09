@@ -21,6 +21,7 @@ import axios from "axios";
 import { useState } from "react";
 import "./Header2.css";
 import { Button } from "@mui/material";
+import theme from "../../theme/theme";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -328,7 +329,11 @@ export default function PrimarySearchAppBar() {
               </Box>
             </>
           ) : (
-            <Button variant="contained" onClick={() => navigate("/login")}>
+            <Button
+              variant="contained"
+              onClick={() => navigate("/login")}
+              theme={theme}
+            >
               Inicia Sesión
             </Button>
           )}

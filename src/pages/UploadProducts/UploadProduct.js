@@ -2,9 +2,9 @@ import {
   Paper,
   TextField,
   Select,
-  MenuItem,
   FormControl,
   InputLabel,
+  MenuItem,
   Button,
   InputAdornment,
   Stack,
@@ -20,7 +20,8 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useAuthorization } from "../../hooks/useAuthorization";
-import GoBack from "../../components/GoBack/GoBack";
+import theme from "../../theme/theme";
+import MenuProfile from "../../components/MenuProfile/MenuProfile";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -53,11 +54,14 @@ function UploadProduct() {
   console.log(fichero);
 
   return (
-    <main>
-      <GoBack />
+    <main className="main-upload-product">
+      <MenuProfile />
       <Paper
         className="upload-product-form"
-        style={{ backgroundColor: "white", marginTop: "20px" }}
+        sx={{
+          backgroundColor: "white",
+          marginTop: "20px",
+        }}
       >
         <Formik
           initialValues={{
@@ -138,7 +142,7 @@ function UploadProduct() {
               <h2>
                 Categoría <ListIcon />{" "}
               </h2>
-              <div>
+              <Paper elevation={3} sx={{ padding: "12px" }}>
                 <label>
                   <Field type="radio" name="category" value="consolas" />{" "}
                   Consola
@@ -154,114 +158,117 @@ function UploadProduct() {
                   <Field type="radio" name="category" value="accesorios" />{" "}
                   Accesorios
                 </label>
+              </Paper>
+              <div className="div-imformacion">
+                <h2>Información</h2>
+                <InfoIcon sx={{ alignSelf: "center" }} />
               </div>
-              <h2>Información</h2> <InfoIcon />
-              <div className="titulo-precio">
-                <TextField
-                  margin="dense"
-                  sx={{ marginRight: 1 }}
-                  className="titulo-producto"
-                  id="title"
-                  label="Título"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={values.title}
-                  error={errors.title && touched.title}
-                  helperText={touched.title && errors.title}
-                />
-
-                <TextField
-                  margin="dense"
-                  id="price"
-                  label="Precio (€)"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={values.price}
-                  error={errors.price && touched.price}
-                  helperText={touched.price && errors.price}
-                />
-              </div>
-              {/* {errors.category &&
-              errors.title &&
-              errors.description &&
-              errors.price &&
-              errors.state &&
-              errors.location} */}
-              <div>
-                <TextField
-                  margin="dense"
-                  id="description"
-                  label="Descripción del producto"
-                  multiline
-                  rows={4}
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={values.description}
-                  error={errors.description && touched.description}
-                  helperText={touched.description && errors.description}
-                  fullWidth
-                />
-              </div>
-              <div className="estado-localidad">
-                <FormControl
-                  fullWidth
-                  margin="dense"
-                  sx={{ marginRight: 1 }}
-                  variant="outlined"
-                >
-                  <InputLabel id="state">Estado</InputLabel>
-
-                  <Select
-                    className="estado"
-                    value={values.state}
-                    id="state"
-                    name="state"
-                    label="Estado"
-                    variant="standard"
+              <Paper elevation={3} sx={{ padding: "12px" }}>
+                <div className="titulo-precio">
+                  <TextField
+                    theme={theme}
+                    color="secondary"
+                    margin="dense"
+                    sx={{ marginRight: 1 }}
+                    className="titulo-producto"
+                    id="title"
+                    label="Título"
+                    variant="outlined"
                     onChange={handleChange}
-                    error={errors.state && touched.state}
-                    state
+                    value={values.title}
+                    error={errors.title && touched.title}
+                    helperText={touched.title && errors.title}
+                  />
+
+                  <TextField
+                    theme={theme}
+                    color="secondary"
+                    margin="dense"
+                    id="price"
+                    label="Precio (€)"
+                    variant="outlined"
+                    onChange={handleChange}
+                    value={values.price}
+                    error={errors.price && touched.price}
+                    helperText={touched.price && errors.price}
+                  />
+                </div>
+                <div>
+                  <TextField
+                    theme={theme}
+                    color="secondary"
+                    margin="dense"
+                    id="description"
+                    label="Descripción del producto"
+                    multiline
+                    rows={4}
+                    variant="outlined"
+                    onChange={handleChange}
+                    value={values.description}
+                    error={errors.description && touched.description}
+                    helperText={touched.description && errors.description}
+                    fullWidth
+                  />
+                </div>
+                <div className="estado-localidad">
+                  <FormControl
+                    theme={theme}
+                    color="secondary"
+                    fullWidth
+                    margin="dense"
+                    sx={{ marginRight: 1 }}
+                    variant="outlined"
                   >
-                    <MenuItem value="" disabled>
-                      Selecciona el estado del producto
-                    </MenuItem>
-                    <MenuItem value={"nuevo"}>Nuevo</MenuItem>
-                    <MenuItem value={"seminuevo"}>Seminuevo</MenuItem>
-                    {/* <MenuItem value={"buen estado"}>Buen estado</MenuItem> */}
-                    <MenuItem value={"usado"}>Usado</MenuItem>
-                    {/* <MenuItem value={"Malas condiciones"}>
+                    <InputLabel id="state">Estado</InputLabel>
+
+                    <Select
+                      className="estado"
+                      value={values.state}
+                      id="state"
+                      name="state"
+                      label="Estado"
+                      variant="standard"
+                      onChange={handleChange}
+                      error={errors.state && touched.state}
+                      state
+                    >
+                      <MenuItem value="" disabled>
+                        Selecciona el estado del producto
+                      </MenuItem>
+                      <MenuItem value={"nuevo"}>Nuevo</MenuItem>
+                      <MenuItem value={"seminuevo"}>Seminuevo</MenuItem>
+                      {/* <MenuItem value={"buen estado"}>Buen estado</MenuItem> */}
+                      <MenuItem value={"usado"}>Usado</MenuItem>
+                      {/* <MenuItem value={"Malas condiciones"}>
                     Malas condiciones
                   </MenuItem> */}
-                  </Select>
-                </FormControl>
+                    </Select>
+                  </FormControl>
 
-                <TextField
-                  margin="dense"
-                  id="location"
-                  label="Localidad"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={values.location}
-                  error={errors.location && touched.location}
-                  helperText={touched.location && errors.location}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <AddLocationIcon />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </div>
-              {/* {errors.category &&
-              errors.title &&
-              errors.description &&
-              errors.price &&
-              errors.state &&
-            errors.location} */}
+                  <TextField
+                    theme={theme}
+                    color="secondary"
+                    margin="dense"
+                    id="location"
+                    label="Localidad"
+                    variant="outlined"
+                    onChange={handleChange}
+                    value={values.location}
+                    error={errors.location && touched.location}
+                    helperText={touched.location && errors.location}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <AddLocationIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </div>
+              </Paper>
               <div>
                 <h2>Subir imagen</h2>
-                <div>
+                <Paper elevation={3} sx={{ padding: "12px" }}>
                   <label>
                     Imagen:{" "}
                     <input
@@ -286,7 +293,7 @@ function UploadProduct() {
                       <img className="img-preview" src={preview} alt="img" />
                     </div>
                   )}
-                </div>
+                </Paper>
               </div>
               {error && (
                 <Stack sx={{ width: "100%", margin: 1 }} spacing={2}>
@@ -297,10 +304,10 @@ function UploadProduct() {
                 </Stack>
               )}
               <Button
+                theme={theme}
                 type="submit"
                 variant="contained"
                 sx={{
-                  backgroundColor: "#3742A3",
                   width: 200,
                   marginBottom: 1,
                   marginTop: 2,

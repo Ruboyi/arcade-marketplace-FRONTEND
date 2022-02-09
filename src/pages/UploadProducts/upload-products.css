@@ -3,6 +3,7 @@
   margin: 0 auto;
   padding: 12px;
   background-color: #959cfc;
+  flex-grow: 1;
 }
 
 .titulo-producto {
@@ -45,4 +46,11 @@
 .img-container-preview {
   display: flex;
   justify-content: center;
+}
+.div-imformacion {
+display: flex;
+justify-content: center;
+}
+.main-upload-product{
+  display: flex;
 }

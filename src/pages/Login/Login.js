@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import GoBack from "../../components/GoBack/GoBack";
 import GoogleLogin from "react-google-login";
+import theme from "../../theme/theme";
 
 function Login() {
   const { login, error, userSession } = useAuthorization();
@@ -71,6 +72,7 @@ function Login() {
               <form onSubmit={handleSubmit}>
                 <div className="field-container">
                   <TextField
+                    color="secondary"
                     id="email"
                     name="email"
                     type="email"
@@ -81,11 +83,13 @@ function Login() {
                     error={errors.email && touched.email}
                     helperText={touched.email && errors.email}
                     fullWidth
+                    theme={theme}
                   />
                 </div>
 
                 <div className="field-container">
                   <TextField
+                    color="secondary"
                     id="password"
                     name="password"
                     type={"password"}
@@ -96,6 +100,7 @@ function Login() {
                     error={errors.password && touched.password}
                     helperText={touched.password && errors.password}
                     fullWidth
+                    theme={theme}
                   />
                 </div>
                 {error && (
@@ -110,8 +115,8 @@ function Login() {
                   <Button
                     type="submit"
                     variant="contained"
+                    theme={theme}
                     sx={{
-                      backgroundColor: "#3742A3",
                       width: 200,
                       marginBottom: 1,
                       marginTop: 1,
