@@ -10,3 +10,13 @@
 .search-icon{
     height: 25px;
 }
+.small-logo:hover {
+    cursor:pointer;
+    background-color: #263464;
+    
+}
+.small-logo {
+    margin: 0;
+    height: 60px;
+    border-radius: 50%;
+}

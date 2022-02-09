@@ -250,6 +250,7 @@ export default function PrimarySearchAppBar() {
                 src={logo}
                 alt="small-logo"
                 height="60px"
+                onClick={() => navigate("/landing")}
               />
             </Typography>
           </div>
