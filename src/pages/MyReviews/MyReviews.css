@@ -1,3 +1,7 @@
 .my-reviews-container{
     display: flex;
 }
+.my-reviews-div {
+    margin-left: 200px;
+    flex-grow: 1;
+}

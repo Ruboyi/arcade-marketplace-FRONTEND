@@ -11,6 +11,7 @@
   margin: 0 auto;
   width: 50vw;
   height: 200px;
+  flex-grow: 1;
 }
 
 .buttons-container-profile {

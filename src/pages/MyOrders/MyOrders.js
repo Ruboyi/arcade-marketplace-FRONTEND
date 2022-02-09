@@ -53,7 +53,7 @@ function MyOrders() {
   return (
     <div className="my-orders-container">
       <MenuProfile />
-      <div>
+      <div className="my-orders-div">
         <h1>Mis reservas</h1>
         {myOrders && idUser && products ? (
           myOrders.map((order) => {

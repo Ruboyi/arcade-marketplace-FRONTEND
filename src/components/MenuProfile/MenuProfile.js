@@ -25,6 +25,9 @@ export default function MenuProfile() {
         backgroundColor: "rgb(0, 17, 73)",
         color: "white",
         textAlign: "left",
+        position: "fixed",
+        zIndex: "1100",
+        top: "70px",
       }}
     >
       <MenuList>

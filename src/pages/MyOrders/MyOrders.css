@@ -28,3 +28,7 @@
   text-align: right;
   color: blue;
 }
+.my-orders-div {
+  margin-left: 200px;
+  flex-grow: 1;
+}

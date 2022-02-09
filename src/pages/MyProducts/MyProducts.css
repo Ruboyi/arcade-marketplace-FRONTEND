@@ -1,3 +1,7 @@
 .my-products-container {
     display: flex;
 }
+.my-products-div {
+    margin-left: 200px;
+    flex-grow: 1;
+}
