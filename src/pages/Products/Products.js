@@ -1,8 +1,8 @@
 import { CircularProgress } from "@mui/material";
-
 import { useEffect, useState } from "react";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
 import { getProducts } from "../../services/getData";
+import './Products.css'
 
 function Products() {
   const [products, setProducts] = useState("");
@@ -16,8 +16,7 @@ function Products() {
   }, []);
 
   return (
-    <div>
-      <h1>Productos</h1>
+    <div className="productsGrid">
       {products ? <ProductsGrid products={products} /> : <CircularProgress />}
     </div>
   );

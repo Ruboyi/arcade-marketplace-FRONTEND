@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom';
 import './TapBar.css';
 import Icon from '@mui/material/Icon';
-import { useAuthorization } from '../../hooks/useAuthorization';
+//import { useAuthorization } from '../../hooks/useAuthorization';
 
 function TapBar() {
-  const { userProfile, userSession } = useAuthorization();
+  //const { userProfile, userSession } = useAuthorization();
 
   return (
     <nav className='tapBar-navigation'>
@@ -23,7 +23,7 @@ function TapBar() {
           <Icon className={'add-icon'}>add_circle</Icon>
         </Link>
       </div>
-      <div>
+      {/* <div>
         {!userSession ? (
           <Link to={'/login'}>
             {' '}
@@ -43,7 +43,7 @@ function TapBar() {
             )}
           </Link>
         )}
-      </div>
+      </div> */}
     </nav>
   );
 }
