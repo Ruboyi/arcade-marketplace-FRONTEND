@@ -32,3 +32,13 @@
   margin-left: 200px;
   flex-grow: 1;
 }
+
+h1{color: black;}
+
+@media (max-width: 600px) {
+  .my-orders-div{
+      z-index: 1100;
+  margin-left: 50px;
+  background-color: rgb(228, 241, 255);}
+  }
+  

@@ -20,3 +20,11 @@
     height: 60px;
     border-radius: 50%;
 }
+.loginButton{
+    margin: 12px;
+    padding: 6px;
+    font-size: 8px;
+}
+.header{
+    z-index: 10000;
+}
