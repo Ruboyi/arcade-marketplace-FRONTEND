@@ -1,3 +1,7 @@
 .productsGrid{
     background-color: rgb(228, 241, 255);
+    padding-top: 180px;
+}
+.divFilters{
+    max-height: 90px;
 }
