@@ -12,15 +12,16 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { Formik } from 'formik';
 import { DateTimePicker } from '@mui/lab';
+import ReviewsUser from '../Reviews/Reviews';
 
 const { REACT_APP_BACKEND_API } = process.env;
 
 export default function ProductOrders({ idProduct }) {
   const [productOrders, setProductOrders] = useState();
+  const [productoSolicitado, setProductoSolicitado] = useState()
   const { userSession } = useAuthorization();
   const [saleDate, setSaleDate] = useState(new Date());
   const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -47,6 +48,9 @@ export default function ProductOrders({ idProduct }) {
         } else {
           setProductOrders(orders);
         }
+        const responseProductoSolicitado = await axios.get(
+          `${REACT_APP_BACKEND_API}products/${idProduct}`)
+        setProductoSolicitado(responseProductoSolicitado.data.data)
       } catch (error) {
         console.log(error.response.data.error);
       }
@@ -63,7 +67,7 @@ export default function ProductOrders({ idProduct }) {
 
   return (
     <div>
-      {productOrders ? (
+      {productOrders && productoSolicitado ? (
         productOrders.map((order) => {
           return (
             <div key={order.idOrder} className='product-order-info-container'>
@@ -263,8 +267,10 @@ export default function ProductOrders({ idProduct }) {
                       </div>
                     </div>
                   </div>
+                  <button>TODO Set vendido</button>
                 </div>
               )}
+              {order.status === 'vendido' && order.isBuyerReviewed === 0 ? (<ReviewsUser idUser={order.idUserBuyer} isBuyerOrSeller={'seller'} />) : null}
             </div>
           );
         })

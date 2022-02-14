@@ -12,7 +12,7 @@ import { useAuthorization } from "../../hooks/useAuthorization";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
-export default function ReviewsUser({ idUser, isBuyerOrSeller }) {
+export default function ReviewsUser({ idUser, isBuyerOrSeller, idUserBuyer }) {
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(2);
   const [opinion, setOpinion] = useState("");
@@ -53,6 +53,10 @@ export default function ReviewsUser({ idUser, isBuyerOrSeller }) {
       if (isBuyerOrSeller === 'buyer') {
         await axios.put(
           `${REACT_APP_BACKEND_API}orders/setSeller/${idUser}`, data, config
+        )
+      } else if (isBuyerOrSeller === 'seller') {
+        await axios.put(
+          `${REACT_APP_BACKEND_API}orders/setBuyer/${idUser}`, data, config
         )
       }
 
