@@ -22,7 +22,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import ReportIcon from "@mui/icons-material/Report";
 import SellerContact from "../../components/SellerContact/SellerContact";
 import { Box } from "@mui/system";
-import ReviewsUser from "../../components/Reviews/Reviews";
+
 import GoogleMap from "../../components/GoogleMap/GoogleMap";
 
 const { REACT_APP_BACKEND_API } = process.env;
@@ -170,7 +170,6 @@ function ProductPage() {
                       className="button-contacta"
                     />
                   )}
-                  <ReviewsUser idUser={productInfo.idUser} />
                 </div>
               </Paper>
             )}
@@ -201,7 +200,6 @@ function ProductPage() {
                       className="button-contacta"
                     />
                   )}
-                  <ReviewsUser idUser={productInfo.idUser} />
                 </div>
               </Paper>
             )}
