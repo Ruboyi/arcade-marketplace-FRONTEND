@@ -79,7 +79,7 @@ export default function PrimarySearchAppBar() {
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-      actualUrl.startsWith("http://localhost:3001/my-favorites")
+        actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
 
     //! Work
@@ -177,6 +177,7 @@ export default function PrimarySearchAppBar() {
         vertical: "top",
         horizontal: "right",
       }}
+      sx={{ zIndex: 12000 }}
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
@@ -204,6 +205,7 @@ export default function PrimarySearchAppBar() {
       }}
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
+      sx={{ zIndex: 12000 }}
     >
       <MenuItem onClick={() => navigate("/my-reviews")}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
@@ -242,7 +244,11 @@ export default function PrimarySearchAppBar() {
 
   return (
     <>
-      <AppBar position="fixed" className="header" sx={{ zIndex: '12000', backgroundColor: "rgb(0, 17, 73)" }}>
+      <AppBar
+        position="fixed"
+        className="header"
+        sx={{ zIndex: "12000", backgroundColor: "rgb(0, 17, 73)" }}
+      >
         <Toolbar>
           <div>
             <Typography variant="h6" noWrap component="div">
