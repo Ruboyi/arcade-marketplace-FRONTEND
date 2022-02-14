@@ -1,4 +1,4 @@
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, InputLabel, MenuItem, Select } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
@@ -9,6 +9,7 @@ import videojuegosLogo from "../../assets/cd.png";
 import accesoriosLogo from "../../assets/gamepad.png";
 import arcadesLogo from "../../assets/arcade.png";
 import "./Products.css";
+import provinceData from "../../services/provinceData";
 
 function Products() {
   const [products, setProducts] = useState("");
@@ -77,20 +78,34 @@ function Products() {
               setHighPrice(priceData);
             }}
           />
-          <input
-            placeholder="provincia SELECT"
-            onChange={(event) => {
-              let provinceData = event.target.value;
-              setProvince(provinceData);
-            }}
-          />
-          <input
-            placeholder="estado SELECT"
-            onChange={(event) => {
-              let statusData = event.target.value;
-              setStatus(statusData);
-            }}
-          />
+          <div>
+            <InputLabel id="demo-simple-select-label">Provincia</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              label="province"
+              value={province}
+              onChange={(e) => setProvince(e.target.value)}
+            >
+              {provinceData.map((province) => (
+                <MenuItem key={province.id} value={province.nm}>
+                  {province.nm}
+                </MenuItem>
+              ))}
+            </Select>
+          </div>
+          <InputLabel id="demo-simple-select-label">Estado</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <MenuItem value={"nuevo"}>Nuevo</MenuItem>
+            <MenuItem value={"seminuevo"}>Seminuevo</MenuItem>
+            <MenuItem value={"usado"}>Usado</MenuItem>
+          </Select>
 
           <button
             onClick={() =>
