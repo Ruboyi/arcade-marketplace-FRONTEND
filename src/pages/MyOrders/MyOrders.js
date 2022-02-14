@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import MenuProfile from "../../components/MenuProfile/MenuProfile";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import "./MyOrders.css";
+import ReviewsUser from "../../components/Reviews/Reviews";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -49,7 +50,8 @@ function MyOrders() {
     month: "long",
     day: "numeric",
   };
-
+  console.log(myOrders);
+  console.log(products);
   return (
     <div className="my-orders-container">
       <MenuProfile />
@@ -91,6 +93,7 @@ function MyOrders() {
                       )}
                     </div>
                   )}
+                  {order.status === 'vendido' && order.isSellerReviewed === 0 ? (<ReviewsUser idUser={productoSolicitado.idUser} isBuyerOrSeller={'buyer'} />) : null}
                   <div className="order-status">Estado: {order.status}</div>
                 </div>
                 {/* TODO FALTA BOTON PARA CANCELAR RESERVA ETC */}
