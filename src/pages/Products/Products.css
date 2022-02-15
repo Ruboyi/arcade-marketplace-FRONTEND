@@ -3,5 +3,7 @@
     padding-top: 180px;
 }
 .divFilters{
+    display: flex;
+    justify-content: space-around;
     max-height: 90px;
 }

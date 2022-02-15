@@ -1,4 +1,15 @@
-import { CircularProgress, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
@@ -18,8 +29,11 @@ function Products() {
   const url = window.location.href;
   const [lowPrice, setLowPrice] = useState();
   const [highPrice, setHighPrice] = useState();
-  const [province, setProvince] = useState();
+  const [province, setProvince] = useState("");
   const [status, setStatus] = useState();
+  const [openLocation, setOpenLocation] = useState(false);
+  const [openStatus, setOpenStatus] = useState(false);
+  const [openPrecio, setOpenPrecio] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -38,7 +52,10 @@ function Products() {
 
   return (
     <>
-      <Paper elevation={2} sx={{ maxHeight: "200px", position: "fixed" }}>
+      <Paper
+        elevation={2}
+        sx={{ maxHeight: "200px", position: "fixed", width: "100%" }}
+      >
         <nav className="categories">
           <div>
             <a href="/products?category=consolas">
@@ -64,58 +81,177 @@ function Products() {
           </div>
         </nav>
         <div className="divFilters">
-          <input
-            placeholder="precio minimo SOLO NUMEROS"
-            onChange={(event) => {
-              let priceData = event.target.value;
-              setLowPrice(priceData);
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => setOpenPrecio(true)}
+            sx={{
+              fontSize: " 0.7rem",
+              textTransform: "capitalize",
+              height: "30px",
+              borderRadius: "15px",
             }}
-          />
-          <input
-            placeholder="precio maximo SOLO NUMEROS"
-            onChange={(event) => {
-              let priceData = event.target.value;
-              setHighPrice(priceData);
-            }}
-          />
+          >
+            {lowPrice && highPrice ? (
+              <p>{`${lowPrice}€ - ${highPrice}€ `}</p>
+            ) : (
+              "Precio"
+            )}
+          </Button>
+          <Dialog open={openPrecio} onClose={() => setOpenPrecio(false)}>
+            <DialogTitle>¿Cuanto quieres pagar?</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Elige lel rango de precio en el que deseas buscar
+              </DialogContentText>
+              <input
+                placeholder="precio minimo SOLO NUMEROS"
+                onChange={(event) => {
+                  let priceData = event.target.value;
+                  setLowPrice(priceData);
+                }}
+              />
+              <input
+                placeholder="precio maximo SOLO NUMEROS"
+                onChange={(event) => {
+                  let priceData = event.target.value;
+                  setHighPrice(priceData);
+                }}
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  setLowPrice("");
+                  setHighPrice("");
+                  setOpenPrecio(false);
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate(
+                    `/products${splitedUrl}&lowPrice=${lowPrice}&highPrice=${highPrice}&province=${province}&status=${status}`
+                  );
+                  setOpenPrecio(false);
+                }}
+              >
+                Aplicar
+              </Button>
+            </DialogActions>
+          </Dialog>
           <div>
-            <InputLabel id="demo-simple-select-label">Provincia</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              label="province"
-              value={province}
-              onChange={(e) => setProvince(e.target.value)}
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={() => setOpenLocation(true)}
+              sx={{
+                fontSize: " 0.7rem",
+                textTransform: "capitalize",
+                height: "30px",
+                borderRadius: "15px",
+              }}
             >
-              {provinceData.map((province) => (
-                <MenuItem key={province.id} value={province.nm}>
-                  {province.nm}
-                </MenuItem>
-              ))}
-            </Select>
+              {province ? <p>{province}</p> : "Localizacion"}
+            </Button>
+            <Dialog open={openLocation} onClose={() => setOpenLocation(false)}>
+              <DialogTitle>¿Donde?</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Elige la zona la provincia donde estas buscando
+                </DialogContentText>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="province"
+                  value={province}
+                  onChange={(e) => setProvince(e.target.value)}
+                  sx={{ margin: 1, width: "100%" }}
+                >
+                  {provinceData.map((province) => (
+                    <MenuItem key={province.id} value={province.nm}>
+                      {province.nm}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </DialogContent>
+              <DialogActions>
+                <Button
+                  onClick={() => {
+                    setProvince("");
+                    setOpenLocation(false);
+                  }}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  onClick={() => {
+                    navigate(
+                      `/products${splitedUrl}&lowPrice=${lowPrice}&highPrice=${highPrice}&province=${province}&status=${status}`
+                    );
+                    setOpenLocation(false);
+                  }}
+                >
+                  Aplicar
+                </Button>
+              </DialogActions>
+            </Dialog>
           </div>
-          <InputLabel id="demo-simple-select-label">Estado</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="status"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => setOpenStatus(true)}
+            sx={{
+              fontSize: " 0.7rem",
+              textTransform: "capitalize",
+              height: "30px",
+              borderRadius: "15px",
+            }}
           >
-            <MenuItem value={"nuevo"}>Nuevo</MenuItem>
-            <MenuItem value={"seminuevo"}>Seminuevo</MenuItem>
-            <MenuItem value={"usado"}>Usado</MenuItem>
-          </Select>
-
-          <button
-            onClick={() =>
-              navigate(
-                `/products${splitedUrl}&lowPrice=${lowPrice}&highPrice=${highPrice}&province=${province}&status=${status}`
-              )
-            }
-          >
-            Filtrar
-          </button>
+            {status ? <p>{status}</p> : "Estado"}
+          </Button>
+          <Dialog open={openStatus} onClose={() => setOpenStatus(false)}>
+            <DialogTitle>¿En que estado esta tu producto?</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Elige la opción que mejor encaje con el estado de tu producto
+              </DialogContentText>
+              <InputLabel id="status">Estado</InputLabel>
+              <Select
+                labelId="status"
+                id="status"
+                label="status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                sx={{ margin: 1, width: "100%" }}
+              >
+                <MenuItem value={"nuevo"}>Nuevo</MenuItem>
+                <MenuItem value={"seminuevo"}>Seminuevo</MenuItem>
+                <MenuItem value={"usado"}>Usado</MenuItem>
+              </Select>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                onClick={() => {
+                  setStatus("");
+                  setOpenStatus(false);
+                }}
+              >
+                Cancelar
+              </Button>
+              <Button
+                onClick={() => {
+                  navigate(
+                    `/products${splitedUrl}&lowPrice=${lowPrice}&highPrice=${highPrice}&province=${province}&status=${status}`
+                  );
+                  setOpenStatus(false);
+                }}
+              >
+                Aplicar
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </Paper>
       <div className="productsGrid">
