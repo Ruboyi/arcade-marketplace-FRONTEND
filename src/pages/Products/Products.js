@@ -59,12 +59,16 @@ function Products() {
   const [splitedUrl, setSplitedUrl] = useState();
   const navigate = useNavigate();
   const url = window.location.href;
-  const [price, setPrice] = useState([20, 80]);
-  const [province, setProvince] = useState("");
+  const [price, setPrice] = useState([0, 100]);
+  const [province, setProvince] = useState();
   const [status, setStatus] = useState();
   const [openLocation, setOpenLocation] = useState(false);
   const [openStatus, setOpenStatus] = useState(false);
   const [openPrecio, setOpenPrecio] = useState(false);
+
+  const urlFilter = `/products${splitedUrl}&lowPrice=${
+    price[0] * 10
+  }&highPrice=${price[1] * 10}&province=${province}&status=${status}`;
 
   useEffect(() => {
     async function getData() {
@@ -84,9 +88,8 @@ function Products() {
   const handleChange = (event, newValue) => {
     setPrice(newValue);
   };
-  const urlFilter = `/products${splitedUrl}&lowPrice=${
-    price[0] * 10
-  }&highPrice=${price[1] * 10}&province=${province}&status=${status}`;
+  console.log(status);
+  console.log(urlFilter);
 
   return (
     <>
@@ -187,6 +190,7 @@ function Products() {
                 <Button
                   onClick={() => {
                     setPrice([0, 100]);
+                    navigate(urlFilter);
                     setOpenPrecio(false);
                   }}
                   theme={theme}
@@ -247,7 +251,14 @@ function Products() {
               <DialogActions>
                 <Button
                   onClick={() => {
-                    setProvince("");
+                    setProvince();
+                    navigate(
+                      `/products${splitedUrl}&lowPrice=${
+                        price[0] * 10
+                      }&highPrice=${
+                        price[1] * 10
+                      }&province=${""}&status=${status}`
+                    );
                     setOpenLocation(false);
                   }}
                   theme={theme}
@@ -294,7 +305,6 @@ function Products() {
                   labelId="status"
                   id="status"
                   label="status"
-                  value={status}
                   onChange={(e) => setStatus(e.target.value)}
                   sx={{ margin: 1, width: "100%" }}
                   theme={theme}
@@ -308,6 +318,13 @@ function Products() {
                 <Button
                   onClick={() => {
                     setStatus("");
+                    navigate(
+                      `/products${splitedUrl}&lowPrice=${
+                        price[0] * 10
+                      }&highPrice=${
+                        price[1] * 10
+                      }&province=${province}&status=${""}`
+                    );
                     setOpenStatus(false);
                   }}
                   theme={theme}
