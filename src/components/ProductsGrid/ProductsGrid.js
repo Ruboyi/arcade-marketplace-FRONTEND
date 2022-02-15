@@ -17,7 +17,6 @@ function ProductsGrid({ products }) {
     splitedUrl.forEach((query) => {
       const [key, value] = query.split("=");
       Object.assign(formattedQueries, { [key]: value });
-      console.log(formattedQueries);
     });
 
     if (
@@ -48,7 +47,6 @@ function ProductsGrid({ products }) {
       productsProcessed = productsProcessed.filter(
         (product) => product.price >= Number(formattedQueries["lowPrice"])
       );
-      console.log(productsProcessed);
     }
 
     if (
@@ -121,7 +119,6 @@ function ProductsGrid({ products }) {
  */
   //!
 
-  console.log(productsProcessed);
   const isProductsAnArray = Array.isArray(productsProcessed);
 
   return (

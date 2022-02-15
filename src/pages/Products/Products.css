@@ -4,6 +4,13 @@
 }
 .divFilters{
     display: flex;
-    justify-content: space-around;
+    margin-right: 1;
+
+    
     max-height: 90px;
+}
+.buttoms-filters{
+    display: flex;
+    flex-grow: 1;
+    justify-content:space-evenly;
 }
