@@ -65,6 +65,18 @@ export default function ProductOrders({ idProduct }) {
     day: 'numeric'
   };
 
+  async function setSold(idUserBuyer, idOrder) {
+    const data = {}
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userSession}`
+      }
+    }
+    await axios.put(`${REACT_APP_BACKEND_API}orders/setSold/${idUserBuyer}/${idOrder}`, data,
+      config)
+    window.location.reload();
+  }
+
   return (
     <div>
       {productOrders && productoSolicitado ? (
@@ -267,7 +279,7 @@ export default function ProductOrders({ idProduct }) {
                       </div>
                     </div>
                   </div>
-                  <button>TODO Set vendido</button>
+                  <button onClick={() => setSold(order.idUserBuyer, order.idOrder)}>Vendido</button>
                 </div>
               )}
               {order.status === 'vendido' && order.isBuyerReviewed === 0 ? (<ReviewsUser idUser={order.idUserBuyer} isBuyerOrSeller={'seller'} />) : null}
