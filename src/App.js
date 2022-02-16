@@ -20,6 +20,7 @@ import MyProductsPurchaseOrders from "./pages/MyProductPurchaseOrders/MyProducts
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Landing from "./pages/Landing/Landing";
 import NotFoundComponent from "./components/NotFound/NotFound";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 function App() {
   return (
@@ -47,6 +48,10 @@ function App() {
         />
         <Route path="/user/:nameUser/:idUser" element={<UserProfile />} />
         <Route path="*" element={<NotFoundComponent />} />
+
+        {/* ROUTES ADMIN */}
+
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
       <TapBar />
     </div>

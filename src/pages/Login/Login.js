@@ -18,13 +18,17 @@ import GoogleLogin from "react-google-login";
 import theme from "../../theme/theme";
 
 function Login() {
-  const { login, error, userSession } = useAuthorization();
+  const { login, error, userSession, isAdmin } = useAuthorization();
   const navigate = useNavigate();
   useEffect(() => {
+    console.log(isAdmin);
     if (userSession) {
       navigate("/profile");
     }
-  }, [userSession, navigate]);
+    if (isAdmin) {
+      navigate("/admin");
+    }
+  }, [userSession, navigate, isAdmin]);
 
   const responseGoogle = (response) => {
     console.log(response);
