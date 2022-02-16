@@ -22,6 +22,7 @@ function AuthProvider(props) {
   );
 
   const [userProfile, setUserProfile] = useState({});
+  const [isAdmin, setIsAdmin] = useState(sessionStorage.getItem("isAdmin"));
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
@@ -38,7 +39,15 @@ function AuthProvider(props) {
       setUserSession(accessToken);
       sessionStorage.setItem("userSession", accessToken);
 
-      navigate("/profile");
+      const { role } = response.data;
+
+      if (role === "admin") {
+        setIsAdmin(true);
+        sessionStorage.setItem("isAdmin", true);
+        navigate("/admin");
+      } else {
+        navigate("/profile");
+      }
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -47,11 +56,12 @@ function AuthProvider(props) {
   function logout() {
     setUserSession(null);
     sessionStorage.removeItem("userSession");
+    setIsAdmin(false);
+    sessionStorage.removeItem("isAdmin");
     setUserProfile(false);
     navigate("/login");
     window.location.reload();
   }
-
 
   useEffect(() => {
     if (userSession) {
@@ -87,6 +97,7 @@ function AuthProvider(props) {
     error,
     /* getUserProfile, */
     setUserSession,
+    isAdmin,
   };
 
   return (
