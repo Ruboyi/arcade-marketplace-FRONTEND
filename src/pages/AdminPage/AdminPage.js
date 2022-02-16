@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import AdminGrid from "../../components/AdminGrid/AdminGrid";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import "./AdminPage.css";
 
@@ -21,6 +22,8 @@ export default function AdminPage() {
     }
     getAllUser();
   }, [userSession]);
+
   console.log(usersData);
-  return <h1>Admin Page</h1>;
+
+  return <AdminGrid usersData={usersData} />;
 }
