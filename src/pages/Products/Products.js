@@ -105,7 +105,7 @@ function Products() {
     <>
       <Paper
         elevation={2}
-        sx={{ maxHeight: "200px", position: "fixed", width: "100%" }}
+        sx={{ maxHeight: "200px", position: "fixed", width: "100%", zIndex: 10 }}
       >
         <nav className="categories">
           <div>

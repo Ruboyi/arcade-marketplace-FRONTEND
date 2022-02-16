@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import './TapBar.css';
-import Icon from '@mui/material/Icon';
+import home from '../../assets/hut.png'
+import add from '../../assets/add.png'
+import heart from '../../assets/heart.png';
 //import { useAuthorization } from '../../hooks/useAuthorization';
 
 function TapBar() {
@@ -10,17 +12,17 @@ function TapBar() {
     <nav className='tapBar-navigation'>
       <div>
         <Link to={'/landing'}>
-          <Icon className={'home-icon'}>home</Icon>
+          <img src={home} alt='home' className='homeIcon' />
         </Link>
       </div>
       <div>
         <Link to={'/my-favorites'}>
-          <Icon className={'favorite-icon'}>favorite</Icon>
+          <img src={heart} alt='heart' className='heartIcon' />
         </Link>
       </div>
       <div>
         <Link to={'/upload-product'}>
-          <Icon className={'add-icon'}>add_circle</Icon>
+          <img src={add} alt='add' className='addIcon' />
         </Link>
       </div>
       {/* <div>

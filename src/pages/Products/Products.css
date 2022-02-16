@@ -1,6 +1,6 @@
 .productsGrid{
     background-color: rgb(228, 241, 255);
-    padding-top: 180px;
+    padding-top: 150px;
 }
 .divFilters{
     display: flex;
@@ -26,4 +26,19 @@
 .classActive{
     color: #992b9c !important;
     background:radial-gradient( #fedbff, #fee8ff, white, white);
+}
+.FavoriteComponent > button {
+    position: relative;
+    right: 10px;
+}
+.title-product-card{
+    font-size: 18px !important;
+    position: relative !important;
+    top: 8px
+}
+.product-card-header{
+    padding-bottom: 8px
+}
+.productGrid-card-container > div > p {
+    font-size: 18px !important;
 }
