@@ -14,3 +14,16 @@
     flex-grow: 1;
     justify-content:space-evenly;
 }
+
+.divFilters > div{
+    margin: 10px;
+}
+
+.buttoms-filters > button > p {
+    font-size: 8px;
+    font-weight: bold;
+}
+.classActive{
+    color: #992b9c !important;
+    background:radial-gradient( #fedbff, #fee8ff, white, white);
+}
