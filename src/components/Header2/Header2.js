@@ -79,7 +79,7 @@ export default function PrimarySearchAppBar() {
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-        actualUrl.startsWith("http://localhost:3001/my-favorites")
+      actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
 
     //! Work
@@ -245,9 +245,10 @@ export default function PrimarySearchAppBar() {
   return (
     <>
       <AppBar
+        elevation={2}
         position="fixed"
         className="header"
-        sx={{ zIndex: "12000", backgroundColor: "rgb(0, 17, 73)" }}
+        sx={{ zIndex: "12000", backgroundColor: "white" }}
       >
         <Toolbar>
           <div>
@@ -262,7 +263,7 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </div>
           <Search>
-            <StyledInputBase
+            <StyledInputBase sx={{ backgroundColor: '#e4f1ff', borderRadius: '8px', color: '#051149', height: '27px' }}
               className="searchBar"
               placeholder="Buscar"
               value={searchParams.get("search") || ""}
@@ -296,7 +297,7 @@ export default function PrimarySearchAppBar() {
                   onClick={() => navigate("/my-reviews")}
                 >
                   <Badge badgeContent={numbReviews} color="error">
-                    <MailIcon />
+                    <MailIcon sx={{ color: '#051149' }} />
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -306,7 +307,7 @@ export default function PrimarySearchAppBar() {
                   onClick={() => navigate("/my-products/purchase-orders")}
                 >
                   <Badge badgeContent={numbPurcharseOrders} color="error">
-                    <NotificationsIcon />
+                    <NotificationsIcon sx={{ color: '#051149' }} />
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -318,7 +319,7 @@ export default function PrimarySearchAppBar() {
                   onClick={handleProfileMenuOpen}
                   color="inherit"
                 >
-                  <AccountCircle />
+                  <AccountCircle sx={{ color: '#051149' }} />
                 </IconButton>
               </Box>
               <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -330,7 +331,7 @@ export default function PrimarySearchAppBar() {
                   onClick={handleMobileMenuOpen}
                   color="inherit"
                 >
-                  <MoreIcon />
+                  <MoreIcon sx={{ color: '#051149' }} />
                 </IconButton>
               </Box>
             </>
