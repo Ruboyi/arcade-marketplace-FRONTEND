@@ -12,6 +12,7 @@ import { useNavigate } from "react-router";
 import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import "./Landing.css";
+import logoCompleto from '../../assets/logosinfondo2.png'
 // import ProductCard from "../../components/ProductCard/ProductCard";
 
 const { REACT_APP_BACKEND_API } = process.env;
@@ -93,6 +94,7 @@ export default function Landing() {
         </nav>
       </Paper>
       <main>
+        <div className="imageLanding"><img src={logoCompleto} alt='logo Arcade Marketplace'></img></div>
         <h1>Productos mas buscados</h1>
         <div className="top-product-card-container">
           {productsDataMostViewed ? (
