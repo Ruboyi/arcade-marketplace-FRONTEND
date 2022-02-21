@@ -22,6 +22,7 @@
     background-color: #051149;
     height: 45px;
     margin: 8px;
+    margin-top: 15px;
 }
 .loginButton{
     margin: 12px;
@@ -30,4 +31,20 @@
 }
 .header{
     z-index: 10000;
+}
+.iconHeader{
+    height: 20px;
+}
+.uploadText{color: #051149;
+font-size: 16px;
+padding-right: 8px;
+}
+
+.uploadIconButton{
+    background-color: #e4f1ff !important;
+    border-radius: 20px !important;
+    margin-left: 10px !important;
+    height: 35px;
+    align-items: center !important;
+    box-shadow: 0 0px 3px 0 rgb(1 9 71 / 19%);
 }

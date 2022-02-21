@@ -22,6 +22,8 @@ import { useState } from "react";
 import "./Header2.css";
 import { Button } from "@mui/material";
 import theme from "../../theme/theme";
+import heartHeader from '../../assets/heartHeader.png'
+import uploadHeader from '../../assets/uploadHeader.png'
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -289,7 +291,17 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           {userSession ? (
             <>
-              <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Box sx={{ display: { xs: "none", md: "flex", alignItems: 'center' } }}>
+
+                <IconButton
+                  size="large"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                  onClick={() => navigate("/my-favorites")}
+                >
+                  <img src={heartHeader} alt='favorites' className="iconHeader" />
+                </IconButton>
+
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
@@ -320,6 +332,16 @@ export default function PrimarySearchAppBar() {
                   color="inherit"
                 >
                   <AccountCircle sx={{ color: '#051149' }} />
+                </IconButton>
+                <IconButton
+                  className="uploadIconButton"
+                  size="large"
+                  aria-label="show 4 new mails"
+                  color="inherit"
+                  onClick={() => navigate("/upload-product")}
+                >
+                  <span className="uploadText">Subir Producto</span>
+                  <img src={uploadHeader} alt='upload product' className='iconHeader' />
                 </IconButton>
               </Box>
               <Box sx={{ display: { xs: "flex", md: "none" } }}>

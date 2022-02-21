@@ -59,3 +59,7 @@
     height: 32px;
     padding: 10px;
 }
+
+@media (min-width: 900px) {
+    .tapBar-navigation{display: none}
+}
