@@ -11,7 +11,7 @@ import MuiAlert from "@mui/material/Alert";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
-export default function AdminGrid({ usersData, getAllUser }) {
+export default function AdminProductsGrid({ productsData, getAllProducts }) {
   const navigate = useNavigate();
   const { userSession } = useAuthorization();
   const [backendResponse, setBackendResponse] = useState();
@@ -44,60 +44,35 @@ export default function AdminGrid({ usersData, getAllUser }) {
     },
   };
 
-  const handleBannerClick = (id) => async (event) => {
-    event.stopPropagation();
-    console.log(`Banneando a usuario con id: ${id}`);
-    const data = {};
-    try {
-      const response = await axios.put(
-        `${REACT_APP_BACKEND_API}users/${id}`,
-        data,
-        config
-      );
-      setBackendResponse(response.data.message);
-      setOpen(true);
-      getAllUser();
-    } catch (error) {
-      setError(error.response.data.error);
-    }
-  };
-
   const handleDeleteClick = (id) => async (event) => {
     event.stopPropagation();
-    console.log(`Borrando usuario con id: ${id}`);
+    console.log(`Borrando producto con id: ${id}`);
     try {
       const response = await axios.delete(
-        `${REACT_APP_BACKEND_API}users/${id}`,
+        `${REACT_APP_BACKEND_API}products/${id}`,
         config
       );
       setBackendResponse(response.data.message);
       setOpen(true);
-      getAllUser();
+      getAllProducts();
     } catch (error) {
       setError(error.response.data.error);
     }
   };
 
-  const handleNavigateClick = (id) => async (event) => {
+  const handleNavigateClick = (id) => (event) => {
     event.stopPropagation();
-    console.log(`Redirigiendo a perfil del usuario:${id}`);
-    try {
-      const response = await axios.get(
-        `${REACT_APP_BACKEND_API}users/user/${id}`
-      );
-      const { nameUser } = response.data;
-      navigate(`/user/${nameUser}/${id}`);
-    } catch (error) {
-      setError(error.response.data.error);
-    }
+    console.log(`Redirigiendo a ficha del producto:${id}`);
+    navigate(`/products/${id}`);
   };
 
   const columns = [
     { field: "id", headerName: "Id", width: 60 },
-    { field: "nameUser", headerName: "Nombre", width: 130 },
-    { field: "email", headerName: "Email", width: 180 },
-    { field: "phone", headerName: "Teléfono", width: 100 },
-    { field: "createdAt", headerName: "Fecha de alta", width: 150 },
+    { field: "title", headerName: "Producto", width: 130 },
+    { field: "price", headerName: "Precio (€)", width: 180 },
+    { field: "location", headerName: "Localidad", width: 100 },
+    { field: "state", headerName: "Estado", width: 150 },
+    { field: "createdAt", headerName: "Fecha de subida", width: 180 },
     {
       field: "actions",
       type: "actions",
@@ -114,12 +89,6 @@ export default function AdminGrid({ usersData, getAllUser }) {
             color="inherit"
           />,
           <GridActionsCellItem
-            icon={<BlockIcon sx={{ color: "red" }} />}
-            label="Delete"
-            onClick={handleBannerClick(id)}
-            color="inherit"
-          />,
-          <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
             onClick={handleDeleteClick(id)}
@@ -129,12 +98,27 @@ export default function AdminGrid({ usersData, getAllUser }) {
       },
     },
   ];
+  const rows = [];
 
-  const rows = usersData;
+  if (productsData) {
+    productsData.map((product) => {
+      const { idProduct, title, price, location, state, createdAt } = product;
+      const productObject = {
+        id: idProduct,
+        title: title,
+        price: price,
+        location: location,
+        state: state,
+        createdAt: createdAt,
+      };
+      rows.push(productObject);
+    });
+  }
+  console.log(rows);
 
   return (
     <>
-      {usersData && (
+      {productsData && (
         <Paper style={{ height: "100%", width: "100%" }}>
           <DataGrid
             rows={rows}
@@ -145,7 +129,12 @@ export default function AdminGrid({ usersData, getAllUser }) {
           {backendResponse && (
             <Stack
               spacing={2}
-              sx={{ width: "100%", position: "fixed", top: "100px" }}
+              sx={{
+                width: "100%",
+                position: "fixed",
+                top: "100px",
+                zIndex: 1200,
+              }}
             >
               <Snackbar
                 open={open}
@@ -165,7 +154,12 @@ export default function AdminGrid({ usersData, getAllUser }) {
           {error && (
             <Stack
               spacing={2}
-              sx={{ width: "100%", position: "fixed", top: "100px" }}
+              sx={{
+                width: "100%",
+                position: "fixed",
+                top: "100px",
+                zIndex: 1200,
+              }}
             >
               <Snackbar
                 open={open}

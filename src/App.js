@@ -20,7 +20,9 @@ import MyProductsPurchaseOrders from "./pages/MyProductPurchaseOrders/MyProducts
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Landing from "./pages/Landing/Landing";
 import NotFoundComponent from "./components/NotFound/NotFound";
-import AdminPage from "./pages/AdminPage/AdminPage";
+import AdminPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
+import AdminUsersPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
+import AdminProductsPage from "./pages/Admin/AdminProductsPage/AdminProductsPage";
 
 function App() {
   return (
@@ -51,7 +53,8 @@ function App() {
 
         {/* ROUTES ADMIN */}
 
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/users" element={<AdminUsersPage />} />
+        <Route path="/admin/products" element={<AdminProductsPage />} />
       </Routes>
       <TapBar />
     </div>
