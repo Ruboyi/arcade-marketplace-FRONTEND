@@ -65,10 +65,11 @@ function Products() {
   const [openLocation, setOpenLocation] = useState(false);
   const [openStatus, setOpenStatus] = useState(false);
   const [openPrecio, setOpenPrecio] = useState(false);
-  const [classActive, setClassActive] = useState()
+  const [classActive, setClassActive] = useState();
 
-  const urlFilter = `/products${splitedUrl}&lowPrice=${price[0] * 10
-    }&highPrice=${price[1] * 10}&province=${province}&status=${status}`;
+  const urlFilter = `/products${splitedUrl}&lowPrice=${
+    price[0] * 10
+  }&highPrice=${price[1] * 10}&province=${province}&status=${status}`;
 
   useEffect(() => {
     async function getData() {
@@ -84,13 +85,13 @@ function Products() {
     }
 
     if (window.location.href.includes("?category=consolas")) {
-      setClassActive('consolas')
+      setClassActive("consolas");
     } else if (window.location.href.includes("?category=videojuegos")) {
-      setClassActive('videojuegos')
+      setClassActive("videojuegos");
     } else if (window.location.href.includes("?category=accesorios")) {
-      setClassActive('accesorios')
+      setClassActive("accesorios");
     } else if (window.location.href.includes("?category=arcades")) {
-      setClassActive('arcades')
+      setClassActive("arcades");
     }
     getData();
   }, [url]);
@@ -105,27 +106,48 @@ function Products() {
     <>
       <Paper
         elevation={2}
-        sx={{ maxHeight: "200px", position: "fixed", width: "100%", zIndex: 10 }}
+        sx={{
+          maxHeight: "200px",
+          position: "fixed",
+          width: "100%",
+          zIndex: 10,
+        }}
       >
         <nav className="categories">
           <div>
-            <a href="/products?category=consolas" className={"class" + (classActive === 'consolas' ? 'Active' : '')}>
+            <a
+              href="/products?category=consolas"
+              className={"class" + (classActive === "consolas" ? "Active" : "")}
+            >
               <img src={consolasLogo} alt="consolas logo"></img>Consolas
             </a>
           </div>
           <div>
-            <a href="/products?category=videojuegos" className={"class" + (classActive === 'videojuegos' ? 'Active' : '')}>
+            <a
+              href="/products?category=videojuegos"
+              className={
+                "class" + (classActive === "videojuegos" ? "Active" : "")
+              }
+            >
               <img src={videojuegosLogo} alt="videojuegos logo"></img>
               Videojuegos
             </a>
           </div>
           <div>
-            <a href="/products?category=accesorios" className={"class" + (classActive === 'accesorios' ? 'Active' : '')}>
+            <a
+              href="/products?category=accesorios"
+              className={
+                "class" + (classActive === "accesorios" ? "Active" : "")
+              }
+            >
               <img src={accesoriosLogo} alt="accesorios logo"></img>Accesorios
             </a>
           </div>
           <div>
-            <a href="/products?category=arcades" className={"class" + (classActive === 'arcades' ? 'Active' : '')}>
+            <a
+              href="/products?category=arcades"
+              className={"class" + (classActive === "arcades" ? "Active" : "")}
+            >
               {" "}
               <img src={arcadesLogo} alt="arcades logo"></img>Arcades
             </a>
@@ -263,8 +285,10 @@ function Products() {
                   onClick={() => {
                     setProvince();
                     navigate(
-                      `/products${splitedUrl}&lowPrice=${price[0] * 10
-                      }&highPrice=${price[1] * 10
+                      `/products${splitedUrl}&lowPrice=${
+                        price[0] * 10
+                      }&highPrice=${
+                        price[1] * 10
                       }&province=${""}&status=${status}`
                     );
                     setOpenLocation(false);
@@ -327,8 +351,10 @@ function Products() {
                   onClick={() => {
                     setStatus("");
                     navigate(
-                      `/products${splitedUrl}&lowPrice=${price[0] * 10
-                      }&highPrice=${price[1] * 10
+                      `/products${splitedUrl}&lowPrice=${
+                        price[0] * 10
+                      }&highPrice=${
+                        price[1] * 10
                       }&province=${province}&status=${""}`
                     );
                     setOpenStatus(false);

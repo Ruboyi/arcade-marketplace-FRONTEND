@@ -44,7 +44,7 @@ function AuthProvider(props) {
       if (role === "admin") {
         setIsAdmin(true);
         sessionStorage.setItem("isAdmin", true);
-        navigate("/admin");
+        navigate("/admin/users");
       } else {
         navigate("/profile");
       }
