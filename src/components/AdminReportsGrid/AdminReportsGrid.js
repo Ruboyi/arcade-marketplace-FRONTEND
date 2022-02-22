@@ -60,7 +60,8 @@ export default function AdminReportsGrid({ reportsData, getAllReports }) {
     { field: "id", headerName: "Id", width: 60 },
     { field: "idProduct", headerName: "Producto (id)", width: 120 },
     { field: "idUser", headerName: "Usuario (id)", width: 120 },
-    { field: "reason", headerName: "Motivo", width: 180 },
+    { field: "reason", headerName: "Motivo", width: 220 },
+    { field: "description", headerName: "Descripción", width: 300 },
     { field: "reportDate", headerName: "Fecha del reporte", width: 180 },
     {
       field: "actions",

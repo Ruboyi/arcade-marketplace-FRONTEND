@@ -19,11 +19,11 @@ import { useNavigate } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
 import GoBack from "../../components/GoBack/GoBack";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import ReportIcon from "@mui/icons-material/Report";
 import SellerContact from "../../components/SellerContact/SellerContact";
 import { Box } from "@mui/system";
 
 import GoogleMap from "../../components/GoogleMap/GoogleMap";
+import ReportButton from "../../components/ReportButton/ReportButton";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -45,11 +45,13 @@ function ProductPage() {
   const [arrayImages, setArrayImages] = useState();
   const [error, setError] = useState();
   const [isCreated, setIsCreated] = useState(false);
+  const [isReported, setIsReported] = useState(false);
   const [isReservado, setIsReservado] = useState(false);
   const { idProduct } = useParams();
   const { userProfile, userSession } = useAuthorization();
   const handleClose = () => setError(false);
   const handleCloseIsCreated = () => setIsCreated(false);
+  const handleCloseisReported = () => setIsCreated(false);
   const navigate = useNavigate();
   const [avgRating, setAvgRating] = useState();
 
@@ -128,19 +130,25 @@ function ProductPage() {
                 </IconButton>
               </div>
               {userProfile.idUser !== productInfo.idUser && (
-                <IconButton>
-                  <ReportIcon fontSize="small" sx={{ color: "grey" }} /><p className="reportP">Reportar</p>
-                </IconButton>
+                <ReportButton
+                  idProduct={productInfo.idProduct}
+                  setError={setError}
+                  setIsReported={setIsReported}
+                />
               )}
             </div>
             <div>
               <div className="cabeceraProduct">
-                <div className="price"><h1>{productInfo.price}€</h1>
-                  <p>{productInfo.state}</p></div>
+                <div className="price">
+                  <h1>{productInfo.price}€</h1>
+                  <p>{productInfo.state}</p>
+                </div>
                 <h2>{productInfo.title}</h2>
               </div>
               <p className="descripcionProduct">{productInfo.description}</p>
-              <p className="localizacionProduct">Ubicación: {productInfo.location}</p>
+              <p className="localizacionProduct">
+                Ubicación: {productInfo.location}
+              </p>
               <GoogleMap location={productInfo.location} />
             </div>
             {userProfile.idUser !== productInfo.idUser && !isNaN(avgRating) && (
@@ -240,6 +248,25 @@ function ProductPage() {
                         Orden de comprar creada correctamente, espere respuesta
                         del vendedor
                         <strong>;)</strong>
+                      </Alert>
+                    </Stack>
+                  </Box>
+                </Modal>
+              </div>
+            )}
+            {isReported && (
+              <div>
+                <Modal
+                  open={true}
+                  onClose={handleCloseisReported}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                >
+                  <Box style={style}>
+                    <Stack sx={{ width: "100%" }} spacing={2}>
+                      <Alert severity="success">
+                        <AlertTitle>¡Todo ha ido bien!</AlertTitle>
+                        Producto reportado correctamente
                       </Alert>
                     </Stack>
                   </Box>
