@@ -135,7 +135,7 @@ export default function AdminGrid({ usersData, getAllUser }) {
   return (
     <>
       {usersData && (
-        <Paper style={{ height: "100%", width: "100%" }}>
+        <Paper style={{ height: "100vh", width: "100%" }}>
           <DataGrid
             rows={rows}
             columns={columns}
@@ -145,7 +145,11 @@ export default function AdminGrid({ usersData, getAllUser }) {
           {backendResponse && (
             <Stack
               spacing={2}
-              sx={{ width: "100%", position: "fixed", top: "100px" }}
+              sx={{
+                width: "100%",
+                position: "fixed",
+                top: "100px",
+              }}
             >
               <Snackbar
                 open={open}

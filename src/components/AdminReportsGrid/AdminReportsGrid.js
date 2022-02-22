@@ -1,17 +1,14 @@
-import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { Paper, Snackbar, Stack } from "@mui/material";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import { forwardRef, useState } from "react";
 import MuiAlert from "@mui/material/Alert";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
-export default function AdminProductsGrid({ productsData, getAllProducts }) {
-  const navigate = useNavigate();
+export default function AdminReportsGrid({ reportsData, getAllReports }) {
   const { userSession } = useAuthorization();
   const [backendResponse, setBackendResponse] = useState();
   const [error, setError] = useState();
@@ -45,33 +42,26 @@ export default function AdminProductsGrid({ productsData, getAllProducts }) {
 
   const handleDeleteClick = (id) => async (event) => {
     event.stopPropagation();
-    console.log(`Borrando producto con id: ${id}`);
+    console.log(`Borrando reporte con id: ${id}`);
     try {
       const response = await axios.delete(
-        `${REACT_APP_BACKEND_API}products/${id}`,
+        `${REACT_APP_BACKEND_API}reports/${id}`,
         config
       );
       setBackendResponse(response.data.message);
       setOpen(true);
-      getAllProducts();
+      getAllReports();
     } catch (error) {
       setError(error.response.data.error);
     }
   };
 
-  const handleNavigateClick = (id) => (event) => {
-    event.stopPropagation();
-    console.log(`Redirigiendo a ficha del producto:${id}`);
-    navigate(`/products/${id}`);
-  };
-
   const columns = [
     { field: "id", headerName: "Id", width: 60 },
-    { field: "title", headerName: "Producto", width: 130 },
-    { field: "price", headerName: "Precio (€)", width: 180 },
-    { field: "location", headerName: "Localidad", width: 100 },
-    { field: "state", headerName: "Estado", width: 150 },
-    { field: "createdAt", headerName: "Fecha de subida", width: 180 },
+    { field: "idProduct", headerName: "Producto (id)", width: 120 },
+    { field: "idUser", headerName: "Usuario (id)", width: 120 },
+    { field: "reason", headerName: "Motivo", width: 180 },
+    { field: "reportDate", headerName: "Fecha del reporte", width: 180 },
     {
       field: "actions",
       type: "actions",
@@ -80,13 +70,6 @@ export default function AdminProductsGrid({ productsData, getAllProducts }) {
       cellClassName: "actions",
       getActions: ({ id }) => {
         return [
-          <GridActionsCellItem
-            icon={<AssignmentIndOutlinedIcon />}
-            label="navigate"
-            className="textPrimary"
-            onClick={handleNavigateClick(id)}
-            color="inherit"
-          />,
           <GridActionsCellItem
             icon={<DeleteIcon />}
             label="Delete"
@@ -97,27 +80,11 @@ export default function AdminProductsGrid({ productsData, getAllProducts }) {
       },
     },
   ];
-  const rows = [];
-
-  if (productsData) {
-    productsData.map((product) => {
-      const { idProduct, title, price, location, state, createdAt } = product;
-      const productObject = {
-        id: idProduct,
-        title: title,
-        price: price,
-        location: location,
-        state: state,
-        createdAt: createdAt,
-      };
-      rows.push(productObject);
-      return true;
-    });
-  }
+  const rows = reportsData;
 
   return (
     <>
-      {productsData && (
+      {reportsData && (
         <Paper style={{ height: "100vh", width: "100%" }}>
           <DataGrid
             rows={rows}

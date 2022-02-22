@@ -20,9 +20,9 @@ import MyProductsPurchaseOrders from "./pages/MyProductPurchaseOrders/MyProducts
 import UserProfile from "./pages/UserProfile/UserProfile";
 import Landing from "./pages/Landing/Landing";
 import NotFoundComponent from "./components/NotFound/NotFound";
-import AdminPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
 import AdminUsersPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
 import AdminProductsPage from "./pages/Admin/AdminProductsPage/AdminProductsPage";
+import AdminReportsPage from "./pages/Admin/AdminReportsPage/AdminReportsPage";
 
 function App() {
   return (
@@ -55,6 +55,7 @@ function App() {
 
         <Route path="/admin/users" element={<AdminUsersPage />} />
         <Route path="/admin/products" element={<AdminProductsPage />} />
+        <Route path="/admin/reports" element={<AdminReportsPage />} />
       </Routes>
       <TapBar />
     </div>

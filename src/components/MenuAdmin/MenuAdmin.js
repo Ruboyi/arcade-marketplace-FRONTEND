@@ -7,11 +7,10 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import EventAvailableOutlinedIcon from "@mui/icons-material/EventAvailableOutlined";
-import { useAuthorization } from "../../hooks/useAuthorization";
+
 import { useNavigate } from "react-router-dom";
 
 export default function MenuAdmin() {
-  const { logout } = useAuthorization();
   const navigate = useNavigate();
   return (
     <Paper
@@ -22,9 +21,7 @@ export default function MenuAdmin() {
         backgroundColor: "white",
         textAlign: "left",
         position: "fixed",
-        zIndex: "1100",
-        top: "70px",
-        position: "fixed",
+        top: "77px",
       }}
     >
       <MenuList>
@@ -42,7 +39,7 @@ export default function MenuAdmin() {
           <ListItemText>Productos</ListItemText>
         </MenuItem>
         <Divider />
-        <MenuItem onClick={() => navigate("/my-orders")}>
+        <MenuItem onClick={() => navigate("/admin/reports")}>
           <ListItemIcon>
             <EventAvailableOutlinedIcon />
           </ListItemIcon>
