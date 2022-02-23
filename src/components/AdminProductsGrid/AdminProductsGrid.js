@@ -1,12 +1,13 @@
 import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import { Paper, Snackbar, Stack } from "@mui/material";
+import { Paper } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuthorization } from "../../hooks/useAuthorization";
-import { forwardRef, useState } from "react";
-import MuiAlert from "@mui/material/Alert";
+import { useState } from "react";
+import SnackbarSuccess from "../SnackbarSuccess/SnackbarSuccess";
+import SnackbarError from "../SnackbarError/SnackbarError";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -16,26 +17,7 @@ export default function AdminProductsGrid({ productsData, getAllProducts }) {
   const [backendResponse, setBackendResponse] = useState();
   const [error, setError] = useState();
   const [open, setOpen] = useState(false);
-
-  const Alert = forwardRef(function Alert(props, ref) {
-    return (
-      <MuiAlert
-        elevation={6}
-        ref={ref}
-        variant="filled"
-        {...props}
-        sx={{ position: "fixed", bottom: "65px", left: 0 }}
-      />
-    );
-  });
-
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setOpen(false);
-  };
+  const [openError, setOpenError] = useState(false);
 
   const config = {
     headers: {
@@ -56,6 +38,7 @@ export default function AdminProductsGrid({ productsData, getAllProducts }) {
       getAllProducts();
     } catch (error) {
       setError(error.response.data.error);
+      setOpenError(true);
     }
   };
 
@@ -126,55 +109,18 @@ export default function AdminProductsGrid({ productsData, getAllProducts }) {
             rowsPerPageOptions={[5]}
           />
           {backendResponse && (
-            <Stack
-              spacing={2}
-              sx={{
-                width: "100%",
-                left: "200px",
-                position: "fixed",
-                top: "100px",
-                zIndex: 1200,
-              }}
-            >
-              <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert
-                  onClose={handleClose}
-                  severity="success"
-                  sx={{ width: "100%" }}
-                >
-                  {backendResponse}
-                </Alert>
-              </Snackbar>
-            </Stack>
+            <SnackbarSuccess
+              message={backendResponse}
+              open={open}
+              setOpen={setOpen}
+            />
           )}
           {error && (
-            <Stack
-              spacing={2}
-              sx={{
-                width: "100%",
-                position: "fixed",
-                top: "100px",
-                zIndex: 1200,
-              }}
-            >
-              <Snackbar
-                open={open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-              >
-                <Alert
-                  onClose={handleClose}
-                  severity="error"
-                  sx={{ width: "100%" }}
-                >
-                  {error}
-                </Alert>
-              </Snackbar>
-            </Stack>
+            <SnackbarError
+              error={error}
+              openError={openError}
+              setOpenError={setOpenError}
+            />
           )}
         </Paper>
       )}
