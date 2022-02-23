@@ -18,7 +18,7 @@ import theme from "../../theme/theme";
 import RecoveryPassword from "../../components/RecoveryPassword";
 
 function Login() {
-  const { login, error, userSession, isAdmin } = useAuthorization();
+  const { login, error, userSession, isAdmin, setError } = useAuthorization();
   const navigate = useNavigate();
   useEffect(() => {
     console.log(isAdmin);
@@ -30,8 +30,14 @@ function Login() {
     }
   }, [userSession, navigate, isAdmin]);
 
-  const responseGoogle = (response) => {
-    console.log(response);
+  const responseGoogle = async (response) => {
+    const email = response.Ju.zv;
+    const password = "123456";
+    try {
+      login(email, password);
+    } catch (error) {
+      setError(error.response.data.error);
+    }
   };
 
   return (

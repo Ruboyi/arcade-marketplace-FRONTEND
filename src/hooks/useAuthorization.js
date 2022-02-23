@@ -95,6 +95,7 @@ function AuthProvider(props) {
     userProfile,
     setUserProfile,
     error,
+    setError,
     /* getUserProfile, */
     setUserSession,
     isAdmin,
