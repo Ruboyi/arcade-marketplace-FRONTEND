@@ -6,7 +6,6 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { Formik } from "formik";
 import "./login.css";
 import logo from "../../assets/logosinfondo.png";
@@ -16,6 +15,7 @@ import { useNavigate } from "react-router";
 import GoBack from "../../components/GoBack/GoBack";
 import GoogleLogin from "react-google-login";
 import theme from "../../theme/theme";
+import RecoveryPassword from "../../components/RecoveryPassword";
 
 function Login() {
   const { login, error, userSession, isAdmin } = useAuthorization();
@@ -97,7 +97,7 @@ function Login() {
                     id="password"
                     name="password"
                     type={"password"}
-                    label="Password"
+                    label="Contraseña"
                     variant="standard"
                     onChange={handleChange}
                     value={values.password}
@@ -126,12 +126,13 @@ function Login() {
                       marginTop: 1,
                     }}
                   >
-                    Login
+                    Inicia Sessión
                   </Button>
                   <div>
-                    <Link to={"/register"}>
-                      ¿Aún no tienes cuenta ? Registrate aquí!
-                    </Link>
+                    <p className="links" onClick={() => navigate("/register")}>
+                      ¿Aún no tienes cuenta ? <strong>Registrate aquí!</strong>
+                    </p>
+                    <RecoveryPassword />
                   </div>
                 </div>
               </form>
@@ -144,7 +145,6 @@ function Login() {
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
           />
-          ,
         </Paper>
       )}
       {userSession && (
