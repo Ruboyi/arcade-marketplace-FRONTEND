@@ -23,6 +23,7 @@ import NotFoundComponent from "./components/NotFound/NotFound";
 import AdminUsersPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
 import AdminProductsPage from "./pages/Admin/AdminProductsPage/AdminProductsPage";
 import AdminReportsPage from "./pages/Admin/AdminReportsPage/AdminReportsPage";
+import RecoveryPasswordPage from "./pages/RecoveryPassword/RecoryPasswordPage";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/my-products" element={<Myproducts />} />
         <Route path="/my-favorites" element={<MyFavorites />} />
         <Route path="/activacion" element={<Activation />} />
+        <Route path="/password/:code" element={<RecoveryPasswordPage />} />
         <Route path="/my-orders" element={<MyOrders />} />
         <Route path="/my-reviews" element={<MyReviews />} />
         <Route path="/update-product/:idProduct" element={<UpdateProduct />} />
