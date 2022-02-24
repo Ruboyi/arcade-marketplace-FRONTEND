@@ -9,6 +9,7 @@ import { useState } from "react";
 import "./Reviews.css";
 import axios from "axios";
 import { useAuthorization } from "../../hooks/useAuthorization";
+import theme from "../../theme/theme";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -25,13 +26,12 @@ export default function ReviewsUser({ idUser, isBuyerOrSeller, idUserBuyer }) {
 
   const handleClose = () => {
     setOpen(false);
-
   };
 
   const addReviews = async (e) => {
     e.preventDefault();
     console.log("Submit!!", rating, opinion, isSeller);
-    const data = {}
+    const data = {};
     const body = {
       rating,
       opinion,
@@ -50,20 +50,24 @@ export default function ReviewsUser({ idUser, isBuyerOrSeller, idUserBuyer }) {
         body,
         config
       );
-      if (isBuyerOrSeller === 'buyer') {
+      if (isBuyerOrSeller === "buyer") {
         await axios.put(
-          `${REACT_APP_BACKEND_API}orders/setSeller/${idUser}`, data, config
-        )
-      } else if (isBuyerOrSeller === 'seller') {
+          `${REACT_APP_BACKEND_API}orders/setSeller/${idUser}`,
+          data,
+          config
+        );
+      } else if (isBuyerOrSeller === "seller") {
         await axios.put(
-          `${REACT_APP_BACKEND_API}orders/setBuyer/${idUser}`, data, config
-        )
+          `${REACT_APP_BACKEND_API}orders/setBuyer/${idUser}`,
+          data,
+          config
+        );
       }
 
       console.log(response.data);
 
       handleClose();
-      window.location.reload(true)
+      window.location.reload(true);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +75,12 @@ export default function ReviewsUser({ idUser, isBuyerOrSeller, idUserBuyer }) {
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen} sx={{ margin: 1 }}>
+      <Button
+        theme={theme}
+        variant="outlined"
+        onClick={handleClickOpen}
+        sx={{ margin: 1 }}
+      >
         Dar valoración
       </Button>
       <Dialog open={open} onClose={handleClose} sx={{ textAlign: "center" }}>
@@ -88,6 +97,7 @@ export default function ReviewsUser({ idUser, isBuyerOrSeller, idUserBuyer }) {
               }}
             />
             <TextField
+              theme={theme}
               multiline
               rows={4}
               autoFocus
@@ -102,7 +112,9 @@ export default function ReviewsUser({ idUser, isBuyerOrSeller, idUserBuyer }) {
             />
             <DialogActions>
               <Button onClick={handleClose}>Cancelar</Button>
-              <Button type="submit">Enviar</Button>
+              <Button theme={theme} variant="contained" type="submit">
+                Enviar
+              </Button>
             </DialogActions>
           </form>
         </DialogContent>

@@ -1,24 +1,30 @@
-import { FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useAuthorization } from '../../hooks/useAuthorization';
-import './ProductOrders.css';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { Formik } from 'formik';
-import { DateTimePicker } from '@mui/lab';
-import ReviewsUser from '../Reviews/Reviews';
+import {
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useAuthorization } from "../../hooks/useAuthorization";
+import "./ProductOrders.css";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { Formik } from "formik";
+import { DateTimePicker } from "@mui/lab";
+import ReviewsUser from "../Reviews/Reviews";
+import theme from "../../theme/theme";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
 export default function ProductOrders({ idProduct }) {
   const [productOrders, setProductOrders] = useState();
-  const [productoSolicitado, setProductoSolicitado] = useState()
+  const [productoSolicitado, setProductoSolicitado] = useState();
   const { userSession } = useAuthorization();
   const [saleDate, setSaleDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -35,8 +41,8 @@ export default function ProductOrders({ idProduct }) {
       try {
         const config = {
           headers: {
-            Authorization: `Bearer ${userSession}`
-          }
+            Authorization: `Bearer ${userSession}`,
+          },
         };
         const response = await axios.get(
           `${REACT_APP_BACKEND_API}orders/product/${idProduct}`,
@@ -49,8 +55,9 @@ export default function ProductOrders({ idProduct }) {
           setProductOrders(orders);
         }
         const responseProductoSolicitado = await axios.get(
-          `${REACT_APP_BACKEND_API}products/${idProduct}`)
-        setProductoSolicitado(responseProductoSolicitado.data.data)
+          `${REACT_APP_BACKEND_API}products/${idProduct}`
+        );
+        setProductoSolicitado(responseProductoSolicitado.data.data);
       } catch (error) {
         console.log(error.response.data.error);
       }
@@ -59,21 +66,24 @@ export default function ProductOrders({ idProduct }) {
   }, [userSession, idProduct]);
 
   const options = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   };
 
   async function setSold(idUserBuyer, idOrder) {
-    const data = {}
+    const data = {};
     const config = {
       headers: {
-        Authorization: `Bearer ${userSession}`
-      }
-    }
-    await axios.put(`${REACT_APP_BACKEND_API}orders/setSold/${idUserBuyer}/${idOrder}`, data,
-      config)
+        Authorization: `Bearer ${userSession}`,
+      },
+    };
+    await axios.put(
+      `${REACT_APP_BACKEND_API}orders/setSold/${idUserBuyer}/${idOrder}`,
+      data,
+      config
+    );
     window.location.reload();
   }
 
@@ -82,59 +92,73 @@ export default function ProductOrders({ idProduct }) {
       {productOrders && productoSolicitado ? (
         productOrders.map((order) => {
           return (
-            <div key={order.idOrder} className='product-order-info-container'>
-              <div className='product-order-status'>{order.status}</div>
+            <div key={order.idOrder} className="product-order-info-container">
+              <div className="product-order-status">{order.status}</div>
               <div>
-                Fecha de solicitud:{' '}
-                <div className='product-order-date'>
-                  {new Date(order.orderDate).toLocaleString('es-ES', options)}
+                Fecha de solicitud:{" "}
+                <div className="product-order-date">
+                  {new Date(order.orderDate).toLocaleString("es-ES", options)}
                 </div>
               </div>
 
-              <div className='product-order-message-container'>
+              <div className="product-order-message-container">
                 Mensaje: <span>{order.orderSubject}</span>
-                <div className='product-order-message'>{order.orderMessage}</div>
+                <div className="product-order-message">
+                  {order.orderMessage}
+                </div>
               </div>
-              {order.status === 'solicitado' && (
+              {order.status === "solicitado" && (
                 <div>
-                  <Button variant='outlined' onClick={handleClickOpen}>
+                  <Button
+                    theme={theme}
+                    variant="outlined"
+                    onClick={handleClickOpen}
+                  >
                     Aceptar solicitud
                   </Button>
-                  <Dialog open={open} onClose={handleClose}>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    sx={{ height: "600px", marginTop: "80px" }}
+                  >
                     <DialogTitle>Confirmar reserva</DialogTitle>
                     <DialogContent>
                       <Formik
                         initialValues={{
-                          saleLocation: '',
-                          saleMessage: '',
-                          saleTypeOfContact: 'email'
+                          saleLocation: "",
+                          saleMessage: "",
+                          saleTypeOfContact: "email",
                         }}
                         validate={(values) => {
                           const errors = {};
 
                           if (!values.saleLocation) {
-                            errors.saleLocation = 'Localización requerida';
+                            errors.saleLocation = "Localización requerida";
                           }
                           if (!values.saleMessage) {
-                            errors.saleMessage = 'Mensaje requerido';
+                            errors.saleMessage = "Mensaje requerido";
                           }
                           if (!values.saleTypeOfContact) {
-                            errors.saleTypeOfContact = 'Tipo de contacto requerido';
+                            errors.saleTypeOfContact =
+                              "Tipo de contacto requerido";
                           }
                           return errors;
                         }}
                         onSubmit={async (values) => {
-                          console.log('SUBMIT: ', saleDate, values);
-                          const { saleLocation, saleMessage, saleTypeOfContact } =
-                            values;
+                          console.log("SUBMIT: ", saleDate, values);
+                          const {
+                            saleLocation,
+                            saleMessage,
+                            saleTypeOfContact,
+                          } = values;
 
                           const mySQLDateString = saleDate.format();
 
                           try {
                             const config = {
                               headers: {
-                                Authorization: `Bearer ${userSession}`
-                              }
+                                Authorization: `Bearer ${userSession}`,
+                              },
                             };
 
                             await axios.put(
@@ -143,7 +167,7 @@ export default function ProductOrders({ idProduct }) {
                                 saleDate: mySQLDateString,
                                 saleLocation,
                                 saleMessage,
-                                saleTypeOfContact
+                                saleTypeOfContact,
                               },
                               config
                             );
@@ -153,27 +177,35 @@ export default function ProductOrders({ idProduct }) {
                             // setError(error.response.data.error);
                             console.log(error.response.data.error);
                           }
-                        }}>
+                        }}
+                      >
                         {({
                           values,
                           errors,
                           touched,
                           handleChange,
-                          handleSubmit
+                          handleSubmit,
                         }) => (
                           <form onSubmit={handleSubmit}>
                             <DialogContentText>
-                              Rellena este formulario para responderle al interesado.
-                              Al confirmar se rechazaran todas las solicitudes de
-                              compra restantes para este producto.
+                              Rellena este formulario para responderle al
+                              interesado. Al confirmar se rechazaran todas las
+                              solicitudes de compra restantes para este
+                              producto.
                             </DialogContentText>
                             {/* TODO TITULO DEL PRODUCTO  */}
                             <h3>Día y hora</h3>
                             <div>
                               <DateTimePicker
-                                renderInput={(props) => <TextField {...props} />}
-                                label='Fecha de venta'
-                                value={saleDate}
+                                renderInput={(props) => (
+                                  <TextField
+                                    theme={theme}
+                                    color="secondary"
+                                    {...props}
+                                  />
+                                )}
+                                label="Fecha de venta"
+                                color="secondary"
                                 onChange={(newDate) => {
                                   setSaleDate(newDate);
                                 }}
@@ -183,13 +215,17 @@ export default function ProductOrders({ idProduct }) {
 
                             <div>
                               <TextField
-                                margin='dense'
-                                id='saleLocation'
-                                placeholder='Parque Europa, A Coruña'
-                                variant='outlined'
+                                margin="dense"
+                                id="saleLocation"
+                                placeholder="Parque Europa, A Coruña"
+                                variant="outlined"
                                 onChange={handleChange}
+                                theme={theme}
+                                color="secondary"
                                 value={values.saleLocation}
-                                error={errors.saleLocation && touched.saleLocation}
+                                error={
+                                  errors.saleLocation && touched.saleLocation
+                                }
                                 helperText={
                                   touched.saleLocation && errors.saleLocation
                                 }
@@ -200,15 +236,19 @@ export default function ProductOrders({ idProduct }) {
                             <h3>Mensaje</h3>
                             <div>
                               <TextField
-                                margin='dense'
-                                id='saleMessage'
-                                placeholder='Lleva el dinero justo que no tengo cambio'
+                                margin="dense"
+                                id="saleMessage"
+                                placeholder="Lleva el dinero justo que no tengo cambio"
                                 multiline
                                 rows={4}
-                                variant='outlined'
+                                variant="outlined"
                                 onChange={handleChange}
+                                theme={theme}
+                                color="secondary"
                                 value={values.saleMessage}
-                                error={errors.saleMessage && touched.saleMessage}
+                                error={
+                                  errors.saleMessage && touched.saleMessage
+                                }
                                 helperText={
                                   touched.saleMessage && errors.saleMessage
                                 }
@@ -219,26 +259,36 @@ export default function ProductOrders({ idProduct }) {
                             <h3>Método de contacto</h3>
                             <FormControl>
                               <RadioGroup
-                                aria-labelledby='saleTypeOfContact'
-                                defaultValue='email'
-                                name='saleTypeOfContact'
-                                onChange={handleChange}>
+                                theme={theme}
+                                color="secondary"
+                                aria-labelledby="saleTypeOfContact"
+                                defaultValue="email"
+                                name="saleTypeOfContact"
+                                onChange={handleChange}
+                              >
                                 <FormControlLabel
-                                  value='email'
+                                  value="email"
                                   control={<Radio />}
-                                  label='email'
+                                  label="email"
                                 />
                                 <FormControlLabel
-                                  value='phone'
+                                  value="phone"
                                   control={<Radio />}
-                                  label='phone'
+                                  label="phone"
                                 />
                               </RadioGroup>
                             </FormControl>
 
                             <DialogActions>
-                              <Button onClick={handleClose}>Cancelar</Button>
-                              <Button type='submit' onClick={handleClose}>
+                              <Button theme={theme} onClick={handleClose}>
+                                Cancelar
+                              </Button>
+                              <Button
+                                theme={theme}
+                                variant="contained"
+                                type="submit"
+                                onClick={handleClose}
+                              >
                                 Confirmar
                               </Button>
                             </DialogActions>
@@ -249,22 +299,22 @@ export default function ProductOrders({ idProduct }) {
                   </Dialog>
                 </div>
               )}
-              {order.status === 'reservado' && (
+              {order.status === "reservado" && (
                 <div>
-                  <div className='product-order-answer-container'>
+                  <div className="product-order-answer-container">
                     Respuesta:
-                    <span className='product-order-answer-date'>
+                    <span className="product-order-answer-date">
                       {new Date(order.reservationDate).toLocaleString(
-                        'es-ES',
+                        "es-ES",
                         options
                       )}
                     </span>
                     <div>{order.saleMessage}</div>
                   </div>
-                  <div className='product-order-sale-info'>
+                  <div className="product-order-sale-info">
                     <div>
                       Ubicacion:
-                      <span className='product-order-answer-date'>
+                      <span className="product-order-answer-date">
                         {order.saleLocation}
                       </span>
                     </div>
@@ -272,17 +322,26 @@ export default function ProductOrders({ idProduct }) {
                       Dia y hora de encuentro:
                       <div>
                         {new Date(order.reservationDate).toLocaleString(
-                          'es-ES',
+                          "es-ES",
                           options
                         )}
                         {/* TODO PONERLE LA HORA */}
                       </div>
                     </div>
                   </div>
-                  <button onClick={() => setSold(order.idUserBuyer, order.idOrder)}>Vendido</button>
+                  <button
+                    onClick={() => setSold(order.idUserBuyer, order.idOrder)}
+                  >
+                    Vendido
+                  </button>
                 </div>
               )}
-              {order.status === 'vendido' && order.isBuyerReviewed === 0 ? (<ReviewsUser idUser={order.idUserBuyer} isBuyerOrSeller={'seller'} />) : null}
+              {order.status === "vendido" && order.isBuyerReviewed === 0 ? (
+                <ReviewsUser
+                  idUser={order.idUserBuyer}
+                  isBuyerOrSeller={"seller"}
+                />
+              ) : null}
             </div>
           );
         })

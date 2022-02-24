@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   text-align: left;
-  background-color: tomato;
-  border: 2px solid tomato;
+  background-color: white;
+  border: 2px solid rgb(228, 0, 228);
   border-radius: 4px;
   padding: 5px;
   margin-bottom: 15px;

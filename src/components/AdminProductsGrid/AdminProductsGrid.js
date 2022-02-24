@@ -8,6 +8,8 @@ import { useAuthorization } from "../../hooks/useAuthorization";
 import { useState } from "react";
 import SnackbarSuccess from "../SnackbarSuccess/SnackbarSuccess";
 import SnackbarError from "../SnackbarError/SnackbarError";
+import moment from "moment";
+import "moment/locale/es";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -54,7 +56,7 @@ export default function AdminProductsGrid({ productsData, getAllProducts }) {
     { field: "price", headerName: "Precio (€)", width: 180 },
     { field: "location", headerName: "Localidad", width: 100 },
     { field: "state", headerName: "Estado", width: 150 },
-    { field: "createdAt", headerName: "Fecha de subida", width: 180 },
+    { field: "createdAt", headerName: "Subido hace", width: 180 },
     {
       field: "actions",
       type: "actions",
@@ -85,13 +87,15 @@ export default function AdminProductsGrid({ productsData, getAllProducts }) {
   if (productsData) {
     productsData.map((product) => {
       const { idProduct, title, price, location, state, createdAt } = product;
+      const now = moment(createdAt).fromNow();
+      console.log(now);
       const productObject = {
         id: idProduct,
         title: title,
         price: price,
         location: location,
         state: state,
-        createdAt: createdAt,
+        createdAt: now,
       };
       rows.push(productObject);
       return true;

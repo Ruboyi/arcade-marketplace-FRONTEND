@@ -97,3 +97,9 @@ left: 2px;}
 }
 .buttons-user-card{
     padding: 10px;}
+
+.moment-product{
+    font-size: 13px;
+    align-self: end;
+    color: gray;
+}

@@ -21,7 +21,8 @@ import GoBack from "../../components/GoBack/GoBack";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import SellerContact from "../../components/SellerContact/SellerContact";
 import { Box } from "@mui/system";
-
+import moment from "moment";
+import "moment/locale/es";
 import GoogleMap from "../../components/GoogleMap/GoogleMap";
 import ReportButton from "../../components/ReportButton/ReportButton";
 
@@ -128,6 +129,9 @@ function ProductPage() {
                     <VisibilityOutlinedIcon fontSize="large" />
                   </Badge>
                 </IconButton>
+                <p className="moment-product">
+                  subido {moment(productInfo.createdAt).fromNow()}
+                </p>
               </div>
               {userProfile.idUser !== productInfo.idUser && (
                 <ReportButton

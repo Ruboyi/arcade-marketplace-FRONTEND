@@ -27,6 +27,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Draggable from "react-draggable";
 import MenuProfile from "../../components/MenuProfile/MenuProfile";
+import theme from "../../theme/theme";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -110,7 +111,7 @@ function Settings() {
       <MenuProfile />
       <div className="settings-target">
         {userProfile ? (
-          <Paper className="settings-paper">
+          <Paper className="settings-paper" sx={{ padding: "44px" }}>
             <Paper elevation={6} className="header-settings">
               <img
                 className="img-settings"
@@ -241,6 +242,8 @@ function Settings() {
                   <Paper elevation={6} sx={{ padding: "12px" }}>
                     <div className="field-container">
                       <TextField
+                        theme={theme}
+                        color="secondary"
                         id="nameUser"
                         name="nameUser"
                         label="Nombre"
@@ -254,6 +257,8 @@ function Settings() {
                     </div>
                     <div className="field-container">
                       <TextField
+                        theme={theme}
+                        color="secondary"
                         id="email"
                         name="email"
                         type="email"
@@ -268,6 +273,8 @@ function Settings() {
                     </div>
                     <div className="field-container">
                       <TextField
+                        theme={theme}
+                        color="secondary"
                         id="province"
                         name="province"
                         label="Provincia"
@@ -281,6 +288,8 @@ function Settings() {
                     </div>
                     <div className="field-container">
                       <TextField
+                        theme={theme}
+                        color="secondary"
                         id="phone"
                         name="phone"
                         label="Teléfono"
@@ -295,6 +304,8 @@ function Settings() {
                     </div>
                     <div className="field-container">
                       <TextField
+                        theme={theme}
+                        color="secondary"
                         id="bio"
                         name="bio"
                         label="Descripción personal"
@@ -318,6 +329,8 @@ function Settings() {
                   >
                     <div className="field-container">
                       <TextField
+                        theme={theme}
+                        color="secondary"
                         id="password"
                         name="password"
                         type={"password"}
@@ -332,6 +345,8 @@ function Settings() {
                     </div>
                     <div className="field-container">
                       <TextField
+                        theme={theme}
+                        color="secondary"
                         id="repeated-password"
                         name="repeatedPassword"
                         type={"password"}
@@ -376,10 +391,16 @@ function Settings() {
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                      <Button autoFocus onClick={handleClose}>
+                      <Button theme={theme} autoFocus onClick={handleClose}>
                         Cancelar
                       </Button>
-                      <Button onClick={deleteAccount}>Confirmar</Button>
+                      <Button
+                        theme={theme}
+                        variant="contained"
+                        onClick={deleteAccount}
+                      >
+                        Confirmar
+                      </Button>
                     </DialogActions>
                   </Dialog>
                   {error && (
@@ -394,6 +415,7 @@ function Settings() {
                     <Button
                       type="submit"
                       variant="contained"
+                      theme={theme}
                       sx={{
                         marginTop: 2,
                         backgroundColor: "#090D41",

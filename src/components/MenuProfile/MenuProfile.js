@@ -22,53 +22,52 @@ export default function MenuProfile() {
         width: 200,
         maxWidth: "100%",
         height: "100vh",
-        backgroundColor: "rgb(0, 17, 73)",
-        color: "white",
+        backgroundColor: "white",
         textAlign: "left",
         position: "fixed",
         zIndex: "1100",
-        top: "70px",
+        top: "77px",
       }}
     >
       <MenuList>
         <MenuItem onClick={() => navigate("/profile")}>
           <ListItemIcon>
-            <AccountCircleIcon sx={{ color: "white" }} />
+            <AccountCircleIcon sx={{ color: "#051149" }} />
           </ListItemIcon>
           <ListItemText>Perfil</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => navigate("/my-products")}>
           <ListItemIcon>
-            <LocalOfferOutlinedIcon sx={{ color: "white" }} />
+            <LocalOfferOutlinedIcon sx={{ color: "#051149" }} />
           </ListItemIcon>
           <ListItemText>Mis productos</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => navigate("/my-orders")}>
           <ListItemIcon>
-            <EventAvailableOutlinedIcon sx={{ color: "white" }} />
+            <EventAvailableOutlinedIcon sx={{ color: "#051149" }} />
           </ListItemIcon>
           <ListItemText>Mis reservas</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => navigate("/my-reviews")}>
           <ListItemIcon>
-            <StarBorderPurple500OutlinedIcon sx={{ color: "white" }} />
+            <StarBorderPurple500OutlinedIcon sx={{ color: "#051149" }} />
           </ListItemIcon>
           <ListItemText>Opiniones</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => navigate("/settings")}>
           <ListItemIcon>
-            <SettingsOutlinedIcon sx={{ color: "white" }} />
+            <SettingsOutlinedIcon sx={{ color: "#051149" }} />
           </ListItemIcon>
           <ListItemText>Ajustes</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem onClick={logout}>
           <ListItemIcon>
-            <ExitToAppOutlinedIcon sx={{ color: "white" }} />
+            <ExitToAppOutlinedIcon sx={{ color: "#051149" }} />
           </ListItemIcon>
           <ListItemText>Cerrar sesión</ListItemText>
         </MenuItem>

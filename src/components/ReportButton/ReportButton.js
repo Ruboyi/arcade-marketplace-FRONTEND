@@ -79,6 +79,7 @@ export default function ReportButton({ idProduct, setError, setIsReported }) {
                   ¿Cual es el motivo de reportar este producto?
                 </DialogContentText>
                 <Select
+                  color="secondary"
                   value={values.reason}
                   labelId="reason"
                   id="reason"
@@ -108,6 +109,8 @@ export default function ReportButton({ idProduct, setError, setIsReported }) {
                   Explique brevemente el motivo de su denuncia
                 </DialogContentText>
                 <TextField
+                  color="secondary"
+                  theme={theme}
                   autoFocus
                   multiline
                   onChange={handleChange}
@@ -121,7 +124,6 @@ export default function ReportButton({ idProduct, setError, setIsReported }) {
                   helperText={touched.description && errors.description}
                   label="Descripción"
                   type="text"
-                  theme={theme}
                   fullWidth
                 />
                 <DialogActions>
