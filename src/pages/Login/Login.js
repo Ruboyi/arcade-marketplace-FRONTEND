@@ -10,15 +10,18 @@ import { Formik } from "formik";
 import "./login.css";
 import logo from "../../assets/logosinfondo.png";
 import { useAuthorization } from "../../hooks/useAuthorization";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import GoBack from "../../components/GoBack/GoBack";
 import GoogleLogin from "react-google-login";
 import theme from "../../theme/theme";
-import RecoveryPassword from "../../components/RecoveryPassword";
+import RecoveryPassword from "../../components/RecoveryPasswordModal/RecoveryPassword";
+import MailSucessModal from "../../components/MailSucessModal/MailSucessModal";
 
 function Login() {
   const { login, error, userSession, isAdmin, setError } = useAuthorization();
+  const [openSucess, setOpenSucess] = useState(false);
+
   const navigate = useNavigate();
   useEffect(() => {
     console.log(isAdmin);
@@ -134,16 +137,16 @@ function Login() {
                   >
                     Inicia Sessión
                   </Button>
-                  <div>
-                    <p className="links" onClick={() => navigate("/register")}>
-                      ¿Aún no tienes cuenta ? <strong>Registrate aquí!</strong>
-                    </p>
-                    <RecoveryPassword />
-                  </div>
                 </div>
               </form>
             )}
           </Formik>
+          <div>
+            <p className="links" onClick={() => navigate("/register")}>
+              ¿Aún no tienes cuenta ? <strong>Registrate aquí!</strong>
+            </p>
+            <RecoveryPassword setOpenSucess={setOpenSucess} />
+          </div>
           <GoogleLogin
             clientId="545228991511-smtjvog63lcuf028rddc2gjf0qtg3vn4.apps.googleusercontent.com"
             buttonText="Inicia Session"
@@ -161,6 +164,7 @@ function Login() {
           </Alert>
         </Stack>
       )}
+      <MailSucessModal openSucess={openSucess} setOpenSucess={setOpenSucess} />
     </div>
   );
 }

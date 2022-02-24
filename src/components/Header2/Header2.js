@@ -22,8 +22,8 @@ import { useState } from "react";
 import "./Header2.css";
 import { Button } from "@mui/material";
 import theme from "../../theme/theme";
-import heartHeader from '../../assets/heartHeader.png'
-import uploadHeader from '../../assets/uploadHeader.png'
+import heartHeader from "../../assets/heartHeader.png";
+import uploadHeader from "../../assets/uploadHeader.png";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -81,7 +81,7 @@ export default function PrimarySearchAppBar() {
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-      actualUrl.startsWith("http://localhost:3001/my-favorites")
+        actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
 
     //! Work
@@ -265,7 +265,13 @@ export default function PrimarySearchAppBar() {
             </Typography>
           </div>
           <Search>
-            <StyledInputBase sx={{ backgroundColor: '#e4f1ff', borderRadius: '8px', color: '#051149', height: '27px' }}
+            <StyledInputBase
+              sx={{
+                backgroundColor: "#e4f1ff",
+                borderRadius: "8px",
+                color: "#051149",
+                height: "27px",
+              }}
               className="searchBar"
               placeholder="Buscar"
               value={searchParams.get("search") || ""}
@@ -291,15 +297,22 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           {userSession ? (
             <>
-              <Box sx={{ display: { xs: "none", md: "flex", alignItems: 'center' } }}>
-
+              <Box
+                sx={{
+                  display: { xs: "none", md: "flex", alignItems: "center" },
+                }}
+              >
                 <IconButton
                   size="large"
                   aria-label="show 4 new mails"
                   color="inherit"
                   onClick={() => navigate("/my-favorites")}
                 >
-                  <img src={heartHeader} alt='favorites' className="iconHeader" />
+                  <img
+                    src={heartHeader}
+                    alt="favorites"
+                    className="iconHeader"
+                  />
                 </IconButton>
 
                 <IconButton
@@ -309,7 +322,7 @@ export default function PrimarySearchAppBar() {
                   onClick={() => navigate("/my-reviews")}
                 >
                   <Badge badgeContent={numbReviews} color="error">
-                    <MailIcon sx={{ color: '#051149' }} />
+                    <MailIcon sx={{ color: "#051149" }} />
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -319,7 +332,7 @@ export default function PrimarySearchAppBar() {
                   onClick={() => navigate("/my-products/purchase-orders")}
                 >
                   <Badge badgeContent={numbPurcharseOrders} color="error">
-                    <NotificationsIcon sx={{ color: '#051149' }} />
+                    <NotificationsIcon sx={{ color: "#051149" }} />
                   </Badge>
                 </IconButton>
                 <IconButton
@@ -331,7 +344,7 @@ export default function PrimarySearchAppBar() {
                   onClick={handleProfileMenuOpen}
                   color="inherit"
                 >
-                  <AccountCircle sx={{ color: '#051149' }} />
+                  <AccountCircle sx={{ color: "#051149" }} />
                 </IconButton>
                 <IconButton
                   className="uploadIconButton"
@@ -341,7 +354,11 @@ export default function PrimarySearchAppBar() {
                   onClick={() => navigate("/upload-product")}
                 >
                   <span className="uploadText">Subir Producto</span>
-                  <img src={uploadHeader} alt='upload product' className='iconHeader' />
+                  <img
+                    src={uploadHeader}
+                    alt="upload product"
+                    className="iconHeader"
+                  />
                 </IconButton>
               </Box>
               <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -353,7 +370,7 @@ export default function PrimarySearchAppBar() {
                   onClick={handleMobileMenuOpen}
                   color="inherit"
                 >
-                  <MoreIcon sx={{ color: '#051149' }} />
+                  <MoreIcon sx={{ color: "#051149" }} />
                 </IconButton>
               </Box>
             </>
