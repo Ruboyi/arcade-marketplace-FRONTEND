@@ -21,6 +21,7 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import theme from "../../theme/theme";
+import provinceData from "../../services/provinceData";
 /* import MenuProfile from "../../components/MenuProfile/MenuProfile"; */
 
 const { REACT_APP_BACKEND_API } = process.env;
@@ -91,12 +92,22 @@ function UploadProduct() {
               if (!values.location) {
                 errors.location = "location Required";
               }
+              if (!values.province) {
+                errors.province = "province Required";
+              }
               return errors;
             }}
             onSubmit={async (values) => {
               console.log("SUBMIT: ", values);
-              const { category, title, description, price, state, location } =
-                values;
+              const {
+                category,
+                title,
+                description,
+                price,
+                state,
+                location,
+                province,
+              } = values;
 
               try {
                 const config = {
@@ -113,6 +124,7 @@ function UploadProduct() {
                     price,
                     state,
                     location,
+                    province,
                   },
                   config
                 );
@@ -149,7 +161,8 @@ function UploadProduct() {
                     Consola
                   </label>
                   <label>
-                    <Field type="radio" name="category" value="arcades" /> Arcades
+                    <Field type="radio" name="category" value="arcades" />{" "}
+                    Arcades
                   </label>
                   <label>
                     <Field type="radio" name="category" value="videojuegos" />{" "}
@@ -228,7 +241,7 @@ function UploadProduct() {
                         id="state"
                         name="state"
                         label="Estado"
-                        variant="standard"
+                        variant="outlined"
                         onChange={handleChange}
                         error={errors.state && touched.state}
                         state
@@ -246,6 +259,37 @@ function UploadProduct() {
                       </Select>
                     </FormControl>
 
+                    <FormControl
+                      sx={{ marginRight: 1 }}
+                      theme={theme}
+                      color="secondary"
+                      fullWidth
+                      margin="dense"
+                      sx={{ marginRight: 1 }}
+                      variant="outlined"
+                    >
+                      <InputLabel id="demo-simple-select-label">
+                        Provincia
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Provincia"
+                        color="secondary"
+                        value={values.province}
+                        error={errors.province && touched.province}
+                        helperText={touched.province && errors.province}
+                        onChange={handleChange}
+                        theme={theme}
+                        variant="outlined"
+                      >
+                        {provinceData.map((province) => (
+                          <MenuItem key={province.id} value={province.nm}>
+                            {province.nm}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
                     <TextField
                       theme={theme}
                       color="secondary"
