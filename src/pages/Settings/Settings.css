@@ -2,9 +2,9 @@
     display: flex;
     justify-content: space-around;
     background-color: white;
-    width: 70vw;
+    
     margin:0 auto;
-    padding: 12px;
+    padding: 5px;
 }
 .header-register {
     display: flex;
@@ -32,6 +32,7 @@
 .settings-target > div {
     color: black;
     background-color: #f1f8ff;
+    padding: 10px
 }
 
 .settings-paper {

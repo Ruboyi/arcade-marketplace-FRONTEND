@@ -113,29 +113,31 @@ function Settings() {
         {userProfile ? (
           <Paper className="settings-paper" sx={{ padding: "44px" }}>
             <Paper elevation={6} className="header-settings">
-              <img
+              <div><img
                 className="img-settings"
                 src={userProfile.image}
                 alt="foto-perfil"
               />
-              <label htmlFor="icon-button-file">
-                <Input
-                  accept="image/*"
-                  id="icon-button-file"
-                  type="file"
-                  onChange={(e) => setFichero(e.target.files[0])}
-                />
-                <IconButton
-                  color="primary"
-                  aria-label="upload picture"
-                  component="span"
-                >
-                  <PhotoCamera />
-                </IconButton>
-              </label>
+                <label htmlFor="icon-button-file">
+                  <Input
+                    accept="image/*"
+                    id="icon-button-file"
+                    type="file"
+                    onChange={(e) => setFichero(e.target.files[0])}
+                  />
+                  <IconButton
+                    color="primary"
+                    aria-label="upload picture"
+                    component="span"
+                  >
+                    <PhotoCamera />
+                  </IconButton>
+                </label>
+              </div>
               <div>
                 <h1>{userProfile.nameUser}</h1>
                 <Rating name="read-only" value={4} readOnly />
+                <p>{userProfile.bio}</p>
               </div>
             </Paper>
             <Formik

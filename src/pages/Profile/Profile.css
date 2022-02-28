@@ -32,6 +32,7 @@
 .buttons-container-profile button:active {
   background-color: #222;
 }
+
 @media (max-width: 600px) {
   .profile-paper{
       z-index: 1100;
