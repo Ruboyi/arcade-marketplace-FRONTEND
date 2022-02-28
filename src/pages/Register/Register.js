@@ -15,11 +15,18 @@ import GoBack from "../../components/GoBack/GoBack";
 import theme from "../../theme/theme";
 import GoogleLogin from "react-google-login";
 import "./register.css";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function Register() {
   const [backendResponse, setBackendResponse] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [recaptcha, setRecaptcha] = useState();
+
+  function onChange(value) {
+    console.log("Captcha value:", value);
+    setRecaptcha(value);
+  }
 
   const responseGoogle = async (response) => {
     //console.log(response);
@@ -97,6 +104,10 @@ function Register() {
             onSubmit={async (values) => {
               console.log("SUBMIT: ", values);
               const { nameUser, password, email } = values;
+              if (!recaptcha) {
+                setError("Por favor verifica que no eres un robot");
+                return;
+              }
 
               try {
                 const response = await axios.post(
@@ -194,6 +205,12 @@ function Register() {
                     </Alert>
                   </Stack>
                 )}
+                <div className="recaptcha">
+                  <ReCAPTCHA
+                    sitekey="6LfhsaYeAAAAAOrdwGKpY7YVkvzveGZmj7oZPoxm"
+                    onChange={onChange}
+                  />
+                </div>
                 <div className="button-submit-container">
                   <Button
                     type="submit"
