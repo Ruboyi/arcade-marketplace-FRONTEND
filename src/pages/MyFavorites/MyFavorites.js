@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import GoBack from '../../components/GoBack/GoBack';
 import ProductsGrid from '../../components/ProductsGrid/ProductsGrid';
 import { useAuthorization } from '../../hooks/useAuthorization';
-
+import "./MyFavorites.css";
 const { REACT_APP_BACKEND_API } = process.env;
 
 function MyFavorites() {
@@ -38,7 +38,7 @@ function MyFavorites() {
   }, [userSession, navigate, idUser]);
 
   return (
-    <div>
+    <div className='my-favorites-div'>
       <h1>Mis Favoritos</h1>
       <GoBack />
       {myFavorites ? (

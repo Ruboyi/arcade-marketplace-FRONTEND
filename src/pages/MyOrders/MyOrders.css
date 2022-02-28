@@ -1,13 +1,19 @@
+@font-face {
+  font-family: gameOverFont;
+  src: url(../../assets/Welbut__.ttf);
+}
 .my-orders-container{
   display: flex;
 }
 
 .order-container {
-  background-color: whitesmoke;
+  background-color: rgb(255, 255, 255);
   color: #222;
   padding: 25px;
   margin: 10px auto;
   max-width: 75%;
+  border-radius: 5px;
+  border: solid 2px #05114929;
 }
 
 .order-product-info {
@@ -31,14 +37,23 @@
 .my-orders-div {
   margin-left: 200px;
   flex-grow: 1;
+  background-color: #f1f8ff;
 }
 
-h1{color: black;}
+.my-orders-div > h1{color: #051149;
+  background-color: white;
+  position: sticky;
+  top:  78px;
+  padding: 20px;
+  border: solid 2px #05114929;
+  border-radius: 5px;
+  margin-top: 0px;
+ font-family: gameOverFont;}
 
 @media (max-width: 600px) {
   .my-orders-div{
       z-index: 1100;
   margin-left: 50px;
-  background-color: rgb(228, 241, 255);}
+  }
   }
   

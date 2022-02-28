@@ -3,3 +3,21 @@
   margin: 15px auto;
   padding: 15px;
 }
+.my-products-purchase-orders-div{
+  background-color: #f1f8ff;
+  height: 100vh;
+}
+.my-products-purchase-orders-div > h1{color: #051149;
+  background-color: white;
+  position: sticky;
+  top:  78px;
+  padding: 20px;
+  border: solid 2px #05114929;
+  border-radius: 5px;
+  margin-top: 0px;
+ font-family: gameOverFont;}
+ 
+.my-products-purchase-orders-div > button {
+  position: fixed;
+  top: 100px;
+}

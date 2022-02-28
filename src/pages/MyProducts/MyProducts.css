@@ -1,13 +1,29 @@
+@font-face {
+    font-family: gameOverFont;
+    src: url(../../assets/Welbut__.ttf);
+  }
 .my-products-container {
     display: flex;
 }
 .my-products-div {
     margin-left: 200px;
     flex-grow: 1;
+    background-color: #f1f8ff;
+}
+.my-products-div > h1 {
+    color: #051149;
+    background-color: white;
+    position: sticky;
+    top:  78px;
+    padding: 20px;
+    border: solid 2px #05114929;
+    border-radius: 5px;
+    margin-top: 0px;
+   font-family: gameOverFont;
 }
 @media (max-width: 600px) {
 .my-products-div{
     z-index: 1100;
 margin-left: 50px;
-background-color: rgb(228, 241, 255);}
+}
 }

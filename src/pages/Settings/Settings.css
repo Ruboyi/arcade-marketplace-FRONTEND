@@ -29,6 +29,11 @@
 
     /* background-color: #959CFC; */
   }
+.settings-target > div {
+    color: black;
+    background-color: #f1f8ff;
+}
+
 .settings-paper {
     padding: 12px;
 }
