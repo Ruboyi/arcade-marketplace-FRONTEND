@@ -6,9 +6,10 @@
 }
 
 .img-register {
-  height: 70px;
+  width: 40%; 
   border-radius: 4px;
   margin-top: 20px;
+  margin: 0 auto;
 }
 .register-container {
   max-width: 400px;
@@ -23,4 +24,25 @@
 
 .recaptcha {
   text-align: center;
+}
+.recaptcha > div > div > div{
+  margin: 0 auto;
+}
+.button-submit-container{
+  margin: 20px 0px 15px 0px;
+}
+.header-register{
+  flex-direction: column;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  text-align: center ;
+}
+.goBack-button{
+  position: fixed;
+  top:100px
+}
+.header-register > h1{
+  font-size: 20px;
+  font-family: gameOverFont;
+  font-weight: 100;
 }
