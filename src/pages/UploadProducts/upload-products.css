@@ -56,4 +56,6 @@ justify-content: center;
   display: flex;
   margin-bottom: 20px;
 }
-
+ul{
+  height: 25vh;
+}
