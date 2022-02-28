@@ -102,7 +102,7 @@ function ProductPage() {
   }, [idProduct]);
 
   return (
-    <div>
+    <div className="productPageDiv">
       <GoBack />
 
       <Paper className="productPage-container">

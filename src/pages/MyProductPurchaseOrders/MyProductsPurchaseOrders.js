@@ -54,8 +54,8 @@ function MyProductsPurchaseOrders() {
   }, [userSession, navigate, idUser]);
 
   return (
-    <main>
-      <h1>Solicitudes de compra de Mis Productos</h1>
+    <main className='my-products-purchase-orders-div'>
+      <h1>Solicitudes de compra</h1>
       <GoBack />
 
       {isMyProductsEmpty ? (
