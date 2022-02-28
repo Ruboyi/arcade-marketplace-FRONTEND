@@ -6,17 +6,23 @@
 }
 .header-login {
   display: flex;
-  justify-content: space-around;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  flex-direction: column;
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  text-align: center ;
 }
 
 .img-login {
-  height: 70px;
+  width: 40%; 
   border-radius: 4px;
-  margin-top: 20px;
-}
+  margin-top: 30px;
+  margin: 0 auto;}
 
 .links:hover {
  cursor: pointer;
+}
+.header-login > h1{
+  font-size: 20px;
+  font-family: gameOverFont;
+  font-weight: 100;
 }
