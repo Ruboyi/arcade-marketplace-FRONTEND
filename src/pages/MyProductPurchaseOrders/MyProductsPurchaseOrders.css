@@ -15,7 +15,8 @@
   border: solid 2px #05114929;
   border-radius: 5px;
   margin-top: 0px;
- font-family: gameOverFont;}
+ font-family: gameOverFont;
+font-size: 25px;}
  
 .my-products-purchase-orders-div > button {
   position: fixed;
