@@ -123,6 +123,9 @@ export default function UserProfile() {
                       <h2>{data.nameUser}</h2>
                       <Rating name="read-only" value={data.rating} readOnly />
                       <p>{data.opinion}</p>
+                      <p className="moment-product align-moment">
+                        Publicado {moment(data.createdAt).fromNow()}
+                      </p>
                     </div>
                   </Paper>
                 </div>
