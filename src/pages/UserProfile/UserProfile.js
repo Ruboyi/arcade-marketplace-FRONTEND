@@ -6,6 +6,7 @@ import "./UserProfile.css";
 import defaultAvatar from "../../assets/defaultAvatar.png";
 import SimpleImageSlider from "react-simple-image-slider";
 import BadgeAvatars from "../../components/Avatar/Avatar";
+import moment from "moment";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -90,6 +91,12 @@ export default function UserProfile() {
                 alt="profile"
                 height={150}
               />
+            )}
+            {userData.lastLogin && !userData.isOnline && (
+              <p className="moment-product">
+                {" "}
+                últ.vez {moment(userData.lastLogin).fromNow()}{" "}
+              </p>
             )}
             <div>
               <h1>{nameUser}</h1>
