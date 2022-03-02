@@ -7,13 +7,13 @@
 .header-login {
   display: flex;
   flex-direction: column;
-  margin-top: 10px !important;
+  margin-top: 90px !important;
   margin-bottom: 10px !important;
   text-align: center ;
 }
 
 .img-login {
-  width: 40%; 
+  height: 10vh ; 
   border-radius: 4px;
   margin-top: 30px;
   margin: 0 auto;}

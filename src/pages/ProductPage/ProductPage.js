@@ -134,6 +134,9 @@ function ProductPage() {
                 <p className="moment-product">
                   subido {moment(productInfo.createdAt).fromNow()}
                 </p>
+                {userProfile.idUser === productInfo.idUser && (
+                  <Link to={`/update-product/${idProduct}`} className="editar-button">Editar</Link>
+                )}
               </div>
               {userProfile.idUser !== productInfo.idUser && (
                 <ReportButton
@@ -222,9 +225,7 @@ function ProductPage() {
                 </div>
               </Paper>
             )}
-            {userProfile.idUser === productInfo.idUser && (
-              <Link to={`/update-product/${idProduct}`}>Editar</Link>
-            )}
+
             {error && (
               <div>
                 <Modal

@@ -41,6 +41,7 @@ left: 2px;}
     top: 5px;
 }
 .favorites-views
+
 .user-card{
     display: flex;
     justify-content: space-evenly;
@@ -105,4 +106,15 @@ left: 2px;}
 }
 .productPageDiv{
     background-color: #f1f8ff;
+}
+.editar-button{
+    align-self: flex-end;
+    margin: 10px ;
+    margin-left: 70px;
+    padding: 15px;
+    background-color: #f1f8ff;
+    text-decoration: none;
+    border-radius: 10px;
+    color: rgb(110, 110, 110);
+    font-weight: 500;
 }
