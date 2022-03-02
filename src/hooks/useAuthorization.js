@@ -53,14 +53,24 @@ function AuthProvider(props) {
     }
   }
 
-  function logout() {
-    setUserSession(null);
-    sessionStorage.removeItem("userSession");
-    setIsAdmin(false);
-    sessionStorage.removeItem("isAdmin");
-    setUserProfile(false);
-    navigate("/login");
-    window.location.reload();
+  async function logout() {
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userSession}`,
+        },
+      };
+      await axios.get(`${REACT_APP_BACKEND_API}users/logout`, config);
+      setUserSession(null);
+      sessionStorage.removeItem("userSession");
+      setIsAdmin(false);
+      sessionStorage.removeItem("isAdmin");
+      setUserProfile(false);
+      navigate("/login");
+      window.location.reload();
+    } catch (error) {
+      setError(error.response.data.error);
+    }
   }
 
   useEffect(() => {

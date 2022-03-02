@@ -25,6 +25,7 @@ import moment from "moment";
 import "moment/locale/es";
 import GoogleMap from "../../components/GoogleMap/GoogleMap";
 import ReportButton from "../../components/ReportButton/ReportButton";
+import BadgeAvatars from "../../components/Avatar/Avatar";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -100,6 +101,7 @@ function ProductPage() {
 
     getProductInfo();
   }, [idProduct]);
+  console.log(sellerInfo);
 
   return (
     <div className="productPageDiv">
@@ -157,11 +159,16 @@ function ProductPage() {
             </div>
             {userProfile.idUser !== productInfo.idUser && !isNaN(avgRating) && (
               <Paper elevation={3} className="user-card">
-                <img
+                <BadgeAvatars
                   src={sellerInfo.image}
-                  alt="foto de perfil"
-                  className="profileImage"
+                  isOnline={sellerInfo.isOnline}
                 />
+                {sellerInfo.lastLogin && !sellerInfo.isOnline && (
+                  <p className="moment-product">
+                    {" "}
+                    últ.vez {moment(sellerInfo.lastLogin).fromNow()}{" "}
+                  </p>
+                )}
                 <div
                   className="name-rating"
                   onClick={() =>
