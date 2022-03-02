@@ -24,8 +24,10 @@ import AdminUsersPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
 import AdminProductsPage from "./pages/Admin/AdminProductsPage/AdminProductsPage";
 import AdminReportsPage from "./pages/Admin/AdminReportsPage/AdminReportsPage";
 import RecoveryPasswordPage from "./pages/RecoveryPassword/RecoryPasswordPage";
+import { useAuthorization } from "./hooks/useAuthorization";
 
 function App() {
+  const { logout } = useAuthorization();
   return (
     <div className="App">
       <Header2 />

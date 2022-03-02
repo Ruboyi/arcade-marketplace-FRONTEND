@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import "./UserProfile.css";
 import defaultAvatar from "../../assets/defaultAvatar.png";
 import SimpleImageSlider from "react-simple-image-slider";
+import BadgeAvatars from "../../components/Avatar/Avatar";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -81,12 +82,7 @@ export default function UserProfile() {
         <Paper className="userProfile-container">
           <header className="header-userProfile">
             {userData.image ? (
-              <img
-                className="img-settings"
-                src={userData.image}
-                alt={`img-${nameUser}`}
-                height={150}
-              />
+              <BadgeAvatars src={userData.image} isOnline={userData.isOnline} />
             ) : (
               <img
                 className="img-settings"
