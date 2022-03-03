@@ -18,6 +18,7 @@ import UpdateProduct from "./pages/UpdateProduct/UpdateProduct";
 import Settings from "./pages/Settings/Settings";
 import MyProductsPurchaseOrders from "./pages/MyProductPurchaseOrders/MyProductsPurchaseOrders";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import Tomato from "./pages/Tomato/Tomato"
 import Landing from "./pages/Landing/Landing";
 import NotFoundComponent from "./components/NotFound/NotFound";
 import AdminUsersPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
@@ -52,6 +53,7 @@ function App() {
           path="/my-products/purchase-orders"
           element={<MyProductsPurchaseOrders />}
         />
+        <Route path="/tomato" element={<Tomato />} />
         <Route path="/user/:nameUser/:idUser" element={<UserProfile />} />
         <Route path="*" element={<NotFoundComponent />} />
 

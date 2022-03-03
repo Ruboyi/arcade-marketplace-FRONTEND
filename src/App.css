@@ -10,3 +10,7 @@
 .App > div {
   flex-grow: 1;
 }
+h1, h2{
+  font-family: gameOverFont;
+  font-weight: 400;
+}
