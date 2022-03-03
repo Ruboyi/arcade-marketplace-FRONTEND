@@ -11,7 +11,6 @@
     align-items: center;
     text-align: center;
     margin: 0 auto;
-    width: 50vw;
     height: 200px;
 }
 .data-card {
@@ -22,8 +21,54 @@
     margin: 0 auto;
     margin:10px;
     padding: 10px;
-
+    border-width: 3px;
+    border-style: solid;
+    border-image: linear-gradient(90deg, white, #e4f1ff, #e4f1ff,#e4f1ff,#e4f1ff,#e4f1ff,white) 1;
 }
 .align-moment {
     text-align: end;
+}
+.header-userProfile > div > div{
+    padding: 10px;
+    border-radius: 50%;
+    position: relative;
+    top: -30px;
+    left: 20px;
+    width: 100px;
+    height: 100px;
+}
+.header-userProfile > div > div > img{
+    border-radius: 50%;
+    border: 5px solid #e4f1ff;
+}
+.header-userProfile > div > p{
+    margin: 10px;
+}
+.background-user-profile-page{
+    background-color: #f1f8ff;
+}
+.main-user > div > div > img{
+    border-radius: 50%;
+    position: relative;
+    top: -30px;
+    left: -10px;
+    width: 60px;
+    height: 60px;
+    border: 5px solid #e4f1ff;
+}
+.opinion{
+    font-size: 12px;
+}
+main > div > div > div>h2{
+    margin: 5px;
+}
+.moment-product{
+    margin-bottom: 5px;
+} 
+.ha-puntuado{
+    font-weight: 375;
+    font-size: 17px;
+}
+.user-page-subtitle{
+    background: linear-gradient(90deg, white, #e4f1ff, #e4f1ff,#e4f1ff,#e4f1ff,#e4f1ff,white);
 }

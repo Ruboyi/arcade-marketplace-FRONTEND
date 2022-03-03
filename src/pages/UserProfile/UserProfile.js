@@ -78,10 +78,10 @@ export default function UserProfile() {
   }, [idUser]);
 
   return (
-    <div>
+    <div className="background-user-profile-page">
       {userData ? (
-        <Paper className="userProfile-container">
-          <header className="header-userProfile">
+        <Paper className="userProfile-container" elevation={1}>
+          <div className="header-userProfile" >
             {userData.image ? (
               <BadgeAvatars src={userData.image} isOnline={userData.isOnline} />
             ) : (
@@ -107,33 +107,33 @@ export default function UserProfile() {
               )}
               <p>{userData.bio}</p>
             </div>
-          </header>
-          <main>
+          </div>
+          <main className="main-user">
             {reviews ? (
               reviews.map((data) => (
                 <div key={data.nameUser}>
-                  <h1>Valoraciones</h1>
-                  <Paper elevation={6} className="data-card">
+                  <h2 className="user-page-subtitle">Valoraciones</h2>
+                  <div elevation={1} className="data-card">
                     {data.image ? (
                       <img src={data.image} alt="img" height={80} />
                     ) : (
                       <img src={defaultAvatar} alt="profile" height={80} />
                     )}
                     <div>
-                      <h2>{data.nameUser}</h2>
+                      <h2 >{data.nameUser} <span className="ha-puntuado">ha puntuado:</span></h2>
                       <Rating name="read-only" value={data.rating} readOnly />
-                      <p>{data.opinion}</p>
+                      <p className="opinion">{data.opinion}</p>
                       <p className="moment-product align-moment">
                         Publicado {moment(data.createdAt).fromNow()}
                       </p>
                     </div>
-                  </Paper>
+                  </div>
                 </div>
               ))
             ) : (
               <CircularProgress />
             )}
-            <h1>Productos</h1>
+            <h2 className="user-page-subtitle">Productos</h2>
             {productsImages && (
               <div className="slider">
                 <SimpleImageSlider

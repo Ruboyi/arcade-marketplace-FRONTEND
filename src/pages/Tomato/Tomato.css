@@ -1,0 +1,12 @@
+.Tomato{
+    background-color: tomato;
+}
+.TomatoTitle{
+    color: green;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin: 50px;
+    font-weight: bold;
+}
+.TomatoPNG {
+    height: 400px;
+}
