@@ -87,9 +87,16 @@ function UpdateProduct() {
     }
   }
 
-  async function deleteImageProduct(id) {
+  async function deleteImageProduct(imageUrl) {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userSession}`,
+      },
+    };
     try {
-      await axios.delete(`${REACT_APP_BACKEND_API}products/image/${id}`);
+      const nameImage = imageUrl.slice(34)
+      await axios.delete(`${REACT_APP_BACKEND_API}products/images/${nameImage}`, config);
+      window.location.reload();
     } catch (error) {
       setError(error.response.data.error);
     }
@@ -338,7 +345,7 @@ function UpdateProduct() {
                               subtitle={`Creada : ${productData.createdAt.toString()}`}
                               actionIcon={
                                 <IconButton
-                                  onClick={() => deleteImageProduct(item.id)}
+                                  onClick={() => deleteImageProduct(item)}
                                   sx={{
                                     color: "rgba(255, 255, 255, 0.54)",
                                   }}
