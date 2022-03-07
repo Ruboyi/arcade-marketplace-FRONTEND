@@ -26,7 +26,8 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-simple-image-slider": "^2.3.0",
-    "web-vitals": "^2.1.2"
+    "web-vitals": "^2.1.2",
+    "material-ui-dropzone": "3.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
