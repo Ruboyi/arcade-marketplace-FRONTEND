@@ -22,37 +22,24 @@ import { useEffect, useState } from "react";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import theme from "../../theme/theme";
 import provinceData from "../../services/provinceData";
+import { DropzoneArea } from "material-ui-dropzone";
 /* import MenuProfile from "../../components/MenuProfile/MenuProfile"; */
 
 const { REACT_APP_BACKEND_API } = process.env;
 
 function UploadProduct() {
-  const [fichero, setFichero] = useState();
   const navigate = useNavigate();
   const { userSession } = useAuthorization();
   const [error, setError] = useState();
-  const [preview, setPreview] = useState();
+  const [files, setFiles] = useState();
 
-  console.log(fichero);
+  console.log(files);
 
   useEffect(() => {
     if (!userSession) {
       navigate("/login");
     }
   }, [userSession, navigate]);
-
-  useEffect(() => {
-    if (fichero) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(fichero);
-    } else {
-      setPreview(null);
-    }
-  }, [fichero]);
-  console.log(fichero);
 
   return (
     <div className="div-upload-product">
@@ -73,6 +60,7 @@ function UploadProduct() {
               price: "",
               state: "",
               location: "",
+              province: "",
             }}
             validate={(values) => {
               const errors = {};
@@ -93,8 +81,9 @@ function UploadProduct() {
                 errors.location = "location Required";
               }
               if (!values.province) {
-                errors.province = "province Required";
+                errors.province = "location Required";
               }
+
               return errors;
             }}
             onSubmit={async (values) => {
@@ -133,7 +122,9 @@ function UploadProduct() {
 
                 const formData = new FormData();
 
-                formData.append("productImage", fichero);
+                for (const file of files) {
+                  formData.append("productImage", file);
+                }
 
                 await axios.post(
                   `${REACT_APP_BACKEND_API}products/images/${productId}`,
@@ -143,7 +134,7 @@ function UploadProduct() {
 
                 setTimeout(() => {
                   navigate("/products");
-                }, 10000);
+                }, 1000);
               } catch (error) {
                 setError(error.response.data.error);
               }
@@ -265,7 +256,6 @@ function UploadProduct() {
                       color="secondary"
                       fullWidth
                       margin="dense"
-                      sx={{ marginRight: 1 }}
                       variant="outlined"
                     >
                       <InputLabel id="demo-simple-select-label">
@@ -275,16 +265,20 @@ function UploadProduct() {
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label="Provincia"
+                        name="province"
                         color="secondary"
-                        value={values.province}
-                        error={errors.province && touched.province}
-                        helperText={touched.province && errors.province}
                         onChange={handleChange}
+                        value={values.province}
                         theme={theme}
                         variant="outlined"
+                        error={errors.province && touched.province}
+                        state
                       >
+                        <MenuItem value="" disabled>
+                          Selecciona una provincia
+                        </MenuItem>
                         {provinceData.map((province) => (
-                          <MenuItem key={province.id} value={province.nm}>
+                          <MenuItem key={province.id} value={`${province.nm}`}>
                             {province.nm}
                           </MenuItem>
                         ))}
@@ -314,30 +308,7 @@ function UploadProduct() {
                 <div>
                   <h2>Subir imagen</h2>
                   <Paper elevation={3} sx={{ padding: "12px" }}>
-                    <label>
-                      Imagen:{" "}
-                      <input
-                        required
-                        multiple
-                        accept="image/*"
-                        type={"file"}
-                        onChange={(event) => {
-                          const file = event.target.files[0];
-                          if (file && file.type.substr(0, 5) === "image") {
-                            setFichero(file);
-                          } else {
-                            setFichero(null);
-                          }
-
-                          setFichero(file);
-                        }}
-                      />
-                    </label>
-                    {fichero && (
-                      <div>
-                        <img className="img-preview" src={preview} alt="img" />
-                      </div>
-                    )}
+                    <DropzoneArea onChange={(file) => setFiles(file)} />
                   </Paper>
                 </div>
                 {error && (
