@@ -32,6 +32,7 @@ import { Formik, Field } from "formik";
 import GoBack from "../../components/GoBack/GoBack";
 import { Box } from "@mui/system";
 import DialogContentText from "@mui/material/DialogContentText";
+import { DropzoneArea } from "material-ui-dropzone";
 
 const { REACT_APP_BACKEND_API } = process.env;
 const style = {
@@ -52,10 +53,9 @@ function UpdateProduct() {
   const { idProduct } = useParams();
   const [productData, setProductData] = useState();
   const [error, setError] = useState();
-  const [fichero, setFichero] = useState();
-  const [preview, setPreview] = useState();
   const [isDelete, setIsDelete] = useState(false);
   const [open, setOpen] = useState(false);
+  const [files, setFiles] = useState();
 
   const handleCloseIsDelete = () => setIsDelete(false);
 
@@ -108,16 +108,7 @@ function UpdateProduct() {
       }
     }
     getProductoData();
-    if (fichero) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-      };
-      reader.readAsDataURL(fichero);
-    } else {
-      setPreview(null);
-    }
-  }, [userSession, fichero, navigate, idProduct]);
+  }, [userSession, navigate, idProduct]);
 
   return (
     <main>
@@ -181,19 +172,17 @@ function UpdateProduct() {
                     config
                   );
 
-                  if (fichero) {
-                    const formData = new FormData();
-                    // const newFichero = [...fichero];
-                    // console.log(newFichero);
+                  const formData = new FormData();
 
-                    formData.append("productImage", fichero);
-
-                    await axios.post(
-                      `${REACT_APP_BACKEND_API}products/images/${idProduct}`,
-                      formData,
-                      config
-                    );
+                  for (const file of files) {
+                    formData.append("productImage", file);
                   }
+
+                  await axios.post(
+                    `${REACT_APP_BACKEND_API}products/images/${idProduct}`,
+                    formData,
+                    config
+                  );
 
                   navigate(`/products/${idProduct}`);
                 } catch (error) {
@@ -329,6 +318,7 @@ function UpdateProduct() {
                 errors.price &&
                 errors.state &&
             errors.location} */}
+                  <h2>Imagenes</h2>
                   {Array.isArray(productData.imagesURL) ? (
                     <div className="img-container-preview">
                       <ImageList sx={{ width: 400, height: 250 }}>
@@ -371,36 +361,9 @@ function UpdateProduct() {
                   )}
                   <div>
                     <h2>Subir imagen</h2>
-                    <div>
-                      <label>
-                        Imagen:{" "}
-                        <input
-                          multiple
-                          accept="image/*"
-                          type={"file"}
-                          onChange={(event) => {
-                            // console.log(event.target.files);
-                            // console.log(event.target.files[0]);
-                            const file = event.target.files[0];
-                            if (file && file.type.substr(0, 5) === "image") {
-                              setFichero(file);
-                            } else {
-                              setFichero(null);
-                            }
-                            setFichero(file);
-                          }}
-                        />
-                      </label>
-                      {fichero && (
-                        <div>
-                          <img
-                            className="img-preview"
-                            src={preview}
-                            alt="img"
-                          />
-                        </div>
-                      )}
-                    </div>
+                    <Paper elevation={3} sx={{ padding: "12px" }}>
+                      <DropzoneArea onChange={(file) => setFiles(file)} />
+                    </Paper>
                   </div>
                   {error && (
                     <Stack sx={{ width: "100%", margin: 1 }} spacing={2}>

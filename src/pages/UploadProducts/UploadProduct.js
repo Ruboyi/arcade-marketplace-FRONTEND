@@ -126,8 +126,6 @@ function UploadProduct() {
                   formData.append("productImage", file);
                 }
 
-                console.log(formData);
-
                 await axios.post(
                   `${REACT_APP_BACKEND_API}products/images/${productId}`,
                   formData,
