@@ -18,17 +18,15 @@ import UpdateProduct from "./pages/UpdateProduct/UpdateProduct";
 import Settings from "./pages/Settings/Settings";
 import MyProductsPurchaseOrders from "./pages/MyProductPurchaseOrders/MyProductsPurchaseOrders";
 import UserProfile from "./pages/UserProfile/UserProfile";
-import Tomato from "./pages/Tomato/Tomato"
+import Tomato from "./pages/Tomato/Tomato";
 import Landing from "./pages/Landing/Landing";
 import NotFoundComponent from "./components/NotFound/NotFound";
 import AdminUsersPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
 import AdminProductsPage from "./pages/Admin/AdminProductsPage/AdminProductsPage";
 import AdminReportsPage from "./pages/Admin/AdminReportsPage/AdminReportsPage";
 import RecoveryPasswordPage from "./pages/RecoveryPassword/RecoryPasswordPage";
-import { useAuthorization } from "./hooks/useAuthorization";
 
 function App() {
-  const { logout } = useAuthorization();
   return (
     <div className="App">
       <Header2 />
