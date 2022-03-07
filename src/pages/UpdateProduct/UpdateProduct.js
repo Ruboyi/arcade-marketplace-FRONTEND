@@ -32,7 +32,9 @@ import { Formik, Field } from "formik";
 import GoBack from "../../components/GoBack/GoBack";
 import { Box } from "@mui/system";
 import DialogContentText from "@mui/material/DialogContentText";
+import '../UpdateProduct/UpdateProduct.css'
 import { DropzoneArea } from "material-ui-dropzone";
+
 
 const { REACT_APP_BACKEND_API } = process.env;
 const style = {
@@ -111,7 +113,7 @@ function UpdateProduct() {
   }, [userSession, navigate, idProduct]);
 
   return (
-    <main>
+    <main className="updateProduct">
       <GoBack />
       <div>
         {productData && (
@@ -355,7 +357,7 @@ function UpdateProduct() {
                       <img
                         className="img-preview"
                         src={productData.imagesURL}
-                        alt="img"
+                        alt="product-img"
                       />
                     </div>
                   )}
