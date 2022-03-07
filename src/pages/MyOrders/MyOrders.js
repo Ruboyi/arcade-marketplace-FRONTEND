@@ -1,11 +1,11 @@
-import { CircularProgress } from "@mui/material";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import MenuProfile from "../../components/MenuProfile/MenuProfile";
-import { useAuthorization } from "../../hooks/useAuthorization";
-import "./MyOrders.css";
-import ReviewsUser from "../../components/Reviews/Reviews";
+import { CircularProgress, Paper } from '@mui/material';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import MenuProfile from '../../components/MenuProfile/MenuProfile';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import './MyOrders.css';
+import ReviewsUser from '../../components/Reviews/Reviews';
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -18,14 +18,14 @@ function MyOrders() {
 
   useEffect(() => {
     if (!userSession) {
-      navigate("/login");
+      navigate('/login');
     }
 
     async function getMyOrders() {
       const config = {
         headers: {
-          Authorization: `Bearer ${userSession}`,
-        },
+          Authorization: `Bearer ${userSession}`
+        }
       };
       if (idUser) {
         const response = await axios.get(
@@ -45,17 +45,29 @@ function MyOrders() {
   }, [userSession, navigate, idUser]);
 
   const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
   };
+
+  const options2 = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  };
+
+  const options3 = {
+    hour: '2-digit',
+    minute: '2-digit'
+  };
+
   console.log(myOrders);
-  console.log(products);
+  // console.log(products);
   return (
-    <div className="my-orders-container">
+    <div className='my-orders-container'>
       <MenuProfile />
-      <div className="my-orders-div">
+      <div className='my-orders-div'>
         <h1>Mis reservas</h1>
         {myOrders && idUser && products ? (
           myOrders.map((order) => {
@@ -64,40 +76,49 @@ function MyOrders() {
             );
 
             return (
-              <div key={order.idOrder} className="order-container">
-                <div>
-                  <span>Fecha: </span>
-                  <span>
-                    {new Date(order.orderDate).toLocaleString("es-ES", options)}
-                  </span>
-                </div>
-                <div className="order-product-info">
+              <Paper key={order.idOrder} className='paper-myOrders-container'>
+                <div className='order-container'>
+                  <div className='order-status'>¡{order.status}!</div>
                   {/* TODO HACER LLAMADA A LAS IMAGENES PARA AÑADIRLA ACA */}
-                  <div className="order-product-title">
+                  <div className='order-product-title'>
                     {productoSolicitado.title}
                   </div>
-                  <div>Precio: {productoSolicitado.price}</div>
-                  <div>Ubicacion: {productoSolicitado.location}</div>
-                </div>
-                <div className="order-info">
-                  <div>Mensaje enviado: {order.orderMessage}</div>
-                  {order.saleMessage && (
-                    <div>Mensaje del vendedor: {order.saleMessage}</div>
-                  )}
-                  {order.saleDate && (
-                    <div>
-                      Fecha acordada de venta:{" "}
-                      {new Date(order.saleDate).toLocaleString(
-                        "es-ES",
-                        options
-                      )}
+                  <div className='order-product-info'>
+                    <div>Precio: {productoSolicitado.price}</div>
+                    <div>Ubicacion: {productoSolicitado.location}</div>
+                  </div>
+                  <div className='order-info'>
+                    <div className='order-fecha'>
+                      <span>
+                        {new Date(order.orderDate).toLocaleString('es-ES', options)}
+                      </span>
                     </div>
-                  )}
-                  {order.status === 'vendido' && order.isSellerReviewed === 0 ? (<ReviewsUser idUser={productoSolicitado.idUser} isBuyerOrSeller={'buyer'} />) : null}
-                  <div className="order-status">Estado: {order.status}</div>
+                    <div className='order-mensaje-enviado'>{order.orderMessage}</div>
+                    {/* TODO revisar porque si o si deberia tener saleDate si tiene saleMessage  */}
+                    {order.saleDate && (
+                      <div className='order-mensaje-vendedor'>
+                        Nos vemos el{' '}
+                        {new Date(order.saleDate).toLocaleString('es-ES', options2)}{' '}
+                        en {order.saleLocation} a las{' '}
+                        {new Date(order.saleDate).toLocaleString('es-ES', options3)}{' '}
+                        horas
+                      </div>
+                    )}
+                    {order.saleMessage && (
+                      <div className='order-mensaje-vendedor'>
+                        {order.saleMessage}
+                      </div>
+                    )}
+                  </div>
+                  {order.status === 'vendido' && order.isSellerReviewed === 0 ? (
+                    <ReviewsUser
+                      idUser={productoSolicitado.idUser}
+                      isBuyerOrSeller={'buyer'}
+                    />
+                  ) : null}
+                  {/* TODO FALTA BOTON PARA CANCELAR RESERVA ETC */}
                 </div>
-                {/* TODO FALTA BOTON PARA CANCELAR RESERVA ETC */}
-              </div>
+              </Paper>
             );
           })
         ) : (

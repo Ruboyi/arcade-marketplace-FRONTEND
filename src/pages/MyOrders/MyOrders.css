@@ -2,24 +2,29 @@
   font-family: gameOverFont;
   src: url(../../assets/Welbut__.ttf);
 }
-.my-orders-container{
+.my-orders-container {
   display: flex;
 }
 
 .order-container {
   background-color: rgb(255, 255, 255);
   color: #222;
-  padding: 25px;
+  /* padding: 25px; */
   margin: 10px auto;
   max-width: 75%;
   border-radius: 5px;
-  border: solid 2px #05114929;
+  /* border: solid 2px #05114929; */
+  font-family: gameOverFont;
 }
 
-.order-product-info {
+/* .order-product-info {
   border: 1px solid black;
   text-align: left;
   padding: 5px;
+} */
+
+.order-product-info {
+  padding: 10px;
 }
 
 .order-product-title {
@@ -28,32 +33,75 @@
 
 .order-info {
   text-align: left;
+  border: 3px solid #05114929;
+  padding: 15px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
 }
 
 .order-status {
-  text-align: right;
   color: blue;
+  position: absolute;
+  transform: rotate(45deg);
+  right: 15px;
+  top: 45px;
 }
+
 .my-orders-div {
   margin-left: 200px;
   flex-grow: 1;
   background-color: #f1f8ff;
 }
 
-.my-orders-div > h1{color: #051149;
+.my-orders-div > h1 {
+  color: #051149;
   background-color: white;
   position: sticky;
-  top:  78px;
+  top: 78px;
   padding: 20px;
   border: solid 2px #05114929;
   border-radius: 5px;
   margin-top: 0px;
- font-family: gameOverFont;}
+  font-family: gameOverFont;
+}
+
+.paper-myOrders-container {
+  margin: 0 auto;
+  width: clamp(400px, 50vw, 800px);
+  padding: 25px 0;
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.order-fecha {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.order-mensaje-enviado {
+  /* background-color: #05114929; */
+  background-color: lightblue;
+  padding: 10px;
+  width: 150px;
+  border-radius: 25px 25px 0 25px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  align-self: flex-end;
+}
+
+.order-mensaje-vendedor {
+  background-color: #05114929;
+  padding: 10px;
+  width: 150px;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  border-radius: 25px 25px 25px 0;
+}
 
 @media (max-width: 600px) {
-  .my-orders-div{
-      z-index: 1100;
-  margin-left: 50px;
+  .my-orders-div {
+    z-index: 1100;
+    margin-left: 50px;
   }
-  }
-  
+}
