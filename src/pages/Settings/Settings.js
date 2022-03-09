@@ -113,11 +113,12 @@ function Settings() {
         {userProfile ? (
           <Paper className="settings-paper" sx={{ padding: "44px" }}>
             <Paper elevation={6} className="header-settings">
-              <div><img
-                className="img-settings"
-                src={userProfile.image}
-                alt="foto-perfil"
-              />
+              <div>
+                <img
+                  className="img-settings"
+                  src={userProfile.image}
+                  alt="foto-perfil"
+                />
                 <label htmlFor="icon-button-file">
                   <Input
                     accept="image/*"
@@ -420,7 +421,6 @@ function Settings() {
                       theme={theme}
                       sx={{
                         marginTop: 2,
-                        backgroundColor: "#090D41",
                       }}
                     >
                       Confirmar

@@ -46,9 +46,11 @@ left: 2px;}
     display: flex;
     justify-content: space-evenly;
     padding: 10px;
+    max-width: 70vw;
 }
 .user-card:hover{
-    background-color: rgb(251, 249, 245);
+    background-color: rgb(250, 250, 250);
+    cursor: pointer;
 }
 
 .name-rating{

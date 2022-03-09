@@ -15,12 +15,15 @@ function ReviewCard({ review }) {
   } = review;
 
   return (
-    <Paper key={idReview} elevation={3} className="user-card">
+    <Paper
+      key={idReview}
+      elevation={3}
+      className="user-card"
+      onClick={() => navigate(`/user/${nameUser}/${idUserReviewer}`)}
+      sx={{ maxWidth: "76vw", margin: "0 auto" }}
+    >
       <img className="profileImage" src={image} alt="img-avatar" />
-      <div
-        className="name-rating"
-        onClick={() => navigate(`/user/${nameUser}/${idUserReviewer}`)}
-      >
+      <div className="name-rating">
         <h1>{nameUser}</h1>
         <Rating name="read-only" value={rating} readOnly />
       </div>

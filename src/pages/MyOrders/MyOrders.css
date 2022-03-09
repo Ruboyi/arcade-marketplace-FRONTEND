@@ -58,12 +58,13 @@
   color: #051149;
   background-color: white;
   position: sticky;
-  top: 78px;
+  top: 77px;
   padding: 20px;
   border: solid 2px #05114929;
   border-radius: 5px;
   margin-top: 0px;
   font-family: gameOverFont;
+  z-index: 12000;
 }
 
 .paper-myOrders-container {

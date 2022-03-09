@@ -70,6 +70,7 @@ export default function ReportButton({ idProduct, setError, setIsReported }) {
                 handleClose();
               } catch (error) {
                 setError(error.response.data.error);
+                handleClose();
               }
             }}
           >
