@@ -7,6 +7,7 @@ import defaultAvatar from "../../assets/defaultAvatar.png";
 import SimpleImageSlider from "react-simple-image-slider";
 import BadgeAvatars from "../../components/Avatar/Avatar";
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -15,7 +16,8 @@ export default function UserProfile() {
   const [userData, setUserData] = useState();
   const [productsImages, setProductsImages] = useState();
   const [reviews, setReviews] = useState();
-  const [avgRating, setAvgRating] = useState();
+  const [avgRating, setAvgRating] = useState(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getUserData() {
@@ -76,12 +78,13 @@ export default function UserProfile() {
     getReviews();
     getRating();
   }, [idUser]);
+  console.log(productsImages);
 
   return (
     <div className="background-user-profile-page">
       {userData ? (
         <Paper className="userProfile-container" elevation={1}>
-          <div className="header-userProfile" >
+          <div className="header-userProfile">
             {userData.image ? (
               <BadgeAvatars src={userData.image} isOnline={userData.isOnline} />
             ) : (
@@ -109,41 +112,57 @@ export default function UserProfile() {
             </div>
           </div>
           <main className="main-user">
-            {reviews ? (
-              reviews.map((data) => (
-                <div key={data.nameUser}>
-                  <h2 className="user-page-subtitle">Valoraciones</h2>
-                  <div elevation={1} className="data-card">
-                    {data.image ? (
-                      <img src={data.image} alt="img" height={80} />
-                    ) : (
-                      <img src={defaultAvatar} alt="profile" height={80} />
-                    )}
-                    <div>
-                      <h2 >{data.nameUser} <span className="ha-puntuado">ha puntuado:</span></h2>
-                      <Rating name="read-only" value={data.rating} readOnly />
-                      <p className="opinion">{data.opinion}</p>
-                      <p className="moment-product align-moment">
-                        Publicado {moment(data.createdAt).fromNow()}
-                      </p>
+            {reviews && reviews.length > 0 ? (
+              <>
+                <h2 className="user-page-subtitle">Valoraciones</h2>
+                {reviews.map((data) => (
+                  <div key={data.nameUser}>
+                    <div
+                      elevation={1}
+                      className="data-card"
+                      onClick={() => {
+                        navigate(
+                          `/user/${data.nameUser}/${data.idUserReviewer}`
+                        );
+                        window.location.reload();
+                      }}
+                    >
+                      {data.image ? (
+                        <img src={data.image} alt="img" height={80} />
+                      ) : (
+                        <img src={defaultAvatar} alt="profile" height={80} />
+                      )}
+                      <div>
+                        <h2>
+                          {data.nameUser}{" "}
+                          <span className="ha-puntuado">ha puntuado:</span>
+                        </h2>
+                        <Rating name="read-only" value={data.rating} readOnly />
+                        <p className="opinion">{data.opinion}</p>
+                        <p className="moment-product align-moment">
+                          Publicado {moment(data.createdAt).fromNow()}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
+                ))}
+              </>
             ) : (
-              <CircularProgress />
+              <p>Aún no tienes valoraciones</p>
             )}
-            <h2 className="user-page-subtitle">Productos</h2>
-            {productsImages && (
-              <div className="slider">
-                <SimpleImageSlider
-                  width={250}
-                  height={250}
-                  images={productsImages}
-                  showBullets={true}
-                  showNavs={true}
-                />
-              </div>
+            {productsImages && productsImages.length > 0 && (
+              <>
+                <h2 className="user-page-subtitle">Productos</h2>
+                <div className="slider">
+                  <SimpleImageSlider
+                    width={250}
+                    height={250}
+                    images={productsImages}
+                    showBullets={true}
+                    showNavs={true}
+                  />
+                </div>
+              </>
             )}
           </main>
         </Paper>

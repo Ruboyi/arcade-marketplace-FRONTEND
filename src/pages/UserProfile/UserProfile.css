@@ -25,6 +25,12 @@
     border-style: solid;
     border-image: linear-gradient(90deg, white, #e4f1ff, #e4f1ff,#e4f1ff,#e4f1ff,#e4f1ff,white) 1;
 }
+
+.data-card:hover{
+    background-color: rgb(240, 240, 240);
+    cursor: pointer;
+}
+
 .align-moment {
     text-align: end;
 }
