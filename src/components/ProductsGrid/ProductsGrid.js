@@ -61,8 +61,13 @@ function ProductsGrid({ products }) {
       formattedQueries["province"] &&
       formattedQueries["province"] !== "undefined"
     ) {
+      console.log(formattedQueries["province"]);
       productsProcessed = productsProcessed.filter(
-        (product) => product.province === formattedQueries["province"]
+        (product) =>
+          product.province ===
+          formattedQueries["province"]
+            .replace("%20", " ")
+            .replace("%C3%B1", "ñ")
       );
     }
     if (

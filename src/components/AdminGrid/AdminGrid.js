@@ -20,6 +20,8 @@ export default function AdminGrid({ usersData, getAllUser }) {
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
 
+  console.log(usersData);
+
   const config = {
     headers: {
       Authorization: `Bearer ${userSession}`,

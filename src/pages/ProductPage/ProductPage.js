@@ -53,7 +53,7 @@ function ProductPage() {
   const { userProfile, userSession } = useAuthorization();
   const handleClose = () => setError(false);
   const handleCloseIsCreated = () => setIsCreated(false);
-  const handleCloseisReported = () => setIsCreated(false);
+  const handleCloseisReported = () => setIsReported(false);
   const navigate = useNavigate();
   const [avgRating, setAvgRating] = useState();
 
@@ -135,7 +135,12 @@ function ProductPage() {
                   subido {moment(productInfo.createdAt).fromNow()}
                 </p>
                 {userProfile.idUser === productInfo.idUser && (
-                  <Link to={`/update-product/${idProduct}`} className="editar-button">Editar</Link>
+                  <Link
+                    to={`/update-product/${idProduct}`}
+                    className="editar-button"
+                  >
+                    Editar
+                  </Link>
                 )}
               </div>
               {userProfile.idUser !== productInfo.idUser && (
