@@ -181,7 +181,7 @@ function Products() {
               <DialogTitle>¿Cuanto quieres pagar?</DialogTitle>
               <DialogContent>
                 <DialogContentText>
-                  Elige lel rango de precio en el que deseas buscar.
+                  Elige el rango de precio en el que deseas buscar.
                 </DialogContentText>
                 <Slider
                   getAriaLabel={() => "Prize"}
