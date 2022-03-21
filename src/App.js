@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, Routes, useLocation } from "react-router";
 import "./App.css";
 import Header2 from "./components/Header2/Header2";
 import TapBar from "./components/Tapbar/TapBar";
@@ -25,8 +25,15 @@ import AdminUsersPage from "./pages/Admin/AdminUsersPage/AdminUsersPage";
 import AdminProductsPage from "./pages/Admin/AdminProductsPage/AdminProductsPage";
 import AdminReportsPage from "./pages/Admin/AdminReportsPage/AdminReportsPage";
 import RecoveryPasswordPage from "./pages/RecoveryPassword/RecoryPasswordPage";
+import { useEffect } from "react";
 
 function App() {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   return (
     <div className="App">
       <Header2 />
