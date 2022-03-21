@@ -1,10 +1,10 @@
-import { CircularProgress } from '@mui/material';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-import GoBack from '../../components/GoBack/GoBack';
-import ProductsGrid from '../../components/ProductsGrid/ProductsGrid';
-import { useAuthorization } from '../../hooks/useAuthorization';
+import { CircularProgress } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
+import GoBack from "../../components/GoBack/GoBack";
+import ProductsGrid from "../../components/ProductsGrid/ProductsGrid";
+import { useAuthorization } from "../../hooks/useAuthorization";
 import "./MyFavorites.css";
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -17,13 +17,13 @@ function MyFavorites() {
 
   useEffect(() => {
     if (!userSession) {
-      navigate('/login');
+      navigate("/login");
     }
     async function getMyFavorites() {
       const config = {
         headers: {
-          Authorization: `Bearer ${userSession}`
-        }
+          Authorization: `Bearer ${userSession}`,
+        },
       };
       const response = await axios.get(
         `${REACT_APP_BACKEND_API}users/favorites`,
@@ -38,7 +38,7 @@ function MyFavorites() {
   }, [userSession, navigate, idUser]);
 
   return (
-    <div className='my-favorites-div'>
+    <div className="my-favorites-div">
       <h1>Mis Favoritos</h1>
       <GoBack />
       {myFavorites ? (

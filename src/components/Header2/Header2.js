@@ -134,7 +134,14 @@ export default function PrimarySearchAppBar() {
     }
     getReviews();
     getPurchaseOrders();
-  }, [REACT_APP_BACKEND_API, actualUrl, idUser, userSession]);
+  }, [
+    REACT_APP_BACKEND_API,
+    actualUrl,
+    idUser,
+    userSession,
+    numbPurcharseOrders,
+    numbReviews,
+  ]);
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
