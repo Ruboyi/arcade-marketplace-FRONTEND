@@ -3,7 +3,8 @@
   flex-direction: column;
   text-align: left;
   background-color: white;
-  border: 2px solid rgb(228, 0, 228);
+  font-family: gameOverFont;
+  font-weight: 100 !important;
   border-radius: 4px;
   padding: 5px;
   margin-bottom: 15px;
@@ -62,4 +63,7 @@
 .product-order-button-answer:active {
   background-color: tomato;
   color: #121212;
+}
+.button-div{
+  margin: 10px;
 }

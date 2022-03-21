@@ -59,20 +59,21 @@ function MyProductsPurchaseOrders() {
       <GoBack />
 
       {isMyProductsEmpty ? (
-        <div>Aun no tienes Productos a la venta!</div>
+        <div>Aún no tienes Productos a la venta!</div>
       ) : myProducts ? (
         myProducts.map((product) => {
           return (
             <Paper className='my-product-orders-paper' key={product.idProduct}>
-              <h1>{product.title}</h1>
+
               <ProductOrders idProduct={product.idProduct} />
             </Paper>
           );
         })
       ) : (
         <CircularProgress />
-      )}
-    </main>
+      )
+      }
+    </main >
   );
 }
 

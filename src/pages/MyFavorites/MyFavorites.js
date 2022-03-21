@@ -46,7 +46,7 @@ function MyFavorites() {
       ) : (
         <CircularProgress />
       )}
-      {favLengthZero && <h2>Aún no tienes favoritos!</h2>}
+      {favLengthZero && <h2 className='no-tienes-favs'>Aún no tienes favoritos!</h2>}
     </div>
   );
 }
