@@ -1,4 +1,5 @@
 import {
+  Divider,
   FormControl,
   FormControlLabel,
   Radio,
@@ -72,6 +73,16 @@ export default function ProductOrders({ idProduct }) {
     day: "numeric",
   };
 
+  const options2 = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric'
+  };
+
+  const options3 = {
+    hour: '2-digit',
+    minute: '2-digit'
+  };
   async function setSold(idUserBuyer, idOrder) {
     const data = {};
     const config = {
@@ -89,26 +100,45 @@ export default function ProductOrders({ idProduct }) {
 
   return (
     <div>
-      {productOrders && productoSolicitado ? (
+      {productOrders && productoSolicitado && (
         productOrders.map((order) => {
           return (
             <div key={order.idOrder} className="product-order-info-container">
-              <div className="product-order-status">{order.status}</div>
-              <div>
-                Fecha de solicitud:{" "}
-                <div className="product-order-date">
-                  {new Date(order.orderDate).toLocaleString("es-ES", options)}
-                </div>
+              <div className='order-status'>¡{order.status}!</div>
+              {/* TODO HACER LLAMADA A LAS IMAGENES PARA AÑADIRLA ACA */}
+              <div className='order-product-title'>
+                {productoSolicitado.title}
               </div>
-
-              <div className="product-order-message-container">
-                Mensaje: <span>{order.orderSubject}</span>
-                <div className="product-order-message">
-                  {order.orderMessage}
+              <div className='order-product-info'>
+                <div>Precio: {productoSolicitado.price}</div>
+                <div>Ubicacion: {productoSolicitado.location}</div>
+              </div>
+              <div className='order-info'>
+                <div className='order-fecha'>
+                  <span>
+                    {new Date(order.orderDate).toLocaleString('es-ES', options)}
+                  </span>
                 </div>
+                <Divider sx={{ marginBottom: '15px' }} />
+                <div className='order-mensaje-vendedor'>{order.orderMessage}</div>
+                {/* TODO revisar porque si o si deberia tener saleDate si tiene saleMessage  */}
+                {order.saleDate && (
+                  <div className='order-mensaje-enviado'>
+                    Nos vemos el{' '}
+                    {new Date(order.saleDate).toLocaleString('es-ES', options2)}{' '}
+                    en {order.saleLocation} a las{' '}
+                    {new Date(order.saleDate).toLocaleString('es-ES', options3)}{' '}
+                    horas
+                  </div>
+                )}
+                {order.saleMessage && (
+                  <div className='order-mensaje-enviado'>
+                    {order.saleMessage}
+                  </div>
+                )}
               </div>
               {order.status === "solicitado" && (
-                <div>
+                <div className="button-div">
                   <Button
                     theme={theme}
                     variant="outlined"
@@ -300,40 +330,12 @@ export default function ProductOrders({ idProduct }) {
                 </div>
               )}
               {order.status === "reservado" && (
-                <div>
-                  <div className="product-order-answer-container">
-                    Respuesta:
-                    <span className="product-order-answer-date">
-                      {new Date(order.reservationDate).toLocaleString(
-                        "es-ES",
-                        options
-                      )}
-                    </span>
-                    <div>{order.saleMessage}</div>
-                  </div>
-                  <div className="product-order-sale-info">
-                    <div>
-                      Ubicacion:
-                      <span className="product-order-answer-date">
-                        {order.saleLocation}
-                      </span>
-                    </div>
-                    <div>
-                      Dia y hora de encuentro:
-                      <div>
-                        {new Date(order.reservationDate).toLocaleString(
-                          "es-ES",
-                          options
-                        )}
-                        {/* TODO PONERLE LA HORA */}
-                      </div>
-                    </div>
-                  </div>
-                  <button
+                <div className="button-div">
+                  <Button variant='outlined' theme={theme}
                     onClick={() => setSold(order.idUserBuyer, order.idOrder)}
                   >
                     Vendido
-                  </button>
+                  </Button>
                 </div>
               )}
               {order.status === "vendido" && order.isBuyerReviewed === 0 ? (
@@ -345,8 +347,6 @@ export default function ProductOrders({ idProduct }) {
             </div>
           );
         })
-      ) : (
-        <div>No tienes ordenes de compra para este producto</div>
       )}
     </div>
   );
