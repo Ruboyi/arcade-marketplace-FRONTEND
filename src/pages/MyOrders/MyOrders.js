@@ -1,4 +1,4 @@
-import { CircularProgress, Paper } from '@mui/material';
+import { CircularProgress, Divider, Paper } from '@mui/material';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -93,6 +93,7 @@ function MyOrders() {
                         {new Date(order.orderDate).toLocaleString('es-ES', options)}
                       </span>
                     </div>
+                    <Divider sx={{ marginBottom: '15px' }} />
                     <div className='order-mensaje-enviado'>{order.orderMessage}</div>
                     {/* TODO revisar porque si o si deberia tener saleDate si tiene saleMessage  */}
                     {order.saleDate && (
@@ -125,7 +126,7 @@ function MyOrders() {
           <CircularProgress />
         )}
       </div>
-    </div>
+    </div >
   );
 }
 

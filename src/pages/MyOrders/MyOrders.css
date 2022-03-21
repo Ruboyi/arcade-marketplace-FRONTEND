@@ -28,7 +28,7 @@
 }
 
 .order-product-title {
-  color: blue;
+  color: rgb(0, 0, 110);
 }
 
 .order-info {
@@ -41,7 +41,7 @@
 }
 
 .order-status {
-  color: blue;
+  color: rgb(234, 0, 255);
   position: absolute;
   transform: rotate(45deg);
   right: 15px;
@@ -69,7 +69,8 @@
 
 .paper-myOrders-container {
   margin: 0 auto;
-  width: clamp(400px, 50vw, 800px);
+  /* width: clamp(400px, 50vw, 800px); */
+  max-width: 700px;
   padding: 25px 0;
   position: relative;
   margin-bottom: 25px;
@@ -82,7 +83,7 @@
 
 .order-mensaje-enviado {
   /* background-color: #05114929; */
-  background-color: lightblue;
+  background-color: #d4eaff;
   padding: 10px;
   width: 150px;
   border-radius: 25px 25px 0 25px;
@@ -92,7 +93,7 @@
 }
 
 .order-mensaje-vendedor {
-  background-color: #05114929;
+  background-color: #ffe6f9;
   padding: 10px;
   width: 150px;
   font-size: 0.9rem;
