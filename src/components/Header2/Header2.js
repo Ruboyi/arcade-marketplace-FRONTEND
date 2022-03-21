@@ -66,7 +66,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function PrimarySearchAppBar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const [isActualUrlProducts, setIsActualUrlProducts] = React.useState();
@@ -74,7 +74,7 @@ export default function PrimarySearchAppBar() {
   const [numbReviews, setNumbReviews] = useState();
   const [numbPurcharseOrders, setNumbPurcharseOrders] = useState();
   const { REACT_APP_BACKEND_API } = process.env;
-  const { logout, userSession, userProfile } = useAuthorization();
+  const { userSession, userProfile } = useAuthorization();
   const { idUser } = userProfile;
   let actualUrl = window.location.href;
 
@@ -136,12 +136,7 @@ export default function PrimarySearchAppBar() {
     getPurchaseOrders();
   }, [REACT_APP_BACKEND_API, actualUrl, idUser, userSession]);
 
-  const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -160,36 +155,6 @@ export default function PrimarySearchAppBar() {
     navigate("/profile");
     handleMenuClose();
   };
-  const toSettings = () => {
-    navigate("/settings");
-    handleMenuClose();
-  };
-
-  const menuId = "primary-search-account-menu";
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      sx={{ zIndex: 12000 }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={toProfile}>Perfil</MenuItem>
-      <MenuItem onClick={toSettings}>Ajustes</MenuItem>
-      <MenuItem onClick={logout} onClose={handleMenuClose}>
-        Cerrar Sesión
-      </MenuItem>
-    </Menu>
-  );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
@@ -229,7 +194,7 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={toProfile}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -338,10 +303,7 @@ export default function PrimarySearchAppBar() {
                 <IconButton
                   size="large"
                   edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
+                  onClick={toProfile}
                   color="inherit"
                 >
                   <AccountCircle sx={{ color: "#051149" }} />
@@ -387,7 +349,6 @@ export default function PrimarySearchAppBar() {
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </>
   );
 }
