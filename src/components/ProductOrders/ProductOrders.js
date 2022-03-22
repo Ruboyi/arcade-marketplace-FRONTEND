@@ -109,6 +109,20 @@ export default function ProductOrders({ idProduct }) {
 
   return (
     <div>
+      {productoSolicitado && (
+        <div>
+          <img
+            src={productoSolicitado.imagesURL[0]}
+            alt="foto-product"
+            height="100px"
+          />
+          <div className="order-product-title">{productoSolicitado.title}</div>
+          <div className="order-product-info">
+            <div>Precio: {productoSolicitado.price}</div>
+            <div>Ubicacion: {productoSolicitado.location}</div>
+          </div>
+        </div>
+      )}
       {productOrders &&
         productoSolicitado &&
         users &&
@@ -120,14 +134,6 @@ export default function ProductOrders({ idProduct }) {
           return (
             <div key={order.idOrder} className="product-order-info-container">
               <div className="order-status">¡{order.status}!</div>
-              <img src={productoSolicitado.imagesURL[0]} alt="foto-product" />
-              <div className="order-product-title">
-                {productoSolicitado.title}
-              </div>
-              <div className="order-product-info">
-                <div>Precio: {productoSolicitado.price}</div>
-                <div>Ubicacion: {productoSolicitado.location}</div>
-              </div>
               <div className="order-info">
                 <div className="order-user">
                   <img src={userBuyer.image} height="40px" alt="foto-user" />
