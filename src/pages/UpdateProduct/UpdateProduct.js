@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router';
-import { useAuthorization } from '../../hooks/useAuthorization';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { useAuthorization } from "../../hooks/useAuthorization";
 import {
   Paper,
   TextField,
@@ -22,30 +22,31 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
-} from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
-import ListIcon from '@mui/icons-material/List';
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddLocationIcon from '@mui/icons-material/AddLocation';
-import { Formik, Field } from 'formik';
-import GoBack from '../../components/GoBack/GoBack';
-import { Box } from '@mui/system';
-import DialogContentText from '@mui/material/DialogContentText';
-import '../UpdateProduct/UpdateProduct.css';
-import { DropzoneArea } from 'material-ui-dropzone';
+  DialogActions,
+} from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
+import ListIcon from "@mui/icons-material/List";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddLocationIcon from "@mui/icons-material/AddLocation";
+import { Formik, Field } from "formik";
+import GoBack from "../../components/GoBack/GoBack";
+import { Box } from "@mui/system";
+import DialogContentText from "@mui/material/DialogContentText";
+import "../UpdateProduct/UpdateProduct.css";
+import { DropzoneArea } from "material-ui-dropzone";
+import theme from "../../theme/theme";
 
 const { REACT_APP_BACKEND_API } = process.env;
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
   width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
+  bgcolor: "background.paper",
+  border: "2px solid #000",
   boxShadow: 24,
-  p: 4
+  p: 4,
 };
 
 function UpdateProduct() {
@@ -56,7 +57,7 @@ function UpdateProduct() {
   const [error, setError] = useState();
   const [isDelete, setIsDelete] = useState(false);
   const [open, setOpen] = useState(false);
-  const [files, setFiles] = useState();
+  const [files, setFiles] = useState([]);
 
   const handleCloseIsDelete = () => setIsDelete(false);
 
@@ -65,18 +66,21 @@ function UpdateProduct() {
 
   const config = {
     headers: {
-      Authorization: `Bearer ${userSession}`
-    }
+      Authorization: `Bearer ${userSession}`,
+    },
   };
 
   async function deleteProduct() {
     try {
       handleClose();
 
-      await axios.delete(`${REACT_APP_BACKEND_API}products/${idProduct}`, config);
+      await axios.delete(
+        `${REACT_APP_BACKEND_API}products/${idProduct}`,
+        config
+      );
       setIsDelete(true);
       setTimeout(() => {
-        navigate('/my-products');
+        navigate("/my-products");
       }, 3000);
     } catch (error) {
       setError(error.response.data.error);
@@ -86,11 +90,11 @@ function UpdateProduct() {
   async function deleteImageProduct(imageUrl) {
     const config = {
       headers: {
-        Authorization: `Bearer ${userSession}`
-      }
+        Authorization: `Bearer ${userSession}`,
+      },
     };
     try {
-      const imageUrlSplitted = imageUrl.split('/');
+      const imageUrlSplitted = imageUrl.split("/");
 
       const nameImage = imageUrlSplitted[imageUrlSplitted.length - 1];
       await axios.delete(
@@ -105,7 +109,7 @@ function UpdateProduct() {
 
   useEffect(() => {
     if (!userSession) {
-      navigate('/login');
+      navigate("/login");
     }
     async function getProductoData() {
       try {
@@ -121,13 +125,14 @@ function UpdateProduct() {
   }, [userSession, navigate, idProduct]);
 
   return (
-    <main className='updateProduct'>
+    <main className="updateProduct">
       <GoBack />
       <div>
         {productData && (
           <Paper
-            className='upload-product-form'
-            style={{ backgroundColor: 'white', marginTop: '20px' }}>
+            className="upload-product-form"
+            style={{ backgroundColor: "white", marginTop: "20px" }}
+          >
             <Formik
               initialValues={{
                 category: productData.category,
@@ -135,38 +140,38 @@ function UpdateProduct() {
                 description: productData.description,
                 price: productData.price,
                 state: productData.state,
-                location: productData.location
+                location: productData.location,
               }}
               validate={(values) => {
                 const errors = {};
 
                 if (!values.title) {
-                  errors.title = 'Título Required';
+                  errors.title = "Título Required";
                 }
                 if (!values.description) {
-                  errors.description = 'description Required';
+                  errors.description = "description Required";
                 }
                 if (!values.price) {
-                  errors.price = 'price Required';
+                  errors.price = "price Required";
                 }
                 if (!values.state) {
-                  errors.state = 'state Required';
+                  errors.state = "state Required";
                 }
                 if (!values.location) {
-                  errors.location = 'location Required';
+                  errors.location = "location Required";
                 }
                 return errors;
               }}
               onSubmit={async (values) => {
-                console.log('SUBMIT: ', values);
+                console.log("SUBMIT: ", values);
                 const { category, title, description, price, state, location } =
                   values;
 
                 try {
                   const config = {
                     headers: {
-                      Authorization: `Bearer ${userSession}`
-                    }
+                      Authorization: `Bearer ${userSession}`,
+                    },
                   };
                   await axios.put(
                     `http://localhost:3000/api/v1/products/${idProduct}`,
@@ -176,15 +181,20 @@ function UpdateProduct() {
                       description,
                       price,
                       state,
-                      location
+                      location,
                     },
                     config
                   );
 
+                  if (files.length === 0) {
+                    navigate(`/products/${idProduct}`);
+                    return;
+                  }
+
                   const formData = new FormData();
 
                   for (const file of files) {
-                    formData.append('productImage', file);
+                    formData.append("productImage", file);
                   }
 
                   await axios.post(
@@ -192,43 +202,44 @@ function UpdateProduct() {
                     formData,
                     config
                   );
-
-                  navigate(`/products/${idProduct}`);
                 } catch (error) {
                   console.log(error);
                   setError(error.response);
                 }
-              }}>
+              }}
+            >
               {({ values, errors, touched, handleChange, handleSubmit }) => (
                 <form onSubmit={handleSubmit}>
                   <h2>
-                    Categoría <ListIcon />{' '}
+                    Categoría <ListIcon />{" "}
                   </h2>
                   <div>
                     <label>
-                      <Field type='radio' name='category' value='consolas' /> Consola
+                      <Field type="radio" name="category" value="consolas" />{" "}
+                      Consola
                     </label>
                     <label>
-                      <Field type='radio' name='category' value='arcades' /> Arcades
+                      <Field type="radio" name="category" value="arcades" />{" "}
+                      Arcades
                     </label>
                     <label>
-                      <Field type='radio' name='category' value='videojuegos' />{' '}
+                      <Field type="radio" name="category" value="videojuegos" />{" "}
                       Videojuegos
                     </label>
                     <label>
-                      <Field type='radio' name='category' value='accesorios' />{' '}
+                      <Field type="radio" name="category" value="accesorios" />{" "}
                       Accesorios
                     </label>
                   </div>
                   <h2>Información</h2> <InfoIcon />
-                  <div className='titulo-precio'>
+                  <div className="titulo-precio">
                     <TextField
-                      margin='dense'
+                      margin="dense"
                       sx={{ marginRight: 1 }}
-                      className='titulo-producto'
-                      id='title'
-                      label='Título'
-                      variant='outlined'
+                      className="titulo-producto"
+                      id="title"
+                      label="Título"
+                      variant="outlined"
                       onChange={handleChange}
                       value={values.title}
                       error={errors.title && touched.title}
@@ -236,30 +247,24 @@ function UpdateProduct() {
                     />
 
                     <TextField
-                      margin='dense'
-                      id='price'
-                      label='Precio (€)'
-                      variant='outlined'
+                      margin="dense"
+                      id="price"
+                      label="Precio (€)"
+                      variant="outlined"
                       onChange={handleChange}
                       value={values.price}
                       error={errors.price && touched.price}
                       helperText={touched.price && errors.price}
                     />
                   </div>
-                  {/* {errors.category &&
-                errors.title &&
-                errors.description &&
-                errors.price &&
-                errors.state &&
-                errors.location} */}
                   <div>
                     <TextField
-                      margin='dense'
-                      id='description'
-                      label='Descripción del producto'
+                      margin="dense"
+                      id="description"
+                      label="Descripción del producto"
                       multiline
                       rows={4}
-                      variant='outlined'
+                      variant="outlined"
                       onChange={handleChange}
                       value={values.description}
                       error={errors.description && touched.description}
@@ -267,31 +272,33 @@ function UpdateProduct() {
                       fullWidth
                     />
                   </div>
-                  <div className='estado-localidad'>
+                  <div className="estado-localidad">
                     <FormControl
                       fullWidth
-                      margin='dense'
+                      margin="dense"
                       sx={{ marginRight: 1 }}
-                      variant='outlined'>
-                      <InputLabel id='state'>Estado</InputLabel>
+                      variant="outlined"
+                    >
+                      <InputLabel id="state">Estado</InputLabel>
 
                       <Select
-                        className='estado'
+                        className="estado"
                         value={values.state}
-                        id='state'
-                        name='state'
-                        label='Estado'
-                        variant='standard'
+                        id="state"
+                        name="state"
+                        label="Estado"
+                        variant="standard"
                         onChange={handleChange}
                         error={errors.state && touched.state}
-                        state>
-                        <MenuItem value='' disabled>
+                        state
+                      >
+                        <MenuItem value="" disabled>
                           Selecciona el estado del producto
                         </MenuItem>
-                        <MenuItem value={'nuevo'}>Nuevo</MenuItem>
-                        <MenuItem value={'seminuevo'}>Seminuevo</MenuItem>
+                        <MenuItem value={"nuevo"}>Nuevo</MenuItem>
+                        <MenuItem value={"seminuevo"}>Seminuevo</MenuItem>
                         {/* <MenuItem value={"buen estado"}>Buen estado</MenuItem> */}
-                        <MenuItem value={'usado'}>Usado</MenuItem>
+                        <MenuItem value={"usado"}>Usado</MenuItem>
                         {/* <MenuItem value={"Malas condiciones"}>
                       Malas condiciones
                     </MenuItem> */}
@@ -299,41 +306,35 @@ function UpdateProduct() {
                     </FormControl>
 
                     <TextField
-                      margin='dense'
-                      id='location'
-                      label='Localidad'
-                      variant='outlined'
+                      margin="dense"
+                      id="location"
+                      label="Localidad"
+                      variant="outlined"
                       onChange={handleChange}
                       value={values.location}
                       error={errors.location && touched.location}
                       helperText={touched.location && errors.location}
                       InputProps={{
                         endAdornment: (
-                          <InputAdornment position='end'>
+                          <InputAdornment position="end">
                             <AddLocationIcon />
                           </InputAdornment>
-                        )
+                        ),
                       }}
                     />
                   </div>
-                  {/* {errors.category &&
-                errors.title &&
-                errors.description &&
-                errors.price &&
-                errors.state &&
-            errors.location} */}
                   <h2>Imagenes</h2>
                   {Array.isArray(productData.imagesURL) ? (
-                    <div className='img-container-preview'>
+                    <div className="img-container-preview">
                       <ImageList sx={{ width: 400, height: 250 }}>
-                        <ImageListItem key='Subheader' cols={2}></ImageListItem>
+                        <ImageListItem key="Subheader" cols={2}></ImageListItem>
                         {productData.imagesURL.map((item) => (
                           <ImageListItem key={item}>
                             <img
                               src={`${item}?w=248&fit=crop&auto=format`}
                               srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                              alt={'img'}
-                              loading='lazy'
+                              alt={"img"}
+                              loading="lazy"
                             />
                             <ImageListItemBar
                               title={productData.title}
@@ -342,9 +343,10 @@ function UpdateProduct() {
                                 <IconButton
                                   onClick={() => deleteImageProduct(item)}
                                   sx={{
-                                    color: 'rgba(255, 255, 255, 0.54)'
+                                    color: "rgba(255, 255, 255, 0.54)",
                                   }}
-                                  aria-label='delete'>
+                                  aria-label="delete"
+                                >
                                   <DeleteIcon />
                                 </IconButton>
                               }
@@ -356,21 +358,21 @@ function UpdateProduct() {
                   ) : (
                     <div>
                       <img
-                        className='img-preview'
+                        className="img-preview"
                         src={productData.imagesURL}
-                        alt='product-img'
+                        alt="product-img"
                       />
                     </div>
                   )}
                   <div>
                     <h2>Subir imagen</h2>
-                    <Paper elevation={3} sx={{ padding: '12px' }}>
+                    <Paper elevation={3} sx={{ padding: "12px" }}>
                       <DropzoneArea onChange={(file) => setFiles(file)} />
                     </Paper>
                   </div>
                   {error && (
-                    <Stack sx={{ width: '100%', margin: 1 }} spacing={2}>
-                      <Alert severity='error'>
+                    <Stack sx={{ width: "100%", margin: 1 }} spacing={2}>
+                      <Alert severity="error">
                         <AlertTitle>Error</AlertTitle>
                         {error}
                       </Alert>
@@ -381,14 +383,15 @@ function UpdateProduct() {
                       <Modal
                         open={true}
                         onClose={handleCloseIsDelete}
-                        aria-labelledby='modal-modal-title'
-                        aria-describedby='modal-modal-description'>
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
                         <Box style={style}>
-                          <Stack sx={{ width: '100%' }} spacing={2}>
-                            <Alert severity='success'>
+                          <Stack sx={{ width: "100%" }} spacing={2}>
+                            <Alert severity="success">
                               <AlertTitle>Success</AlertTitle>
-                              Producto borrado correctamente, redireccionando a tus
-                              productos!
+                              Producto borrado correctamente, redireccionando a
+                              tus productos!
                               <strong>;)</strong>
                             </Alert>
                           </Stack>
@@ -397,39 +400,43 @@ function UpdateProduct() {
                     </div>
                   )}
                   <Button
-                    type='submit'
-                    variant='contained'
-                    sx={{
-                      backgroundColor: '#3742A3',
-                      width: 200,
-                      marginBottom: 1,
-                      marginTop: 2
-                    }}>
-                    Editar
-                  </Button>
-                  <Button
+                    type="submit"
+                    variant="contained"
+                    theme={theme}
                     sx={{
                       width: 200,
                       marginBottom: 1,
                       marginTop: 2,
-                      marginLeft: 1
                     }}
-                    variant='outlined'
-                    onClick={handleClickOpen}>
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    theme={theme}
+                    sx={{
+                      width: 200,
+                      marginBottom: 1,
+                      marginTop: 2,
+                      marginLeft: 1,
+                    }}
+                    variant="outlined"
+                    onClick={handleClickOpen}
+                  >
                     Elimniar
                   </Button>
                   <Dialog
                     open={open}
                     onClose={handleClose}
-                    aria-labelledby='alert-dialog-title'
-                    aria-describedby='alert-dialog-description'>
-                    <DialogTitle id='alert-dialog-title'>
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
                       ¿Estas seguro de borrar este producto?
                     </DialogTitle>
                     <DialogContent>
-                      <DialogContentText id='alert-dialog-description'>
-                        Este proceso es irreversible y cancelará todas las ordenes de
-                        compra de este producto
+                      <DialogContentText id="alert-dialog-description">
+                        Este proceso es irreversible y cancelará todas las
+                        ordenes de compra de este producto
                       </DialogContentText>
                     </DialogContent>
                     <DialogActions>
