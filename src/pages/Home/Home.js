@@ -1,9 +1,10 @@
 import logo from "../../assets/logosinfondo.png";
-import Welcome from "../../components/Welcome/Welcome";
+import { Button } from "@mui/material";
 import "./home.css";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import theme from "../../theme/theme";
 
 function Home() {
   const { userSession } = useAuthorization();
@@ -15,11 +16,19 @@ function Home() {
     }
   }, [userSession, navigate]);
   return (
-    <div>
+    <div className="home-arcade">
       <header className="home-header">
         <img className="img-home" src={logo} alt="logo" />
+        <h1>Tu portal de compra-venta perfecto para revivir el gaming retro</h1>
       </header>
-      <Welcome />
+      <Button
+        variant="contained"
+        onClick={() => navigate("/landing")}
+        theme={theme}
+        sx={{ marginBottom: "40px" }}
+      >
+        Viajar en el tiempo
+      </Button>
     </div>
   );
 }
