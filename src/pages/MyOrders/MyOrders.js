@@ -6,6 +6,7 @@ import MenuProfile from "../../components/MenuProfile/MenuProfile";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import "./MyOrders.css";
 import ReviewsUser from "../../components/Reviews/Reviews";
+import BadgeAvatars from "../../components/Avatar/Avatar";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -103,10 +104,9 @@ function MyOrders() {
                   </div>
                   <div className="order-info">
                     <div className="order-user">
-                      <img
+                      <BadgeAvatars
                         src={userSeller.image}
-                        height="40px"
-                        alt="foto-user"
+                        isOnline={userSeller.isOnline}
                       />
                       <h2>{userSeller.nameUser}</h2>
                     </div>

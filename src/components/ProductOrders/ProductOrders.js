@@ -20,6 +20,7 @@ import { Formik } from "formik";
 import { DateTimePicker } from "@mui/lab";
 import ReviewsUser from "../Reviews/Reviews";
 import theme from "../../theme/theme";
+import BadgeAvatars from "../Avatar/Avatar";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -136,7 +137,10 @@ export default function ProductOrders({ idProduct }) {
               <div className="order-status">¡{order.status}!</div>
               <div className="order-info">
                 <div className="order-user">
-                  <img src={userBuyer.image} height="40px" alt="foto-user" />
+                  <BadgeAvatars
+                    src={userBuyer.image}
+                    isOnline={userBuyer.isOnline}
+                  />
                   <h2>{userBuyer.nameUser}</h2>
                 </div>
                 <div className="order-fecha">
