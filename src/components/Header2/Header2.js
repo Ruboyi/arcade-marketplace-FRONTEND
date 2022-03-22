@@ -81,7 +81,7 @@ export default function PrimarySearchAppBar() {
   React.useEffect(() => {
     setIsActualUrlProducts(
       actualUrl.startsWith("http://localhost:3001/products") ||
-        actualUrl.startsWith("http://localhost:3001/my-favorites")
+      actualUrl.startsWith("http://localhost:3001/my-favorites")
     );
 
     //! Work
@@ -187,7 +187,7 @@ export default function PrimarySearchAppBar() {
             <MailIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+        <p>Reviews</p>
       </MenuItem>
       <MenuItem onClick={() => navigate("/my-products/purchase-orders")}>
         <IconButton
@@ -199,7 +199,7 @@ export default function PrimarySearchAppBar() {
             <NotificationsIcon />
           </Badge>
         </IconButton>
-        <p>Notifications</p>
+        <p>Solicitudes</p>
       </MenuItem>
       <MenuItem onClick={toProfile}>
         <IconButton
