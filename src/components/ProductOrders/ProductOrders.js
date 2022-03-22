@@ -26,6 +26,7 @@ const { REACT_APP_BACKEND_API } = process.env;
 export default function ProductOrders({ idProduct }) {
   const [productOrders, setProductOrders] = useState();
   const [productoSolicitado, setProductoSolicitado] = useState();
+  const [users, setUsers] = useState();
   const { userSession } = useAuthorization();
   const [saleDate, setSaleDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -59,6 +60,14 @@ export default function ProductOrders({ idProduct }) {
           `${REACT_APP_BACKEND_API}products/${idProduct}`
         );
         setProductoSolicitado(responseProductoSolicitado.data.data);
+
+        async function getAllUser() {
+          const response = await axios.get(
+            `${REACT_APP_BACKEND_API}users/public`
+          );
+          setUsers(response.data.data);
+        }
+        getAllUser();
       } catch (error) {
         console.log(error.response.data.error);
       }
@@ -74,14 +83,14 @@ export default function ProductOrders({ idProduct }) {
   };
 
   const options2 = {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric'
+    weekday: "long",
+    month: "long",
+    day: "numeric",
   };
 
   const options3 = {
-    hour: '2-digit',
-    minute: '2-digit'
+    hour: "2-digit",
+    minute: "2-digit",
   };
   async function setSold(idUserBuyer, idOrder) {
     const data = {};
@@ -100,39 +109,51 @@ export default function ProductOrders({ idProduct }) {
 
   return (
     <div>
-      {productOrders && productoSolicitado && (
+      {productOrders &&
+        productoSolicitado &&
+        users &&
         productOrders.map((order) => {
+          let userBuyer = users.find(
+            (user) => user.idUser === order.idUserBuyer
+          );
+
           return (
             <div key={order.idOrder} className="product-order-info-container">
-              <div className='order-status'>¡{order.status}!</div>
-              {/* TODO HACER LLAMADA A LAS IMAGENES PARA AÑADIRLA ACA */}
-              <div className='order-product-title'>
+              <div className="order-status">¡{order.status}!</div>
+              <img src={productoSolicitado.imagesURL[0]} alt="foto-product" />
+              <div className="order-product-title">
                 {productoSolicitado.title}
               </div>
-              <div className='order-product-info'>
+              <div className="order-product-info">
                 <div>Precio: {productoSolicitado.price}</div>
                 <div>Ubicacion: {productoSolicitado.location}</div>
               </div>
-              <div className='order-info'>
-                <div className='order-fecha'>
+              <div className="order-info">
+                <div className="order-user">
+                  <img src={userBuyer.image} height="40px" alt="foto-user" />
+                  <h2>{userBuyer.nameUser}</h2>
+                </div>
+                <div className="order-fecha">
                   <span>
-                    {new Date(order.orderDate).toLocaleString('es-ES', options)}
+                    {new Date(order.orderDate).toLocaleString("es-ES", options)}
                   </span>
                 </div>
-                <Divider sx={{ marginBottom: '15px' }} />
-                <div className='order-mensaje-vendedor'>{order.orderMessage}</div>
+                <Divider sx={{ marginBottom: "15px" }} />
+                <div className="order-mensaje-vendedor">
+                  {order.orderMessage}
+                </div>
                 {/* TODO revisar porque si o si deberia tener saleDate si tiene saleMessage  */}
                 {order.saleDate && (
-                  <div className='order-mensaje-enviado'>
-                    Nos vemos el{' '}
-                    {new Date(order.saleDate).toLocaleString('es-ES', options2)}{' '}
-                    en {order.saleLocation} a las{' '}
-                    {new Date(order.saleDate).toLocaleString('es-ES', options3)}{' '}
+                  <div className="order-mensaje-enviado">
+                    Nos vemos el{" "}
+                    {new Date(order.saleDate).toLocaleString("es-ES", options2)}{" "}
+                    en {order.saleLocation} a las{" "}
+                    {new Date(order.saleDate).toLocaleString("es-ES", options3)}{" "}
                     horas
                   </div>
                 )}
                 {order.saleMessage && (
-                  <div className='order-mensaje-enviado'>
+                  <div className="order-mensaje-enviado">
                     {order.saleMessage}
                   </div>
                 )}
@@ -331,7 +352,9 @@ export default function ProductOrders({ idProduct }) {
               )}
               {order.status === "reservado" && (
                 <div className="button-div">
-                  <Button variant='outlined' theme={theme}
+                  <Button
+                    variant="outlined"
+                    theme={theme}
                     onClick={() => setSold(order.idUserBuyer, order.idOrder)}
                   >
                     Vendido
@@ -346,8 +369,7 @@ export default function ProductOrders({ idProduct }) {
               ) : null}
             </div>
           );
-        })
-      )}
+        })}
     </div>
   );
 }
