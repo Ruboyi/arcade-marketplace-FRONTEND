@@ -111,7 +111,7 @@ export default function ProductOrders({ idProduct }) {
   return (
     <div>
       {productoSolicitado && (
-        <div>
+        <div className="order-container">
           <img
             src={productoSolicitado.imagesURL[0]}
             alt="foto-product"

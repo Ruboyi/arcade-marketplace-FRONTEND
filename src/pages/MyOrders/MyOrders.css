@@ -46,6 +46,8 @@
   transform: rotate(45deg);
   right: 15px;
   top: 30px;
+  padding: 10px;
+  text-shadow: 2px 2px 20px rgba(234, 0, 255, 0.493);
 }
 
 .my-orders-div {
@@ -79,6 +81,7 @@
 .order-fecha {
   text-align: center;
   padding-bottom: 10px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .order-mensaje-enviado {
@@ -99,6 +102,12 @@
   font-size: 0.9rem;
   margin-bottom: 10px;
   border-radius: 25px 25px 25px 0;
+}
+.order-user{
+  display: flex;
+}
+.order-user > h2{
+  margin-left: 10px;
 }
 
 @media (max-width: 600px) {

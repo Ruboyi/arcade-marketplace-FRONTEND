@@ -145,7 +145,7 @@ function MyOrders() {
                     )}
                   </div>
                   {order.status === "vendido" &&
-                  order.isSellerReviewed === 0 ? (
+                    order.isSellerReviewed === 0 ? (
                     <ReviewsUser
                       idUser={productoSolicitado.idUser}
                       isBuyerOrSeller={"buyer"}
