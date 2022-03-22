@@ -11,7 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import searchIcon from "../../assets/loupe.png";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import MailIcon from "@mui/icons-material/Mail";
+import StarIcon from "@mui/icons-material/Star";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -184,10 +184,10 @@ export default function PrimarySearchAppBar() {
       <MenuItem onClick={() => navigate("/my-reviews")}>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
           <Badge badgeContent={numbReviews} color="error">
-            <MailIcon />
+            <StarIcon />
           </Badge>
         </IconButton>
-        <p>Reviews</p>
+        <p>Valoraciones</p>
       </MenuItem>
       <MenuItem onClick={() => navigate("/my-products/purchase-orders")}>
         <IconButton
@@ -294,7 +294,7 @@ export default function PrimarySearchAppBar() {
                   onClick={() => navigate("/my-reviews")}
                 >
                   <Badge badgeContent={numbReviews} color="error">
-                    <MailIcon sx={{ color: "#051149" }} />
+                    <StarIcon sx={{ color: "#051149" }} />
                   </Badge>
                 </IconButton>
                 <IconButton
