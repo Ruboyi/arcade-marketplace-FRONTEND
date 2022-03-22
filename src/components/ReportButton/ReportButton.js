@@ -13,14 +13,20 @@ import axios from "axios";
 import { useAuthorization } from "../../hooks/useAuthorization";
 import { IconButton, MenuItem, Select } from "@mui/material";
 import theme from "../../theme/theme";
+import { useNavigate } from "react-router-dom";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
 export default function ReportButton({ idProduct, setError, setIsReported }) {
   const [open, setOpen] = useState(false);
   const { userSession } = useAuthorization();
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
+    if (!userSession) {
+      navigate("/login");
+      return;
+    }
     setOpen(true);
   };
 
