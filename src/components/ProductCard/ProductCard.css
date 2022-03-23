@@ -4,7 +4,19 @@
   background-color: rgb(252, 252, 252); */
   height: 275px;
   flex: 0 0 175px;
-  border: 2px solid black;
+  border: 1px solid hsla(229, 87%, 15%, 0.5);
+  color: #121212;
+  font-family: gameOverFont;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.product-card > p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 155px;
+  padding-inline: 10px;
 }
 
 .product-card-image-container {
@@ -17,4 +29,9 @@
 
 .product-card-img {
   height: 175px;
+}
+
+.product-card:hover {
+  transform: scale(1.1);
+  transition: 0.33s all ease !important;
 }

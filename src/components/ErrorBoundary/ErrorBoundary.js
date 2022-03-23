@@ -1,6 +1,7 @@
-import React from "react";
-import ErrorImg from "../../assets/error-app.png";
-import "./ErroBoundary.css";
+import React from 'react';
+// import ErrorImg from '../../assets/error-app.png';
+import ErrorImg from '../../assets/gameover.png';
+import './ErroBoundary.css';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -13,16 +14,16 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log("ERROR: ", error, errorInfo);
+    console.log('ERROR: ', error, errorInfo);
     return { hasError: true };
   }
 
   render() {
     if (this.state.hasError) {
       return (
-        <div className="error-Boundary">
-          <h1>Algo ha ido Mal .</h1>
-          <img className="img-Boundary" src={ErrorImg} alt="img-error" />
+        <div className='error-Boundary'>
+          <h1 className='error-Boundary-title'>Algo ha ido Mal .</h1>
+          <img className='img-Boundary' src={ErrorImg} alt='img-error' />
         </div>
       );
     }

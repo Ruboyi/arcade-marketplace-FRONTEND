@@ -46,3 +46,21 @@
   align-items: center !important;
   box-shadow: 0 0px 3px 0 rgb(1 9 71 / 19%);
 }
+
+.loginButton::after {
+  padding-left: 10px;
+  content: 'Inicia Sesión';
+}
+
+@media (max-width: 600px) {
+  .loginButton {
+    width: 50px !important;
+    margin-left: 15px !important;
+    height: 45px;
+    /* border-radius: 25% !important; */
+  }
+  .loginButton::after {
+    padding-left: 0px;
+    content: '';
+  }
+}

@@ -53,12 +53,14 @@
   margin-bottom: 15px;
   margin-inline: 2.5%; */
   display: flex;
+  align-items: center;
   overflow-x: auto;
-  max-width: 85vw;
+  max-width: calc(75vw - 10px);
   margin: 0 auto;
-  height: 325px;
+  height: 335px;
   direction: ltr;
   scroll-behavior: smooth;
+  gap: 10px;
 }
 
 .top-products-cards-section-container {
@@ -145,7 +147,7 @@ a:visited {
   padding: 10px;
   background-color: #fdb8ff80;
   margin: 35px auto;
-  width: 400px;
+  max-width: 400px;
   border-radius: 4px;
 }
 
@@ -173,7 +175,10 @@ a:visited {
 }
 .imageLanding {
   padding: 20px 40px 0px 40px;
-  background-color: #051149;
+  /* background-color: #051149; */
+  background: url('../../assets/ladrillos.jpg');
+  background-size: 480px 270px;
+  background-repeat: repeat;
 }
 
 @keyframes logoBlink {

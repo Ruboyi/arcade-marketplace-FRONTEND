@@ -49,13 +49,46 @@
   justify-content: center;
 }
 .div-imformacion {
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 }
-.main-upload-product{
+.main-upload-product {
   display: flex;
   margin-bottom: 20px;
 }
 #menu-province > div > ul {
-  height: 25vh; 
+  height: 25vh;
+}
+
+/* radio buttons */
+
+.radio-buttons-categories-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.radio-button-container-category {
+  display: flex;
+  align-items: center;
+}
+
+.label-category-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.radio-button-display-hidden:checked ~ .label-category-upload {
+  background-color: hsla(298, 78%, 57%, 0.5);
+}
+
+.nombre-category {
+  padding-top: 10px;
+}
+
+.radio-button-display-hidden {
+  display: none;
 }

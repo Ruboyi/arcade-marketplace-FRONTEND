@@ -1,3 +1,10 @@
 .img-NotFound {
-    width: 100%;
+  width: 90%;
+  animation-name: logoBlink;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+
+.img-not-found-background {
+  background-color: #000000;
 }

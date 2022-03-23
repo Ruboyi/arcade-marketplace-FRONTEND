@@ -4,7 +4,10 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #090d41;
+  /* background-color: #090d41; */
+  background: url('./assets/fondo2.jpg');
+  background-size: 480px 540px;
+  background-repeat: repeat;
   color: white;
 }
 

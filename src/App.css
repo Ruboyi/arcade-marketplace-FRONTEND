@@ -36,3 +36,9 @@ h2 {
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(298, 78%, 77%);
 }
+
+@media (max-width: 900px) {
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}

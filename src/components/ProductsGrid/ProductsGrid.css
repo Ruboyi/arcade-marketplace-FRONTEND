@@ -20,8 +20,17 @@
   justify-content: center;
   margin-bottom: 10px;
   flex-wrap: wrap;
-  max-width: 90vw;
+  max-width: 80vw;
+  /* max-width: 1200px; */
   margin: 0 auto;
+  gap: 10px;
+}
+
+@media (max-width: 600px) {
+  .productGrid-card-container {
+    gap: 0px;
+    max-width: 90vw;
+  }
 }
 
 /* .productGrid-card-container > div  > p

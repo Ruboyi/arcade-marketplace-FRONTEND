@@ -99,7 +99,7 @@ export default function Landing() {
         <div className='imageLanding'>
           <img src={logoCompleto} alt='logo Arcade Marketplace'></img>
         </div>
-        <h1>Productos mas buscados</h1>
+        <h1>Productos más buscados</h1>
         <section className='top-products-cards-section-container'>
           <ScrollButton
             direction={'left'}

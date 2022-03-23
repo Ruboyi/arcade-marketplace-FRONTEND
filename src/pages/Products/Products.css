@@ -1,44 +1,43 @@
-.productsGrid{
-    background-color: #f1f8ff;
-    padding-top: 150px;
+.productsGrid {
+  background-color: #f1f8ff;
+  padding-top: 200px;
 }
-.divFilters{
-    display: flex;
-    margin-right: 1;
+.divFilters {
+  display: flex;
+  margin-right: 1;
 
-    
-    max-height: 90px;
+  max-height: 90px;
 }
-.buttoms-filters{
-    display: flex;
-    flex-grow: 1;
-    justify-content:space-evenly;
+.buttoms-filters {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-evenly;
 }
 
-.divFilters > div{
-    margin: 10px;
+.divFilters > div {
+  margin: 10px;
 }
 
 .buttoms-filters > button > p {
-    font-size: 8px;
-    font-weight: bold;
+  font-size: 8px;
+  font-weight: bold;
 }
-.classActive{
-    color: #992b9c !important;
-    background:radial-gradient( #fedbff, #fee8ff, white, white);
+.classActive {
+  color: #992b9c !important;
+  background: radial-gradient(#fedbff, #fee8ff, white, white);
 }
 .FavoriteComponent > button {
-    position: relative;
-    right: 10px;
+  position: relative;
+  right: 10px;
 }
-.title-product-card{
-    font-size: 18px !important;
-    position: relative !important;
-    top: 8px
+.title-product-card {
+  font-size: 18px !important;
+  position: relative !important;
+  top: 8px;
 }
-.product-card-header{
-    padding-bottom: 8px
+.product-card-header {
+  padding-bottom: 8px;
 }
 .productGrid-card-container > div > p {
-    font-size: 18px !important;
+  font-size: 18px !important;
 }

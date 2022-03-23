@@ -1,6 +1,11 @@
 .error-Boundary {
-    text-align: center;
+  text-align: center;
 }
-.img-Boundary{
-    height: 300px;
+.img-Boundary {
+  height: 300px;
+}
+
+.error-Boundary-title {
+  margin: 0;
+  padding: 50px;
 }

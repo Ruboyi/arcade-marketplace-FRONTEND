@@ -1,30 +1,37 @@
-.home-header{
-
-    margin-top: 10px;
-    margin-bottom: 10px;
+.home-header {
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
+.img-home {
+  min-width: 300px;
+  width: 80vw;
+  border-radius: 4px;
+  margin-top: 5px;
+  animation-name: logoBlink;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+.home-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 12px;
+  background-color: #959cfc;
 
-.img-home{
-    min-width: 300px;
-    width: 80vw;
-    border-radius: 4px;
-    margin-top: 5px;
+  margin-bottom: 20px;
 }
-.home-container{
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 12px;
-    background-color: #959CFC;
+.home-header > h1 {
+  font-size: 2vw;
+}
+.home-arcade {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
-    margin-bottom: 20px;
-}
-.home-header>h1{
-    font-size: 2vw;
-}
-.home-arcade{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.home-arcade {
+  background: url('../../assets/ladrillos.jpg');
+  background-size: 480px 270px;
+  background-repeat: repeat;
 }

@@ -1,10 +1,10 @@
-import axios from "axios";
-import { useAuthorization } from "../../hooks/useAuthorization";
-import { useEffect, useState } from "react";
-import "./FavoriteButton.css";
-import { Badge, IconButton } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useNavigate } from "react-router";
+import axios from 'axios';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { useEffect, useState } from 'react';
+import './FavoriteButton.css';
+import { Badge, IconButton } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useNavigate } from 'react-router';
 
 function FavoriteButton({ idProduct }) {
   const [isFav, setIsFav] = useState();
@@ -17,8 +17,8 @@ function FavoriteButton({ idProduct }) {
       try {
         const config = {
           headers: {
-            Authorization: `Bearer ${userSession}`,
-          },
+            Authorization: `Bearer ${userSession}`
+          }
         };
 
         const favorites = await axios.get(
@@ -48,13 +48,13 @@ function FavoriteButton({ idProduct }) {
   async function addOrDeleteFavorites() {
     try {
       if (!userSession) {
-        navigate("/login");
+        navigate('/login');
         return false;
       }
       const config = {
         headers: {
-          Authorization: `Bearer ${userSession}`,
-        },
+          Authorization: `Bearer ${userSession}`
+        }
       };
       const data = {};
 
@@ -91,29 +91,24 @@ function FavoriteButton({ idProduct }) {
   }
 
   return (
-    <div className="FavoriteComponent">
+    <div className='FavoriteComponent'>
       {isFav ? (
         <>
           <IconButton
-            aria-label="add to favorites"
-            onClick={() => addOrDeleteFavorites()}
-          >
+            aria-label='add to favorites'
+            onClick={() => addOrDeleteFavorites()}>
             <Badge badgeContent={numberOfFavs}>
-              <FavoriteIcon
-                sx={{ color: "rgba(244, 158, 255)" }}
-                fontSize="large"
-              />
+              <FavoriteIcon sx={{ color: 'hsl(298, 78%, 57%)' }} fontSize='large' />
             </Badge>
           </IconButton>
         </>
       ) : (
         <>
           <IconButton
-            aria-label="add to favorites"
-            onClick={() => addOrDeleteFavorites()}
-          >
+            aria-label='add to favorites'
+            onClick={() => addOrDeleteFavorites()}>
             <Badge badgeContent={numberOfFavs}>
-              <FavoriteIcon fontSize="large" />
+              <FavoriteIcon fontSize='large' />
             </Badge>
           </IconButton>
         </>
