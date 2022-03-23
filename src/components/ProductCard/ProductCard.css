@@ -1,5 +1,20 @@
-.product-card{
-    border: 2px solid rgba(0, 17, 73, 0.486);
+.product-card {
+  /* border: 2px solid rgba(0, 17, 73, 0.486);
   margin: 10px 5px 10px 5px;
-  background-color: rgb(252, 252, 252);
+  background-color: rgb(252, 252, 252); */
+  height: 275px;
+  flex: 0 0 175px;
+  border: 2px solid black;
+}
+
+.product-card-image-container {
+  max-width: 175px;
+  overflow: hidden;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+}
+
+.product-card-img {
+  height: 175px;
 }

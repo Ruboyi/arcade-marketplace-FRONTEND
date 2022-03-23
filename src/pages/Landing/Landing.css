@@ -1,164 +1,213 @@
 @font-face {
-    font-family: gameOverFont;
-    src: url(../../assets/Welbut__.ttf);
-  }
+  font-family: gameOverFont;
+  src: url(../../assets/Welbut__.ttf);
+}
 
 .landing-container {
-    width: 100%;
-    height: 100%;
-    color: black;
-    background-color: white;
+  width: 100%;
+  height: 100%;
+  color: black;
+  background-color: white;
 }
 
 .product-card {
-   max-width:300px;
-   max-height: 500px;
-   margin: 5px;
-   
+  max-width: 300px;
+  max-height: 500px;
+  margin: 5px;
 }
-.product-card:hover{
-    background-color: rgb(244, 248, 255);
+.product-card:hover {
+  background-color: rgb(244, 248, 255);
 }
 .product-card-header {
-    display: flex;
-    align-self:flex-start;
-    
+  display: flex;
+  align-self: flex-start;
 }
-.title-product-card{
-    flex-grow: 1;
-}
-
-.product-card-header{
-    background-color: rgb(241 248 255);
+.title-product-card {
+  flex-grow: 1;
 }
 
-.product-card-header > .title-product-card{font-size: 17.5px;
-color: rgb(0, 18, 58);
-margin: 5px;
-margin-right: 10px;
+.product-card-header {
+  background-color: rgb(241 248 255);
 }
 
-.FavoriteComponent > button{
-    padding: 0;
+.product-card-header > .title-product-card {
+  font-size: 17.5px;
+  color: rgb(0, 18, 58);
+  margin: 5px;
+  margin-right: 10px;
 }
 
+.FavoriteComponent > button {
+  padding: 0;
+}
 
-.top-product-card-container{
-    display: flex;
-    overflow-x: scroll;
-    align-self: center;
-    background: linear-gradient(90deg,white, rgb(254, 243, 255), white);
-    width: 95%;
-    border-top: rgba(0, 17, 73, 0.486) solid 2px;
-    border-bottom: rgba(0, 17, 73, 0.486) solid 2px;
-    margin: 10px;
-    margin-bottom: 15px;
-    margin-inline: 2.5%;
+.top-product-card-container {
+  /* display: flex;
+  overflow-x: scroll;
+  align-self: center;
+  background: linear-gradient(90deg, white, rgb(254, 243, 255), white);
+  width: 95%;
+  border-top: rgba(0, 17, 73, 0.486) solid 2px;
+  border-bottom: rgba(0, 17, 73, 0.486) solid 2px;
+  margin: 10px;
+  margin-bottom: 15px;
+  margin-inline: 2.5%; */
+  display: flex;
+  overflow-x: auto;
+  max-width: 85vw;
+  margin: 0 auto;
+  height: 325px;
+  direction: ltr;
+  scroll-behavior: smooth;
+}
+
+.top-products-cards-section-container {
+  display: flex;
 }
 
 /*Product Card*/
 .top-product-card-container > div {
-  border: 2px solid rgba(0, 17, 73, 0.486);
+  /* border: 2px solid rgba(0, 17, 73, 0.486);
   margin: 10px 5px 10px 5px;
   background-color: rgb(252, 252, 252);
-  width: 50%;
+  width: 50%; */
 }
 
 .top-product-card-container > div > img {
-    height: 145px;
-    width: 145px;
+  /* height: 145px;
+  width: 145px; */
 }
 .top-product-card-container > div > p {
-    margin: 0;
-    font-weight: 500;
-    padding: 10px;
+  /* margin: 0;
+  font-weight: 500;
+  padding: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   width: 125px;
-  font-size: 15px;
+  font-size: 15px; */
 }
-.top-product-card-container > div > div > h2{
-    font-size: 20px;
-    padding: 5px;
+.top-product-card-container > div > div > h2 {
+  /* font-size: 20px;
+  padding: 5px; */
 }
 
-.new-product-card-container > div >div > div > img{
-    width: 145px;
+.new-product-card-container > div > div > div > img {
+  /* width: 145px; */
 }
-.new-product-card-container > div >div > div > p{
-    width: 145px;
+.new-product-card-container > div > div > div > p {
+  /* width: 145px; */
 }
-.productGrid-card-container{
-    max-width: 1000px;
+.productGrid-card-container {
+  /* max-width: 1000px; */
 }
+
 /*categories*/
-.categories{
-    padding-top: 20px;
-    padding-bottom: 15px;
-    display: flex;
-    justify-content: space-evenly;
+.categories {
+  padding-top: 20px;
+  padding-bottom: 15px;
+  display: flex;
+  justify-content: space-evenly;
 }
-.categories > div > a{
-    display: flex;
-    flex-direction: column;
+.categories > div > a {
+  display: flex;
+  flex-direction: column;
 }
 .categories > div > a > img {
-    height: 40px;
-    width: 40px;
-    align-self: center;
-    margin: 5px;
+  height: 40px;
+  width: 40px;
+  align-self: center;
+  margin: 5px;
 }
-.categories > div > a, a:visited{
-    text-decoration: none;
-    color: inherit;
-    font-size: 13px;
-    color: rgba(0, 33, 94, 0.466);
-    font-weight: bolder;
-}
-
-
-.landing-container > main > h1{
-    font-size: 15px;
-    color: rgb(39, 46, 71);
-    font-family: gameOverFont;
-    font-weight: 100;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    background-color: rgb(241 248 255);
-    padding: 5px;
+.categories > div > a,
+a:visited {
+  text-decoration: none;
+  color: inherit;
+  font-size: 13px;
+  color: rgba(0, 33, 94, 0.466);
+  font-weight: bolder;
 }
 
-.landing-container > main > a {
-    font-size: 12.5px;
-    padding: 7px;
-    text-decoration: none;
-    background-color: #fdb8ff80;
+.landing-container > main h1 {
+  /* font-size: 15px; */
+  font-size: 1.2rem;
+  color: rgb(39, 46, 71);
+  font-family: gameOverFont;
+  font-weight: 100;
+  margin-top: 35px;
+  margin-bottom: 35px;
+  background-color: rgb(241 248 255);
+  padding: 10px;
 }
 
-.slider{
-    margin: 20px;
+.landing-link-upload-product {
+  font-size: 1rem;
+  padding: 10px;
+  background-color: #fdb8ff80;
+  margin: 35px auto;
+  width: 400px;
+  border-radius: 4px;
 }
-.imageLanding > img{
-    max-width: 300px;
-    max-height: 200px;
-    animation-name: logoBlink;
-    animation-duration: 6s;
-    animation-iteration-count: infinite;
+
+.landing-link-upload-product > a {
+  text-decoration: none;
 }
-.imageLanding{padding: 20px 40px 0px 40px;
-background-color: #051149;}
+
+/* .landing-container > main > a {
+  font-size: 1rem;
+  padding: 10px;
+  text-decoration: none;
+  background-color: #fdb8ff80;
+  margin-top: 75px;
+} */
+
+.slider {
+  margin: 20px;
+}
+.imageLanding > img {
+  max-width: 300px;
+  max-height: 200px;
+  animation-name: logoBlink;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+}
+.imageLanding {
+  padding: 20px 40px 0px 40px;
+  background-color: #051149;
+}
 
 @keyframes logoBlink {
-    0% {opacity: 100%;}
-    25% {opacity: 85%;}
-    26%{opacity: 50%;}
-    27%{opacity: 90%;}
-   50% {opacity: 95%;}
-   75% {opacity: 85%;}
-   76% {opacity: 50%;}
-   77% {opacity: 85%;}
-   79% {opacity: 50%;}
-   80% {opacity: 85%;}
-   100% {opacity: 100%;}
+  0% {
+    opacity: 100%;
+  }
+  25% {
+    opacity: 85%;
+  }
+  26% {
+    opacity: 50%;
+  }
+  27% {
+    opacity: 90%;
+  }
+  50% {
+    opacity: 95%;
+  }
+  75% {
+    opacity: 85%;
+  }
+  76% {
+    opacity: 50%;
+  }
+  77% {
+    opacity: 85%;
+  }
+  79% {
+    opacity: 50%;
+  }
+  80% {
+    opacity: 85%;
+  }
+  100% {
+    opacity: 100%;
+  }
 }

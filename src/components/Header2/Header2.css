@@ -1,50 +1,48 @@
-
-
-.css-yz9k0d-MuiInputBase-input{
-    padding-left: 10px !important;
-    
+.css-yz9k0d-MuiInputBase-input {
+  padding-left: 10px !important;
 }
-.css-96uuyl{
-    margin-left: 10px !important;
+.css-96uuyl {
+  margin-left: 10px !important;
 }
-.search-icon{
-    height: 25px;
+.search-icon {
+  height: 25px;
 }
 .small-logo:hover {
-    cursor:pointer;
-    background-color: #263464;
-    
+  cursor: pointer;
+  background-color: #263464;
 }
 .small-logo {
-    margin: 0;
-    height: 60px;
-    border-radius: 25%;
-    background-color: #051149;
-    height: 45px;
-    margin: 8px;
-    margin-top: 15px;
+  margin: 0;
+  height: 60px;
+  border-radius: 25%;
+  background-color: #051149;
+  height: 45px;
+  margin: 8px;
+  margin-top: 15px;
 }
-.loginButton{
-    margin: 12px;
-    padding: 6px;
-    font-size: 8px;
+.loginButton {
+  margin: 12px;
+  padding: 6px;
+  font-size: 8px;
+  font-weight: 700 !important;
 }
-.header{
-    z-index: 10000;
+.header {
+  z-index: 10000;
 }
-.iconHeader{
-    height: 20px;
+.iconHeader {
+  height: 20px;
 }
-.uploadText{color: #051149;
-font-size: 16px;
-padding-right: 8px;
+.uploadText {
+  color: #051149;
+  font-size: 16px;
+  padding-right: 8px;
 }
 
-.uploadIconButton{
-    background-color: #e4f1ff !important;
-    border-radius: 20px !important;
-    margin-left: 10px !important;
-    height: 35px;
-    align-items: center !important;
-    box-shadow: 0 0px 3px 0 rgb(1 9 71 / 19%);
+.uploadIconButton {
+  background-color: #e4f1ff !important;
+  border-radius: 20px !important;
+  margin-left: 10px !important;
+  height: 35px;
+  align-items: center !important;
+  box-shadow: 0 0px 3px 0 rgb(1 9 71 / 19%);
 }

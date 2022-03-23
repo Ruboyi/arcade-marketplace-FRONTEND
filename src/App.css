@@ -10,7 +10,29 @@
 .App > div {
   flex-grow: 1;
 }
-h1, h2{
+h1,
+h2 {
   font-family: gameOverFont;
   font-weight: 400;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: hsl(298, 78%, 57%);
+  border-radius: 4px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(298, 78%, 77%);
 }
