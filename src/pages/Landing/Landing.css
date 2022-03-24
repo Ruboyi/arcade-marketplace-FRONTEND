@@ -180,6 +180,25 @@ a:visited {
   background-size: 480px 270px;
   background-repeat: repeat;
 }
+@media (max-width: 425px) {
+  .top-product-card-container{
+    width: 73%;
+  }
+  .imageLanding > img{
+    width: 200px;
+  }
+  .productGrid-card-container > .product-card{
+    max-width: 40%;
+    max-height: 237px;
+  }
+  .productGrid-card-container > .product-card > .product-card-image-container >img{
+    height: 137px;
+  }
+  .productGrid-card-container > div > p{
+    font-size: 14px !important;
+    width: 85%;
+  }
+}
 
 @keyframes logoBlink {
   0% {
