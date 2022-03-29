@@ -147,7 +147,7 @@ function UploadProduct() {
             {({ values, errors, touched, handleChange, handleSubmit }) => (
               <form onSubmit={handleSubmit}>
                 <h2>
-                  Categoría <ListIcon />{' '}
+                  Categoría
                 </h2>
                 <Paper
                   elevation={3}
@@ -214,7 +214,6 @@ function UploadProduct() {
                 </Paper>
                 <div className='div-imformacion'>
                   <h2>Información</h2>
-                  <InfoIcon sx={{ alignSelf: 'center' }} />
                 </div>
                 <Paper elevation={3} sx={{ padding: '12px' }}>
                   <div className='titulo-precio'>
