@@ -234,7 +234,7 @@ function Register() {
         </Paper>
       )}
       {backendResponse && (
-        <Stack sx={{ width: "100%" }} spacing={2}>
+        <Stack sx={{ width: "400px", margin: "0 auto" }} spacing={2}>
           <Alert severity="success">
             <AlertTitle>Success</AlertTitle>
             Revisa la bandeja de entrada de tu correo y{" "}
