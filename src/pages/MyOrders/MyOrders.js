@@ -71,7 +71,8 @@ function MyOrders() {
   };
 
   console.log(myOrders);
-  // console.log(products);
+  console.log(products);
+  console.log(idUser);
   return (
     <div className="my-orders-container">
       <MenuProfile />
@@ -85,75 +86,87 @@ function MyOrders() {
             let userSeller = users.find(
               (user) => user.idUser === productoSolicitado.idProduct
             );
+            console.log(userSeller);
 
             return (
-              <Paper key={order.idOrder} className="paper-myOrders-container">
-                <div className="order-container">
-                  <div className="order-status">¡{order.status}!</div>
-                  <img
-                    src={productoSolicitado.images[0]}
-                    height="100px"
-                    alt="foto-producto"
-                  />
-                  <div className="order-product-title">
-                    {productoSolicitado.title}
-                  </div>
-                  <div className="order-product-info">
-                    <div>Precio: {productoSolicitado.price}</div>
-                    <div>Ubicacion: {productoSolicitado.location}</div>
-                  </div>
-                  <div className="order-info">
-                    <div className="order-user">
-                      <BadgeAvatars
-                        src={userSeller.image}
-                        isOnline={userSeller.isOnline}
+              <>
+                {userSeller && productoSolicitado ? (
+                  <Paper
+                    key={order.idOrder}
+                    className="paper-myOrders-container"
+                  >
+                    <div className="order-container">
+                      <div className="order-status">¡{order.status}!</div>
+                      <img
+                        src={productoSolicitado.images[0]}
+                        height="100px"
+                        alt="foto-producto"
                       />
-                      <h2>{userSeller.nameUser}</h2>
-                    </div>
-                    <div className="order-fecha">
-                      <span>
-                        {new Date(order.orderDate).toLocaleString(
-                          "es-ES",
-                          options
+                      <div className="order-product-title">
+                        {productoSolicitado.title}
+                      </div>
+                      <div className="order-product-info">
+                        <div>Precio: {productoSolicitado.price}</div>
+                        <div>Ubicacion: {productoSolicitado.location}</div>
+                      </div>
+                      <div className="order-info">
+                        <div className="order-user">
+                          <BadgeAvatars
+                            src={userSeller.image}
+                            isOnline={userSeller.isOnline}
+                          />
+                          <h2>{userSeller.nameUser}</h2>
+                        </div>
+                        <div className="order-fecha">
+                          <span>
+                            {new Date(order.orderDate).toLocaleString(
+                              "es-ES",
+                              options
+                            )}
+                          </span>
+                        </div>
+                        <Divider sx={{ marginBottom: "15px" }} />
+                        <div className="order-mensaje-enviado">
+                          {order.orderMessage}
+                        </div>
+                        {/* TODO revisar porque si o si deberia tener saleDate si tiene saleMessage  */}
+                        {order.saleDate && (
+                          <div className="order-mensaje-vendedor">
+                            Nos vemos el{" "}
+                            {new Date(order.saleDate).toLocaleString(
+                              "es-ES",
+                              options2
+                            )}{" "}
+                            en {order.saleLocation} a las{" "}
+                            {new Date(order.saleDate).toLocaleString(
+                              "es-ES",
+                              options3
+                            )}{" "}
+                            horas
+                          </div>
                         )}
-                      </span>
-                    </div>
-                    <Divider sx={{ marginBottom: "15px" }} />
-                    <div className="order-mensaje-enviado">
-                      {order.orderMessage}
-                    </div>
-                    {/* TODO revisar porque si o si deberia tener saleDate si tiene saleMessage  */}
-                    {order.saleDate && (
-                      <div className="order-mensaje-vendedor">
-                        Nos vemos el{" "}
-                        {new Date(order.saleDate).toLocaleString(
-                          "es-ES",
-                          options2
-                        )}{" "}
-                        en {order.saleLocation} a las{" "}
-                        {new Date(order.saleDate).toLocaleString(
-                          "es-ES",
-                          options3
-                        )}{" "}
-                        horas
+                        {order.saleMessage && (
+                          <div className="order-mensaje-vendedor">
+                            {order.saleMessage}
+                          </div>
+                        )}
                       </div>
-                    )}
-                    {order.saleMessage && (
-                      <div className="order-mensaje-vendedor">
-                        {order.saleMessage}
-                      </div>
-                    )}
-                  </div>
-                  {order.status === "vendido" &&
-                    order.isSellerReviewed === 0 ? (
-                    <ReviewsUser
-                      idUser={productoSolicitado.idUser}
-                      isBuyerOrSeller={"buyer"}
-                    />
-                  ) : null}
-                  {/* TODO FALTA BOTON PARA CANCELAR RESERVA ETC */}
-                </div>
-              </Paper>
+                      {order.status === "vendido" &&
+                      order.isSellerReviewed === 0 ? (
+                        <ReviewsUser
+                          idUser={productoSolicitado.idUser}
+                          isBuyerOrSeller={"buyer"}
+                        />
+                      ) : null}
+                      {/* TODO FALTA BOTON PARA CANCELAR RESERVA ETC */}
+                    </div>
+                  </Paper>
+                ) : (
+                  <h2 className="no-tienes-favs">
+                    Aun no tienes ninguna reserva !
+                  </h2>
+                )}
+              </>
             );
           })
         ) : (
