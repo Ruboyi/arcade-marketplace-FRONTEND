@@ -1,4 +1,4 @@
-import { CircularProgress, Divider, Paper } from "@mui/material";
+import { Divider, Paper } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -170,7 +170,7 @@ function MyOrders() {
             );
           })
         ) : (
-          <CircularProgress />
+          <h2 className="no-tienes-favs">Aun no tienes ninguna reserva !</h2>
         )}
       </div>
     </div>

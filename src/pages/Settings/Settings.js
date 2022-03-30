@@ -50,6 +50,7 @@ function Settings() {
   const [error, setError] = useState();
   const [fichero, setFichero] = useState();
   const [open, setOpen] = useState(false);
+  const [avgRating, setAvgRating] = useState();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -106,7 +107,22 @@ function Settings() {
     if (!userSession) {
       navigate("/login");
     }
-  }, [userSession, navigate]);
+    if (userProfile.idUser) {
+      async function getRating() {
+        const responseAvgRating = await axios.get(
+          `${REACT_APP_BACKEND_API}reviews/rating/${userProfile.idUser}`
+        );
+        if (responseAvgRating.data.data[0].avgRating > 0) {
+          setAvgRating(responseAvgRating.data.data[0].avgRating);
+        } else {
+          setAvgRating(null);
+        }
+      }
+      getRating();
+    }
+  }, [userSession, navigate, userProfile]);
+
+  console.log(avgRating);
 
   return (
     <div className="settings-container">
@@ -148,7 +164,7 @@ function Settings() {
               </div>
               <div>
                 <h1>{userProfile.nameUser}</h1>
-                <Rating name="read-only" value={4} readOnly />
+                <Rating name="read-only" value={Number(avgRating)} readOnly />
                 <p>{userProfile.bio}</p>
               </div>
             </Paper>
@@ -176,7 +192,7 @@ function Settings() {
                 }
 
                 if (!values.password) {
-                  errors.password = "Contraseña requerida!";
+                  errors.password = "ContrasegetUserProfileña requerida!";
                 }
 
                 if (!values.bio) {
