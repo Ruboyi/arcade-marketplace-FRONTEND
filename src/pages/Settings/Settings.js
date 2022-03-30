@@ -28,6 +28,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Draggable from "react-draggable";
 import MenuProfile from "../../components/MenuProfile/MenuProfile";
 import theme from "../../theme/theme";
+import defaultAvatar from "../../assets/defaultAvatar.png";
 
 const { REACT_APP_BACKEND_API } = process.env;
 
@@ -114,11 +115,20 @@ function Settings() {
           <Paper className="settings-paper" sx={{ padding: "44px" }}>
             <Paper elevation={6} className="header-settings">
               <div>
-                <img
-                  className="img-settings"
-                  src={userProfile.image}
-                  alt="foto-perfil"
-                />
+                {userProfile.image ? (
+                  <img
+                    className="img-settings"
+                    src={userProfile.image}
+                    alt="foto-perfil"
+                  />
+                ) : (
+                  <img
+                    className="img-settings"
+                    src={defaultAvatar}
+                    alt="foto-perfil"
+                  />
+                )}
+
                 <label htmlFor="icon-button-file">
                   <Input
                     accept="image/*"
