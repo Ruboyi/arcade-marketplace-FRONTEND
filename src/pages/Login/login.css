@@ -9,14 +9,15 @@
   flex-direction: column;
   margin-top: 90px !important;
   margin-bottom: 10px !important;
-  text-align: center ;
+  text-align: center;
 }
 
 .img-login {
-  height: 10vh ; 
+  height: 17vh;
   border-radius: 4px;
   margin-top: 30px;
-  margin: 0 auto;}
+  margin: 0 auto;
+}
 
 .links:hover {
  cursor: pointer;
